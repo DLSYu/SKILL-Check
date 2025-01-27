@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
@@ -116,6 +117,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
             this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, jump));
+    }
+
+    public void ClickInteractButton()
+    {
+        if (this.GetComponent<SpriteRenderer>().color != Color.red)
+            this.GetComponent<SpriteRenderer>().color = Color.red;
+        else
+            this.GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
     private bool IsGrounded()
