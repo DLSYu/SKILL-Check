@@ -13,14 +13,15 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private Vector2 joystick_size = new Vector2(300, 300);
+    public Vector2 joystick_size = new Vector2(300, 300);
     [SerializeField]
-    private FloatingJoystick Joystick;
-    private Finger MovementFinger;
-    private Vector2 MovementAmount;
-
+    public FloatingJoystick Joystick;
+    public Finger MovementFinger;
+    public Vector2 MovementAmount;
+    private bool isUsingKeyboard = false;
     private float speed = 5.0f;
     private float jump = 300.0f;
+
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (MovedFinger == MovementFinger)
         {
+            isUsingKeyboard = false;
             Vector2 knobPosition;
             float maxMovement = joystick_size.x / 2f;
             ETouch.Touch currentTouch = MovedFinger.currentTouch;
@@ -80,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
         {
+            isUsingKeyboard = false;
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
             Joystick.gameObject.SetActive(true);
@@ -109,8 +112,42 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
+        HandleKeyboardInput();
         this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
+    }
+
+    private void HandleKeyboardInput()
+    {
+        Vector2 input = Vector2.zero;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            input.y += 1;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            input.y -= 1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            input.x -= 1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            input.x += 1;
+        }
+
+        if (input != Vector2.zero)
+        {
+            isUsingKeyboard = true;
+            input = input.normalized;
+            MovementAmount = input;
+            Joystick.Knob.anchoredPosition = input * (joystick_size.x / 2f);
+        }
+        else if (isUsingKeyboard)
+        {
+            MovementAmount = Vector2.zero;
+        }
     }
 
     public void ClickJumpButton()
@@ -134,5 +171,4 @@ public class PlayerMovement : MonoBehaviour
          Debug.Log(hit.collider);
          return hit.collider != null;
     }
-  
 }
