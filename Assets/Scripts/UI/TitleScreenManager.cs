@@ -8,7 +8,7 @@ public class TitleScreenManager : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadSceneAsync("PlatformerScene");
+        SceneManager.LoadSceneAsync("Lobby");
     }
 
     public void SettingsButton()
