@@ -9,21 +9,28 @@ public class LobbyScreenManager : MonoBehaviour
     [SerializeField] GameObject leftButton;
     [SerializeField] GameObject rightButton;
     [SerializeField] int cameraMoveDistance;
+    [SerializeField] int cameraMoveSpeed;
 
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
+    private Vector3 targetPosition;
 
-    public void Update(){
+    private void Start(){
+        targetPosition = camera.transform.position;
+    }
+
+    private void Update(){
           showActiveButton();
+          camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, cameraMoveSpeed * Time.deltaTime);
     }
     public void clickLeftButton()
     {
-        camera.transform.position = new Vector3(camera.transform.position.x - cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
+        targetPosition = new Vector3(camera.transform.position.x - cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex--;
     }
 
     public void clickRightButton()
     {
-        camera.transform.position = new Vector3(camera.transform.position.x + cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
+        targetPosition = new Vector3(camera.transform.position.x + cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex++;
     }
 
