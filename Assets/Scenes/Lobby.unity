@@ -2022,6 +2022,10 @@ MonoBehaviour:
   rightButton: {fileID: 226468361}
   cameraMoveDistance: 21
   cameraMoveSpeed: 5
+  mainCharacter: {fileID: 921169808}
+  libraryPosition: {x: -2.83, y: -3.1, z: 0}
+  ruinsPosition: {x: -19, y: -3.1, z: 0}
+  forestPosition: {x: 21, y: -3.1, z: 0}
 --- !u!114 &1090352067
 MonoBehaviour:
   m_ObjectHideFlags: 0

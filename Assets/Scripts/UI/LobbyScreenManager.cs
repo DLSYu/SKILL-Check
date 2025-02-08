@@ -10,6 +10,10 @@ public class LobbyScreenManager : MonoBehaviour
     [SerializeField] GameObject rightButton;
     [SerializeField] int cameraMoveDistance;
     [SerializeField] int cameraMoveSpeed;
+    [SerializeField] GameObject mainCharacter;
+    [SerializeField] Vector3 libraryPosition;
+    [SerializeField] Vector3 ruinsPosition;
+    [SerializeField] Vector3 forestPosition;
 
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
@@ -37,13 +41,16 @@ public class LobbyScreenManager : MonoBehaviour
     private void showActiveButton(){
         if (currentScreenIndex == -1){
             leftButton.SetActive(false);
+            mainCharacter.transform.position = ruinsPosition;
         }
         else if (currentScreenIndex == 1){
             rightButton.SetActive(false);
+            mainCharacter.transform.position = forestPosition;  
         }
-        else{
+        else if (currentScreenIndex == 0){
+            mainCharacter.transform.position = libraryPosition;
             leftButton.SetActive(true);
             rightButton.SetActive(true);
-        } 
+        }
     }
 }
