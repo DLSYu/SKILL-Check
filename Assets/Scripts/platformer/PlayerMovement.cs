@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 joystick_size = new Vector2(300, 300);
     [SerializeField]
     public FloatingJoystick Joystick;
+    [SerializeField]
+    Animator animator;
     public Finger MovementFinger;
     public Vector2 MovementAmount;
     private bool isUsingKeyboard = false;
@@ -114,6 +116,15 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleKeyboardInput();
         this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
+        animator.SetFloat("Speed", MovementAmount.magnitude);
+        if (MovementAmount.x < 0)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (MovementAmount.x > 0)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     private void HandleKeyboardInput()
@@ -162,6 +173,12 @@ public class PlayerMovement : MonoBehaviour
             this.GetComponent<SpriteRenderer>().color = Color.red;
         else
             this.GetComponent<SpriteRenderer>().color = Color.blue;
+        
+        //BroadcastMessage("Interact");
+
+        // If vicinity of Interactable object, call Interact method of Interactable object
+        // give player interactvicinity collider
+        // create interface for interactable obkect called IInteractable with method Interactable
     }
 
     private bool IsGrounded()
