@@ -10,7 +10,7 @@ public class DoorScript : MonoBehaviour
 
     private Vector3 currentPosition;
     private Vector3 movedPosition;
-    [SerializeField] private float duration = 3f;
+    [SerializeField] private float duration = 5f;
     private float elapsedTime = 0;
     // Start is called before the first frame update
 

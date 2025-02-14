@@ -169,12 +169,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ClickInteractButton()
     {
-        if (this.GetComponent<SpriteRenderer>().color != Color.red)
-            this.GetComponent<SpriteRenderer>().color = Color.red;
-        else
-            this.GetComponent<SpriteRenderer>().color = Color.blue;
         
-        //BroadcastMessage("Interact");
 
         // If vicinity of Interactable object, call Interact method of Interactable object
         // give player interactvicinity collider
