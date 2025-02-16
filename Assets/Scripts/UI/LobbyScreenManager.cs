@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LobbyScreenManager : MonoBehaviour
@@ -20,19 +17,29 @@ public class LobbyScreenManager : MonoBehaviour
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
 
-    private float duration = 5f;
+    private float duration = 1.5f;
     private float elapsedTime;
     private Vector3 characterPosition;
 
+    private float percentageComplete = 0f;
+    private float characterPercentageComplete = 0f;
+    private Vector3 prevCharacterPos;
+    private Vector3 prevCameraPos;
+
+    //private bool buttonsEnabled = true;
+    [SerializeField] private float disableButtonDuration = 1f;
+
     private void Start(){
+        prevCharacterPos = mainCharacter.transform.position;
+        prevCameraPos = camera.transform.position;
         targetPosition = camera.transform.position;
     }
 
     private void Update(){
-         showActiveButton();
-          
+        checkCharacterPosition();
+
         //GetMovemmentAmount of character when moving
-        MovementAmount = mainCharacter.GetComponent<PlayerMovement>().MovementAmount;
+        //MovementAmount = mainCharacter.GetComponent<PlayerMovement>().MovementAmount;
 
         animator.SetFloat("Speed", MovementAmount.magnitude);
         
@@ -45,16 +52,32 @@ public class LobbyScreenManager : MonoBehaviour
             mainCharacter.GetComponent<SpriteRenderer>().flipX = false;
         }
 
-          elapsedTime += Time.deltaTime;
-          float percentageComplete = elapsedTime / duration;
-          
-          float characterPercentageComplete = elapsedTime / (duration + 10);
-          camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, Mathf.SmoothStep(0,1,percentageComplete));
+        elapsedTime += Time.deltaTime;
+        percentageComplete = elapsedTime / duration;
 
-          mainCharacter.transform.position = Vector3.Lerp(mainCharacter.transform.position, characterPosition, characterPercentageComplete);
+        characterPercentageComplete = elapsedTime / (duration / 1.5f);
+        camera.transform.position = Vector3.Lerp(prevCameraPos, targetPosition, Mathf.SmoothStep(0, 1, percentageComplete));
+
+        mainCharacter.transform.position = Vector3.Lerp(prevCharacterPos, characterPosition, Mathf.SmoothStep(0, 1, characterPercentageComplete));
+
+        if (characterPercentageComplete >= 1f)
+        {
+            MovementAmount = Vector2.zero;
+            mainCharacter.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        if (percentageComplete >= 1f)
+        {
+            showActiveButton();
+        }
     }
     public void clickLeftButton()
     {
+        leftButton.SetActive(false);
+        rightButton.SetActive(false);
+        prevCharacterPos = mainCharacter.transform.position;
+        prevCameraPos = camera.transform.position;
+        MovementAmount.x = -1f;
         elapsedTime = 0;
         targetPosition = new Vector3(camera.transform.position.x - cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex--;
@@ -62,6 +85,11 @@ public class LobbyScreenManager : MonoBehaviour
 
     public void clickRightButton()
     {
+        leftButton.SetActive(false);
+        rightButton.SetActive(false);
+        prevCharacterPos = mainCharacter.transform.position;
+        prevCameraPos = camera.transform.position;
+        MovementAmount.x = 1f;
         elapsedTime = 0;
         targetPosition = new Vector3(camera.transform.position.x + cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex++;
@@ -70,17 +98,33 @@ public class LobbyScreenManager : MonoBehaviour
     private void showActiveButton(){
         if (currentScreenIndex == -1){
             leftButton.SetActive(false);
-            characterPosition = ruinsPosition;
+            rightButton.SetActive(true);
             
         }
         else if (currentScreenIndex == 1){
             rightButton.SetActive(false);
-            characterPosition = forestPosition;  
+            leftButton.SetActive(true);
         }
         else if (currentScreenIndex == 0){
-            characterPosition = libraryPosition;
             leftButton.SetActive(true);
             rightButton.SetActive(true);
+        }
+    }
+
+    private void checkCharacterPosition()
+    {
+        if (currentScreenIndex == -1)
+        {
+            characterPosition = ruinsPosition;
+
+        }
+        else if (currentScreenIndex == 1)
+        {
+            characterPosition = forestPosition;
+        }
+        else if (currentScreenIndex == 0)
+        {
+            characterPosition = libraryPosition;
         }
     }
 }
