@@ -116,15 +116,8 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleKeyboardInput();
         this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
-        animator.SetFloat("Speed", MovementAmount.magnitude);
-        if (MovementAmount.x < 0)
-        {
-            this.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else if (MovementAmount.x > 0)
-        {
-            this.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        UpdateAnimator();
+        
     }
 
     private void HandleKeyboardInput()
@@ -168,6 +161,19 @@ public class PlayerMovement : MonoBehaviour
         // If vicinity of Interactable object, call Interact method of Interactable object
         // give player interactvicinity collider
         // create interface for interactable obkect called IInteractable with method Interactable
+    }
+    public void UpdateAnimator(){
+
+        // x movement
+        animator.SetFloat("Speed", MovementAmount.magnitude);
+        if (MovementAmount.x < 0)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (MovementAmount.x > 0)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     
