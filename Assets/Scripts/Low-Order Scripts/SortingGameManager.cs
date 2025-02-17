@@ -5,9 +5,16 @@ using System.Collections;
 public class SortingGameManager : MonoBehaviour
 {
     public static SortingGameManager Instance;
-    public RelicPlace[] relicPlaces; // Array of RelicPlace objects
+    public RelicCheckedSlot[] relicPlaces; // Array of RelicPlace objects
+
+    private float timer = 0f;
 
     void Awake() => Instance = this;
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+    }
 
     public void CheckCompletion()
     {
