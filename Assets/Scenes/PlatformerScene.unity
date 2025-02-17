@@ -576,7 +576,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8281893981195446123, guid: 0785409d7ecff4c76b30413da84a1543, type: 3}
   m_PrefabInstance: {fileID: 9131415742178086890}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 569592119}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb879ef1a41ec4d4dacd2e9d971a8dcd, type: 3}
@@ -852,6 +852,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45b337a62e88b4f68ad97e995c6557d5, type: 3}
+--- !u!1 &569592119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 459056133487784426, guid: 0785409d7ecff4c76b30413da84a1543, type: 3}
+  m_PrefabInstance: {fileID: 9131415742178086890}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &616349471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1808,7 @@ GameObject:
   - component: {fileID: 931708832}
   - component: {fileID: 931708831}
   - component: {fileID: 931708830}
+  - component: {fileID: 931708833}
   m_Layer: 5
   m_Name: JumpButton
   m_TagString: Untagged
@@ -1872,19 +1878,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 931708831}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 163316802}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: ClickJumpButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &931708831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1923,6 +1917,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931708828}
   m_CullTransparentMesh: 1
+--- !u!114 &931708833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931708828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a396786f2eb606b499cadb8554caedaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 569592119}
 --- !u!1 &968377379
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 MovementAmount;
     private bool isUsingKeyboard = false;
     private float speed = 5.0f;
-    private float jump = 300.0f;
+
 
     private void OnEnable()
     {
@@ -161,12 +161,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ClickJumpButton()
-    {
-        if (IsGrounded())
-            this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, jump));
-    }
-
     public void ClickInteractButton()
     {
         
@@ -176,11 +170,5 @@ public class PlayerMovement : MonoBehaviour
         // create interface for interactable obkect called IInteractable with method Interactable
     }
 
-    private bool IsGrounded()
-    {
-         RaycastHit2D hit = Physics2D.Raycast(this.GetComponent<BoxCollider2D>().bounds.center - (new Vector3(0f, this.GetComponent<BoxCollider2D>().size.y + 0.1f, 0f)/2), Vector2.down, 0.1f);
-        
-         Debug.Log(hit.collider);
-         return hit.collider != null;
-    }
+    
 }
