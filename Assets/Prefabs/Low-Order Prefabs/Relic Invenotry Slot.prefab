@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7685013031262184835}
   - component: {fileID: 712066854043542152}
   - component: {fileID: 3194276919438523547}
-  - component: {fileID: 1844857296385830869}
   - component: {fileID: 1764789229109333709}
+  - component: {fileID: 4432564578371057545}
   m_Layer: 5
-  m_Name: Relic Slot
+  m_Name: Relic Invenotry Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,19 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1844857296385830869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257285662897046790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d05c94f7a3e9a48b67e8f0c1aac3b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  relic: {fileID: 0}
 --- !u!61 &1764789229109333709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,3 +122,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 250, y: 250}
   m_EdgeRadius: 0
+--- !u!114 &4432564578371057545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257285662897046790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a2d0b34f7727f43b76726c5cef1ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placedRelic: {fileID: 0}
