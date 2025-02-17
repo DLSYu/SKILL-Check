@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -12,8 +11,8 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private float holdMinDuration = 1f;
 
     private Vector3 initLocalScale;
-    private Transform originalParent;
-    private Transform newParent;
+    private Transform originalParent; // The original RelicSlot
+    private Transform newParent; // The new RelicPlace or RelicSlot
 
     Collider2D inCollisionWith;
 
@@ -21,12 +20,14 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     void Start()
     {
         initLocalScale = transform.localScale;
-        originalParent = transform.parent;
+        originalParent = transform.parent; // Set the original parent (RelicSlot)
     }
+
     // Update is called once per frame
     void Update()
     {
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         Invoke("StartDragging", holdMinDuration);
@@ -39,6 +40,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             transform.position = Input.mousePosition;
         }
     }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         CancelInvoke("StartDragging");
@@ -49,23 +51,40 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
             if (newParent != null)
             {
-                RelicSlot slot = newParent.GetComponent<RelicSlot>();
-
-                if (slot.relic != null)
+                // Check if the new parent is a RelicPlace
+                RelicPlace newRelicPlace = newParent.GetComponent<RelicPlace>();
+                if (newRelicPlace != null)
                 {
-                    Debug.Log(slot.relic.name);
-                    slot.relic.GetComponent<RelicMovement>().OnSwap(originalParent);
+                    newRelicPlace.PlaceRelic(gameObject);
                 }
 
                 transform.SetParent(newParent);
             }
             else
             {
+                // If not dropped into a valid RelicPlace, return to the original RelicSlot
                 transform.SetParent(originalParent);
             }
 
-            transform.localPosition = Vector3.zero;
+            transform.localPosition = Vector3.zero; // Reset position
             dragging = false;
+
+            // Notify the old RelicPlace (if any) that the relic has been removed
+            RelicPlace oldRelicPlace = originalParent.GetComponent<RelicPlace>();
+            if (oldRelicPlace != null)
+            {
+                oldRelicPlace.RemoveRelic();
+            }
+
+            // Update the RelicSlot reference
+            RelicSlot slot = transform.parent.GetComponent<RelicSlot>();
+            if (slot != null)
+            {
+                slot.relic = gameObject;
+            }
+
+            // Check if the sorting is complete
+            SortingGameManager.Instance.CheckCompletion();
         }
         else
         {
@@ -74,39 +93,44 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         }
 
         dragging = false;
-        originalParent = transform.parent;
+        originalParent = transform.parent; // Update the original parent
         newParent = null;
-        transform.parent.GetComponent<RelicSlot>().relic = gameObject;
     }
 
     private void StartDragging()
     {
         StartCoroutine(SizeDown());
-        transform.SetParent(transform.root);
-        transform.SetAsLastSibling();
+        transform.SetParent(transform.root); // Move to the root of the hierarchy
+        transform.SetAsLastSibling(); // Ensure it renders on top
         dragging = true;
-        originalParent.GetComponent<RelicSlot>().relic = null;
-    }
 
-    public void OnSwap(Transform swapperParent)
-    {
-        transform.SetParent(swapperParent);
-        originalParent = swapperParent;
-        transform.localPosition = Vector3.zero;
-        transform.parent.GetComponent<RelicSlot>().relic = gameObject;
+        // Notify the old RelicPlace (if any) that the relic is being dragged
+        RelicPlace oldRelicPlace = originalParent.GetComponent<RelicPlace>();
+        if (oldRelicPlace != null)
+        {
+            oldRelicPlace.RemoveRelic();
+        }
+
+        // Clear the RelicSlot reference
+        RelicSlot slot = originalParent.GetComponent<RelicSlot>();
+        if (slot != null)
+        {
+            slot.relic = null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.GetComponent<RelicSlot>())
+        if (collision.transform.GetComponent<RelicPlace>() || collision.transform.GetComponent<RelicSlot>())
         {
             inCollisionWith = collision;
             newParent = collision.transform;
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision == inCollisionWith)
+        if (collision == inCollisionWith)
         {
             newParent = null;
         }
