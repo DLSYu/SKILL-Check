@@ -7,7 +7,7 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private GameObject player;
     [SerializeField] private Animator animator;
-    private float jump = 300.0f;
+    private float jump = 335.0f;
 
     private void Update()
     {
