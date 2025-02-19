@@ -8,6 +8,7 @@ public class SortingGameManager : MonoBehaviour
     public RelicCheckedSlot[] relicPlaces; // Array of RelicPlace objects
 
     private float timer = 0f;
+    private bool isGameCompleted = false; // Flag to track completion for timer
 
     void Awake() => Instance = this;
 
@@ -27,6 +28,8 @@ public class SortingGameManager : MonoBehaviour
             }
         }
 
+        isGameCompleted = true; // Stop the timer
+
         // All relics are correct
         StartCoroutine(LoadEndSceneAfterDelay(2f)); // 2-second delay
     }
@@ -34,6 +37,11 @@ public class SortingGameManager : MonoBehaviour
     IEnumerator LoadEndSceneAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        // Save the elapsed time to PlayerPrefs
+        PlayerPrefs.SetFloat("ElapsedTime", timer);
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene("Sequence_End");
     }
 }
