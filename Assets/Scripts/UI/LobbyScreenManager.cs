@@ -8,7 +8,8 @@ public class LobbyScreenManager : MonoBehaviour
     [SerializeField] int cameraMoveDistance;
     [SerializeField] int cameraMoveSpeed;
     [SerializeField] GameObject mainCharacter;
-    [SerializeField] Animator animator;
+    [SerializeField] Animator UIAnimator;
+    [SerializeField] Animator transitionAnimator;
     private Vector2 MovementAmount;
     [SerializeField] Vector3 libraryPosition;
     [SerializeField] Vector3 ruinsPosition;
@@ -41,7 +42,7 @@ public class LobbyScreenManager : MonoBehaviour
         //GetMovemmentAmount of character when moving
         //MovementAmount = mainCharacter.GetComponent<PlayerMovement>().MovementAmount;
 
-        animator.SetFloat("Speed", MovementAmount.magnitude);
+        UIAnimator.SetFloat("Speed", MovementAmount.magnitude);
         
         if (MovementAmount.x < 0)
         {
@@ -75,6 +76,7 @@ public class LobbyScreenManager : MonoBehaviour
     {
         leftButton.SetActive(false);
         rightButton.SetActive(false);
+        transitionAnimator.SetTrigger("startFade");
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         MovementAmount.x = -1f;
@@ -87,6 +89,7 @@ public class LobbyScreenManager : MonoBehaviour
     {
         leftButton.SetActive(false);
         rightButton.SetActive(false);
+        transitionAnimator.SetBool("startFade", true);
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         MovementAmount.x = 1f;
@@ -96,10 +99,10 @@ public class LobbyScreenManager : MonoBehaviour
     }
 
     private void showActiveButton(){
+        
         if (currentScreenIndex == -1){
             leftButton.SetActive(false);
             rightButton.SetActive(true);
-            
         }
         else if (currentScreenIndex == 1){
             rightButton.SetActive(false);
@@ -109,6 +112,8 @@ public class LobbyScreenManager : MonoBehaviour
             leftButton.SetActive(true);
             rightButton.SetActive(true);
         }
+
+        transitionAnimator.SetBool("startFade", false);
     }
 
     private void checkCharacterPosition()
