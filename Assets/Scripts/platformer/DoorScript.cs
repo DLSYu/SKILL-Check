@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class DoorScript : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject door;
     private bool isPlayerNear = false;
@@ -13,6 +13,8 @@ public class DoorScript : MonoBehaviour
     [SerializeField] private float duration = 5f;
     private float openElapsedTime = 0;
     private float closeElapsedTime = 0;
+
+    private bool unlocked = false;
     // Start is called before the first frame update
 
     void Start(){
@@ -21,16 +23,16 @@ public class DoorScript : MonoBehaviour
     }    
     void Update()
     {
-        if (isPlayerNear){
-            closeElapsedTime = 0;
+        if (isPlayerNear && unlocked){
+            // closeElapsedTime = 0;
             openElapsedTime += Time.deltaTime;
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
         } else{
-            openElapsedTime = 0;
-            closeElapsedTime += Time.deltaTime;
-            float percentageComplete = closeElapsedTime / duration;
-            door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
+            // openElapsedTime = 0;
+            // closeElapsedTime += Time.deltaTime;
+            // float percentageComplete = closeElapsedTime / duration;
+            // door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -47,6 +49,11 @@ public class DoorScript : MonoBehaviour
         {
             isPlayerNear = false;
         }
+    }
+
+    public void Interact()
+    {
+        unlocked = true;
     }
 
 }

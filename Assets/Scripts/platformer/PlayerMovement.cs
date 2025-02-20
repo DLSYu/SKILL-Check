@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UIElements;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public FloatingJoystick Joystick;
     [SerializeField]
     Animator animator;
+    [SerializeField]
+    BoxCollider2D interactRange;
     public Finger MovementFinger;
     public Vector2 MovementAmount;
     private bool isUsingKeyboard = false;
@@ -156,11 +159,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void ClickInteractButton()
     {
-        
-
-        // If vicinity of Interactable object, call Interact method of Interactable object
-        // give player interactvicinity collider
-        // create interface for interactable obkect called IInteractable with method Interactable
+        Debug.Log("Interact");
+        // if interactRange is trigger touches Interactable tagged object do somethign
+        if (interactRange.IsTouchingLayers(LayerMask.GetMask("Interactable")))
+        {
+            Debug.Log("Interacting with object");
+        }
     }
     public void UpdateAnimator(){
 
