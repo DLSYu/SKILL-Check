@@ -9,37 +9,38 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
     [SerializeField] private Animator animator;
     private float jump = 335.0f;
 
-    [SerializeField] Vector2 boxSize;
-    [SerializeField] float castDistance;
+    [SerializeField] Vector2 allowJumpBoxSize;
+    [SerializeField] float allowJumpCastDistance;
+    [SerializeField] Vector2 allowWalkBoxSize;
+    [SerializeField] float allowWalkCastDistance;
     [SerializeField] LayerMask groundLayer;
 
-    private bool wasInAir = false;
     
     private void Update()
     {
-        // change condition to if player velocity is going upwards
-        if(IsGrounded()){  
-            animator.SetBool("InAir", false);
-
-            if (wasInAir){
-                animator.SetTrigger("landedTrigger");
-                wasInAir = false;
-            }
-        }
-        else{
-            animator.ResetTrigger("landedTrigger");
-            animator.ResetTrigger("jumpTrigger");
-            animator.SetBool("InAir", true);
-            wasInAir = true;
-        }
-
         float verticalVelocity = player.GetComponent<Rigidbody2D>().velocity.y;
         animator.SetFloat("yVelocity", verticalVelocity);
+        // change condition to if player velocity is going upwards
+        if (allowJump()){
+            animator.SetBool("nearLand", true);
+        }
+        else{
+            animator.SetBool("nearLand", false);
+        }
+
+        if(allowWalk()){  
+            animator.SetBool("onLand", true);
+        }
+        else{
+            animator.SetBool("onLand", false);
+        }
+
+        
 
     }
     public void OnPointerDown(PointerEventData eventData){
         
-        if (IsGrounded()){
+        if (allowJump()){
             animator.SetTrigger("jumpTrigger");
             Debug.Log("Jump");
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, jump));
@@ -47,12 +48,21 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
     }
 
 
-    private bool IsGrounded()
+    private bool allowJump()
     {
         //  RaycastHit2D hit = Physics2D.Raycast(player.GetComponent<BoxCollider2D>().bounds.center - (new Vector3(0f, player.GetComponent<BoxCollider2D>().size.y + 0.1f, 0f)/2), Vector2.down, 0.01f);
         //  return hit.collider != null;
 
-        if(Physics2D.BoxCast(player.transform.position, boxSize, 0f, -transform.up, castDistance, groundLayer)){
+        if(Physics2D.BoxCast(player.transform.position, allowJumpBoxSize, 0f, -transform.up, allowJumpCastDistance, groundLayer)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private bool allowWalk(){
+        if(Physics2D.BoxCast(player.transform.position, allowWalkBoxSize, 0f, -transform.up, allowWalkCastDistance, groundLayer)){
             return true;
         }
         else{
@@ -62,7 +72,8 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(player.transform.position - transform.up * castDistance, boxSize);
+        Gizmos.DrawWireCube(player.transform.position - transform.up * allowJumpCastDistance, allowJumpBoxSize);
+        Gizmos.DrawWireCube(player.transform.position - transform.up * allowWalkCastDistance, allowWalkBoxSize);
     }
 
 }

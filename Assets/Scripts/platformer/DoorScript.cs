@@ -8,23 +8,30 @@ public class DoorScript : MonoBehaviour
     [SerializeField] private GameObject door;
     private bool isPlayerNear = false;
 
-    private Vector3 currentPosition;
+    private Vector3 startPosition;
     private Vector3 movedPosition;
     [SerializeField] private float duration = 5f;
-    private float elapsedTime = 0;
+    private float openElapsedTime = 0;
+    private float closeElapsedTime = 0;
     // Start is called before the first frame update
 
     void Start(){
-        currentPosition = door.transform.position;
-        movedPosition = new Vector3(currentPosition.x, currentPosition.y + 10f, currentPosition.z);
+        startPosition = door.transform.position;
+        movedPosition = new Vector3(startPosition.x, startPosition.y + 5f, startPosition.z);
     }    
     void Update()
     {
         if (isPlayerNear){
-            elapsedTime += Time.deltaTime;
-            float percentageComplete = elapsedTime / duration;
+            closeElapsedTime = 0;
+            openElapsedTime += Time.deltaTime;
+            float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
-        } 
+        } else{
+            openElapsedTime = 0;
+            closeElapsedTime += Time.deltaTime;
+            float percentageComplete = closeElapsedTime / duration;
+            door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
+        }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -41,4 +48,5 @@ public class DoorScript : MonoBehaviour
             isPlayerNear = false;
         }
     }
+
 }

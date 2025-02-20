@@ -166,6 +166,8 @@ public class PlayerMovement : MonoBehaviour
 
         // x movement
         animator.SetFloat("Speed", MovementAmount.magnitude);
+        //Add condition if player's lower hitbox is touching layermask ground
+
         if (MovementAmount.x < 0)
         {
             this.GetComponent<SpriteRenderer>().flipX = true;
