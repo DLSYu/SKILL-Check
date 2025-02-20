@@ -13,16 +13,24 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
     [SerializeField] float castDistance;
     [SerializeField] LayerMask groundLayer;
 
+    private bool wasInAir = false;
     
     private void Update()
     {
         // change condition to if player velocity is going upwards
         if(IsGrounded()){  
             animator.SetBool("InAir", false);
+
+            if (wasInAir){
+                animator.SetTrigger("landedTrigger");
+                wasInAir = false;
+            }
         }
         else{
+            animator.ResetTrigger("landedTrigger");
             animator.ResetTrigger("jumpTrigger");
             animator.SetBool("InAir", true);
+            wasInAir = true;
         }
 
         float verticalVelocity = player.GetComponent<Rigidbody2D>().velocity.y;
@@ -56,4 +64,6 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
     {
         Gizmos.DrawWireCube(player.transform.position - transform.up * castDistance, boxSize);
     }
+
 }
+
