@@ -13,6 +13,7 @@ public class DoorScript : MonoBehaviour, IInteractable
     [SerializeField] private float duration = 5f;
     private float openElapsedTime = 0;
     private float closeElapsedTime = 0;
+    public bool condition = false;
 
     private bool unlocked = false;
     // Start is called before the first frame update
@@ -53,7 +54,9 @@ public class DoorScript : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        unlocked = true;
+        if(condition){
+            unlocked = true;
+        }
     }
 
 }
