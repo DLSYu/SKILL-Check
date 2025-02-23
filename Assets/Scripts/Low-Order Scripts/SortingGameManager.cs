@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -30,8 +30,20 @@ public class SortingGameManager : MonoBehaviour
 
         isGameCompleted = true; // Stop the timer
 
+        CalculateStars(); // Shows how many stars depending on time finished
+
         // All relics are correct
         StartCoroutine(LoadEndSceneAfterDelay(2f)); // 2-second delay
+    }
+
+    private void CalculateStars()
+    {
+        int stars = 1; // Default: 1 star
+        if (timer <= 60) stars = 3;    // ≤1 minute: 3 stars
+        else if (timer <= 120) stars = 2; // ≤2 minutes: 2 stars
+
+        PlayerPrefs.SetInt("StarCount", stars);
+        PlayerPrefs.Save();
     }
 
     IEnumerator LoadEndSceneAfterDelay(float delay)
