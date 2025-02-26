@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BookStages : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField]
+    private LoadingScreen loadingScreen;
     private enum bookStage{
         LO_1,
         LO_2,
@@ -19,7 +21,7 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData){
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
-        SceneManager.LoadScene("SortingScene");
+        loadingScreen.LoadScene("SortingScene");
 
     }
 }

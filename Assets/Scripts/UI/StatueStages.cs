@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class StatueStages : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField]
+    private LoadingScreen loadingScreen;
     private enum statueStage{
         HO_1,
         HO_2,
@@ -19,9 +21,10 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData){
         Debug.Log("Clicked");
+
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
-        SceneManager.LoadScene("PlatformerScene");
+       loadingScreen.LoadScene("PlatformerScene");
     }
 
     

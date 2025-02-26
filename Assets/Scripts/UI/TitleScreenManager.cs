@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class TitleScreenManager : MonoBehaviour
 {
-    public void StartButton()
-    {
-        SceneManager.LoadSceneAsync("Lobby");
-    }
 
     public void SettingsButton()
     {
