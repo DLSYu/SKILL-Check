@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 569592119}
   animator: {fileID: 569592120}
-  allowJumpBoxSize: {x: 1.2, y: 0.19}
+  allowJumpBoxSize: {x: 0.7, y: 0.19}
   allowJumpCastDistance: 1.48
   allowWalkBoxSize: {x: 1.2, y: 0.1}
   allowWalkCastDistance: 1.43
