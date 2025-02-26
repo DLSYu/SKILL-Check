@@ -21,9 +21,9 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
         float verticalVelocity = player.GetComponent<Rigidbody2D>().velocity.y;
         animator.SetFloat("yVelocity", verticalVelocity);
         // change condition to if player velocity is going upwards
-        if (allowJump()){
+        if (allowJump()){  
             animator.SetBool("nearLand", true);
-            
+
             if(allowWalk()){  
             animator.SetBool("onLand", true);
             }
@@ -46,6 +46,7 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
             animator.SetTrigger("jumpTrigger");
             Debug.Log("Jump");
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, jump));
+            animator.ResetTrigger("jumpTrigger");
         }   
     }
 

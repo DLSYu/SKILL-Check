@@ -6,10 +6,18 @@ public class InteractButton : MonoBehaviour
 {
     // TO IMPLEMENT: GET LIST OF ALL INTERACTABLES CHECK IN UPDATES THE CLOSEST OBJECT TO INTERACT WITH
     GameObject currentInteractable;
+    [SerializeField] private GameObject questionMark;
 
     void Update()
     {
-        
+        if (currentInteractable != null)
+        {
+            questionMark.SetActive(true);
+        }
+        else
+        {
+            questionMark.SetActive(false);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
