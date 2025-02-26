@@ -23,17 +23,19 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
         // change condition to if player velocity is going upwards
         if (allowJump()){
             animator.SetBool("nearLand", true);
+            
+            if(allowWalk()){  
+            animator.SetBool("onLand", true);
+            }
+            else{
+                animator.SetBool("onLand", false);
+            }
         }
         else{
             animator.SetBool("nearLand", false);
         }
 
-        if(allowWalk()){  
-            animator.SetBool("onLand", true);
-        }
-        else{
-            animator.SetBool("onLand", false);
-        }
+        
 
         
 
