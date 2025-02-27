@@ -5,6 +5,9 @@ using UnityEngine;
 public class Gem : MonoBehaviour, IInteractable
 {
     [SerializeField] private DoorScript door;
+    [SerializeField] private AudioClip gemSound;
+    [SerializeField] private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +20,13 @@ public class Gem : MonoBehaviour, IInteractable
         
     }
 
+
     public void Interact()
     {
-        Debug.Log("Gem collected");
-        gameObject.SetActive(false);
+        audioSource.PlayOneShot(gemSound);
+        
         door.condition = true;
+        gameObject.SetActive(false);
+        
     }
 }

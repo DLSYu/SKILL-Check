@@ -14,6 +14,8 @@ public class LobbyScreenManager : MonoBehaviour
     [SerializeField] Vector3 libraryPosition;
     [SerializeField] Vector3 ruinsPosition;
     [SerializeField] Vector3 forestPosition;
+    [SerializeField] private AudioSource libraryMusic;
+    [SerializeField] private AudioSource otherMusic;
 
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
@@ -76,6 +78,8 @@ public class LobbyScreenManager : MonoBehaviour
     {
         leftButton.SetActive(false);
         rightButton.SetActive(false);
+        libraryMusic.mute = true;
+        otherMusic.mute = true;
         transitionAnimator.SetTrigger("startFade");
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
@@ -89,6 +93,8 @@ public class LobbyScreenManager : MonoBehaviour
     {
         leftButton.SetActive(false);
         rightButton.SetActive(false);
+        libraryMusic.mute = true;
+        otherMusic.mute = true;
         transitionAnimator.SetBool("startFade", true);
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
@@ -103,14 +109,20 @@ public class LobbyScreenManager : MonoBehaviour
         if (currentScreenIndex == -1){
             leftButton.SetActive(false);
             rightButton.SetActive(true);
+            otherMusic.mute = false;
+            libraryMusic.mute = true;
         }
         else if (currentScreenIndex == 1){
             rightButton.SetActive(false);
             leftButton.SetActive(true);
+            otherMusic.mute = false;
+            libraryMusic.mute = true;
         }
         else if (currentScreenIndex == 0){
             leftButton.SetActive(true);
             rightButton.SetActive(true);
+            libraryMusic.mute = false;
+            otherMusic.mute = true;
         }
 
         transitionAnimator.SetBool("startFade", false);

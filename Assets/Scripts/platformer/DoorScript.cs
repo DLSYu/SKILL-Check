@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,8 @@ public class DoorScript : MonoBehaviour, IInteractable
     public bool condition = false;
 
     private bool unlocked = false;
+    [SerializeField] private AudioClip doorSound;
+    [SerializeField] private AudioSource audioSource;
     // Start is called before the first frame update
 
     void Start(){
@@ -52,10 +55,12 @@ public class DoorScript : MonoBehaviour, IInteractable
         }
     }
 
+   
     public void Interact()
     {
         if(condition){
             unlocked = true;
+            audioSource.PlayOneShot(doorSound);
         }
     }
 

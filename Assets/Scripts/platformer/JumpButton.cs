@@ -14,8 +14,11 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
     [SerializeField] Vector2 allowWalkBoxSize;
     [SerializeField] float allowWalkCastDistance;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip landSound;
+    [SerializeField] private AudioSource audioSource;
 
-    
+    private bool triggerLandSound;
     private void Update()
     {
         float verticalVelocity = player.GetComponent<Rigidbody2D>().velocity.y;
@@ -45,8 +48,10 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
         if (allowJump()){
             animator.SetTrigger("jumpTrigger");
             Debug.Log("Jump");
+            audioSource.PlayOneShot(jumpSound);
             player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, jump));
             animator.ResetTrigger("jumpTrigger");
+            triggerLandSound = true;
         }   
     }
 
@@ -57,6 +62,10 @@ public class JumpButton : MonoBehaviour, IPointerDownHandler
         //  return hit.collider != null;
 
         if(Physics2D.BoxCast(player.transform.position, allowJumpBoxSize, 0f, -transform.up, allowJumpCastDistance, groundLayer)){
+            if(triggerLandSound){
+                audioSource.PlayOneShot(landSound);
+                triggerLandSound = false;
+            }
             return true;
         }
         else{
