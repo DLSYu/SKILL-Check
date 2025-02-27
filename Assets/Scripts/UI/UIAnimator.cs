@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class UIAnimator : MonoBehaviour
 {
+    [Header("Animation Sprites")]
     [SerializeField]
     private Sprite[] sprites;
 
+
+    [Header("Objects to Set Active")]
     [SerializeField]
     private GameObject[] objectsToRemoveFromView;
+
+
+    [SerializeField]
+    private GameObject[] objectsToSetActiveAfterRunningAnimation;
+
+    [Header("Adjust Parameters in Animation")]
 
     [SerializeField]
 	private int framesPerSprite = 4;
@@ -22,6 +31,8 @@ public class UIAnimator : MonoBehaviour
      [SerializeField]
 	private int index = 0;
 
+    [Header("Image to animate")]
+
     [SerializeField]
 	private Image image;
 	private int frame = 0;
@@ -30,7 +41,7 @@ public class UIAnimator : MonoBehaviour
     {
         if (this.gameObject.activeSelf)
         {
-            this.gameObject.GetComponent<Canvas>().sortingOrder = 999;
+            this.gameObject.GetComponent<Canvas>().sortingOrder = 0;
             for (int i = 0; i < objectsToRemoveFromView.Length; i++)
             {
                 objectsToRemoveFromView[i].SetActive(false);
@@ -53,8 +64,16 @@ public class UIAnimator : MonoBehaviour
 
             if (index >= sprites.Length) {
                 if (loop) index = 0;
+                else
+                    {
+                        foreach (GameObject obj in objectsToSetActiveAfterRunningAnimation)
+                        {
+                            obj.SetActive(true);
+                        }
+                    }
                 if (destroyOnEnd) Destroy (gameObject);
             }
         }
 	}
+    
 }
