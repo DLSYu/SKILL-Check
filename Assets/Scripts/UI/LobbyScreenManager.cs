@@ -42,7 +42,7 @@ public class LobbyScreenManager : MonoBehaviour
         checkCharacterPosition();
 
         //GetMovemmentAmount of character when moving
-        //MovementAmount = mainCharacter.GetComponent<PlayerMovement>().MovementAmount;
+        Debug.Log(MovementAmount.magnitude);
 
         UIAnimator.SetFloat("Speed", MovementAmount.magnitude);
         
