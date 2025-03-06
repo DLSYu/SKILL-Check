@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1764789229109333709}
   - component: {fileID: 4432564578371057545}
   m_Layer: 5
-  m_Name: Relic Invenotry Slot
+  m_Name: Relic Inventory Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
