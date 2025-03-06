@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SKILL-Check.sln"
+    "dotnet.defaultSolution": "SKILL-Check.sln",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.tabSize": 4
 }
