@@ -60,6 +60,7 @@ public class TextMeshInputHelper : MonoBehaviour
             ip.rt.anchorMax = rectTransform.anchorMax;
             ip.rt.anchoredPosition = new Vector3(posX, posY, ip.rt.position.z);
             ip.rt.sizeDelta = new Vector2(width, height);
+            ip._tmp = _tmp;
             ip.SetWordIndex(i);
         }
     }
