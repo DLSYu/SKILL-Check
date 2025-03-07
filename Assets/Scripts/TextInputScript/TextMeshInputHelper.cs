@@ -55,11 +55,12 @@ public class TextMeshInputHelper : MonoBehaviour
             float height = Mathf.Abs(topRight.y - bottomLeft.y);
 
             GameObject panel = Instantiate(inputPanelPrefab, this.transform);
-            InputPanel ip = panel.GetComponent<InputPanel>();
+            TextMeshInputPanel ip = panel.GetComponent<TextMeshInputPanel>();
             ip.rt.anchorMin = rectTransform.anchorMin;
             ip.rt.anchorMax = rectTransform.anchorMax;
             ip.rt.anchoredPosition = new Vector3(posX, posY, ip.rt.position.z);
             ip.rt.sizeDelta = new Vector2(width, height);
+            ip.SetWordIndex(i);
         }
     }
 }
