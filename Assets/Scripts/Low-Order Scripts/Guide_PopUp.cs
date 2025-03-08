@@ -8,6 +8,9 @@ public class TextBubblePopup : MonoBehaviour
 {
     public Image textBubbleImage; // Reference to the text bubble
     public TextMeshProUGUI textInsideBubble; // Reference to the text inside the bubble
+    public float fadeDuration = 1f; // Duration of the fade effect
+
+    private CanvasGroup canvasGroup;
 
     private void Start()
     {
@@ -18,9 +21,11 @@ public class TextBubblePopup : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        // Ensure the bubble is hidden at the start
-        textBubbleImage.gameObject.SetActive(false);
-        textInsideBubble.gameObject.SetActive(false);
+        // Add a CanvasGroup if not already present
+        if (!textBubbleImage.gameObject.TryGetComponent(out canvasGroup))
+        {
+            canvasGroup = textBubbleImage.gameObject.AddComponent<CanvasGroup>();
+        }
 
         // Start the pop-up coroutine
         StartCoroutine(ShowTextBubble());
@@ -32,11 +37,29 @@ public class TextBubblePopup : MonoBehaviour
         textBubbleImage.gameObject.SetActive(true);
         textInsideBubble.gameObject.SetActive(true);
 
-        // Wait for 10 seconds
-        yield return new WaitForSeconds(10f);
+        // Fade in
+        yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 0f, 1f, fadeDuration));
+
+        // Wait for 5 seconds
+        yield return new WaitForSeconds(5f);
+
+        // Fade out
+        yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1f, 0f, fadeDuration));
 
         // Hide the text bubble and text
         textBubbleImage.gameObject.SetActive(false);
         textInsideBubble.gameObject.SetActive(false);
+    }
+
+    private IEnumerator FadeCanvasGroup(CanvasGroup group, float startAlpha, float endAlpha, float duration)
+    {
+        float timeElapsed = 0f;
+        while (timeElapsed < duration)
+        {
+            group.alpha = Mathf.Lerp(startAlpha, endAlpha, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        group.alpha = endAlpha; // Ensure the final alpha is set
     }
 }

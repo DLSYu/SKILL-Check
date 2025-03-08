@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 /*
  *  Relic Slot is a GameObject that holds a Relic
  */
-public class RelicSlot : MonoBehaviour
+public class RelicSlot : MonoBehaviour, IPointerClickHandler
 {
     public GameObject placedRelic;
 
@@ -57,5 +59,37 @@ public class RelicSlot : MonoBehaviour
         swapWith.RemoveRelic();
         tempContatiner.GetComponent<RelicMovement>().OnSwap(swapWith);
         swapWith.PlaceRelic(tempContatiner);
+    }
+
+    // Detect tap/click on the RelicSlot
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Check if the tap/click is valid (e.g., not during dragging)
+        if (!IsDraggingRelic())
+        {
+            Debug.Log($"Tapped on RelicSlot: {name}");
+            LoadReadingScene();
+        }
+    }
+
+    // Check if a relic is currently being dragged
+    private bool IsDraggingRelic()
+    {
+        // Check if any relic is being dragged
+        RelicMovement[] relics = FindObjectsOfType<RelicMovement>();
+        foreach (var relic in relics)
+        {
+            if (relic.IsDragging())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Load the Reading_Scene
+    private void LoadReadingScene()
+    {
+        SceneManager.LoadScene("Reading_Scene");
     }
 }

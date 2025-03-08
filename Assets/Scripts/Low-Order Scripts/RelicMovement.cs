@@ -14,6 +14,12 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public RelicSlot originalParent { get; private set; } // The original RelicSlot
     [SerializeField] private RelicSlot newParent; // The new RelicPlace or RelicSlot
 
+    // Method for RelicSlot to check if the relic is being dragged
+    public bool IsDragging()
+    {
+        return dragging;
+    }
+
     Collider2D inCollisionWith;
 
     // Start is called before the first frame update

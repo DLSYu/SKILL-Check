@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Low-Order-Scenes/Sequence_End.unity
     guid: 84acacf53c8ee5147bd725f37a9462eb
+  - enabled: 1
+    path: Assets/Scenes/Low-Order-Scenes/Reading_Scene.unity
+    guid: 2fc9eee0cf9c29349b5ab0cbb09616c4
   m_configObjects: {}
