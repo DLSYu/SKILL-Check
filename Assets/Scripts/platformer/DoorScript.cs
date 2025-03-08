@@ -15,7 +15,7 @@ public class DoorScript : MonoBehaviour, IInteractable
     [SerializeField] private float duration = 5f;
     private float openElapsedTime = 0;
     private float closeElapsedTime = 0;
-    private bool unlocked = false;
+    public bool unlocked = false;
     private bool triggerOpenOnce = false;
     [SerializeField] private AudioClip doorSound;
     [SerializeField] private AudioSource audioSource;

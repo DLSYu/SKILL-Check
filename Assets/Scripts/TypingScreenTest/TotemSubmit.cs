@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+
 //using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
@@ -12,7 +14,8 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     [SerializeField]
     private GameObject percentage;
     [SerializeField]
-    private UIManager uiManager;
+    // will change to serialized list later
+    private DoorScript currentDoor;
     void Start()
     {
         
@@ -26,7 +29,24 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData) {
         percentage.SetActive(true);
-        this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-        uiManager.exitTypingScreen();
+        float score = EvaluateScore();
+
+        percentage.GetComponent<TextMeshProUGUI>().text = score.ToString();
+
+        if (score >= 0.5f){
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+            currentDoor.unlocked = true;   
+        }
+        else{
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+        }
+    }
+
+    private float EvaluateScore(){
+        float score = 0.0f;
+
+        // Score evluation logic here
+        score = 0.5f;
+        return score;
     }
 }
