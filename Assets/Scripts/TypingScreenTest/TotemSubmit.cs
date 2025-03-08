@@ -11,6 +11,8 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     // Start is called before the first frame update
     [SerializeField]
     private GameObject percentage;
+    [SerializeField]
+    private UIManager uiManager;
     void Start()
     {
         
@@ -25,5 +27,6 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData) {
         percentage.SetActive(true);
         this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+        uiManager.exitTypingScreen();
     }
 }

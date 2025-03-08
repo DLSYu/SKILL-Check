@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 MovementAmount;
     private bool isUsingKeyboard = false;
     private float speed = 5.0f;
-
+    [SerializeField]
+    private GameObject isJoystickPanelActive;
 
     private void OnEnable()
     {
@@ -45,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFingerMove(Finger MovedFinger)
     {
+        if (!isJoystickPanelActive.activeSelf){return;}
+
         if (MovedFinger == MovementFinger)
         {
             isUsingKeyboard = false;
@@ -85,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
+        if (!isJoystickPanelActive.activeSelf){return;}
+
         if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
         {
             isUsingKeyboard = false;
@@ -125,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleKeyboardInput()
     {
+        if (!isJoystickPanelActive.activeSelf){return;}
         Vector2 input = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class DoorScript : MonoBehaviour, IInteractable
@@ -14,11 +15,11 @@ public class DoorScript : MonoBehaviour, IInteractable
     [SerializeField] private float duration = 5f;
     private float openElapsedTime = 0;
     private float closeElapsedTime = 0;
-    public bool condition = false;
-
     private bool unlocked = false;
+    private bool triggerOpenOnce = false;
     [SerializeField] private AudioClip doorSound;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private UIManager uiManager;
     // Start is called before the first frame update
 
     void Start(){
@@ -27,17 +28,20 @@ public class DoorScript : MonoBehaviour, IInteractable
     }    
     void Update()
     {
+        //move door action
         if (isPlayerNear && unlocked){
             // closeElapsedTime = 0;
             openElapsedTime += Time.deltaTime;
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
-        } else{
-            // openElapsedTime = 0;
-            // closeElapsedTime += Time.deltaTime;
-            // float percentageComplete = closeElapsedTime / duration;
-            // door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
-        }
+        } 
+        // else{
+        //     openElapsedTime = 0;
+        //     closeElapsedTime += Time.deltaTime;
+        //     float percentageComplete = closeElapsedTime / duration;
+        //     door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
+        // }
+        triggerDoorSound();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -58,9 +62,15 @@ public class DoorScript : MonoBehaviour, IInteractable
    
     public void Interact()
     {
-        if(condition){
-            unlocked = true;
+        uiManager.openTypingScreen();
+        
+        // unlocked = true;
+    }
+
+    private void triggerDoorSound(){
+        if (isPlayerNear && unlocked && !triggerOpenOnce){
             audioSource.PlayOneShot(doorSound);
+            triggerOpenOnce = true;
         }
     }
 

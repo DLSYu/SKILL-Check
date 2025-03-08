@@ -13,12 +13,12 @@ public class DraggableRelic : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private Canvas canvas;
     private float x;
     private float y;
-
+    private RectTransform rectTransform;
     private Vector3 original_scale;
     private Vector2 offset;
 
     private void Awake() {
-
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void OnBeginDrag(PointerEventData eventData){
@@ -30,27 +30,33 @@ public class DraggableRelic : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     public void OnDrag(PointerEventData eventData){
         
-        this.GetComponent<RectTransform>().anchoredPosition += eventData.delta / canvas.scaleFactor;
-        
+        // this.GetComponent<RectTransform>().anchoredPosition += eventData.delta / canvas.scaleFactor;
+        Vector2 localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectTransform.parent as RectTransform, 
+            eventData.position, 
+            eventData.pressEventCamera, 
+            out localPoint))
+        {
+            rectTransform.anchoredPosition = localPoint + offset;
+        }
 
     }
 
     public void OnEndDrag(PointerEventData eventData){
         this.GetComponent<CanvasGroup>().alpha = 1f;
-       this.GetComponent<RectTransform>().position = new Vector3(x, y);
-       this.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        this.GetComponent<RectTransform>().position = new Vector3(x, y);
+        this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-         RectTransform rectTransform = GetComponent<RectTransform>();
+         // Store offset to prevent the object from snapping to the pointer
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform.parent as RectTransform, 
             eventData.position, 
             eventData.pressEventCamera, 
             out offset
         );
-
-        // Center the offset (makes sure object is centered on the mouse)
         offset = rectTransform.anchoredPosition - offset;
     }
     void Start()
