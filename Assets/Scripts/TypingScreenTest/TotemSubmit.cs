@@ -17,7 +17,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     private GameObject percentage;
     [SerializeField]
     // will change to serialized list later
-    private DoorScript currentDoor;
+    private DoorManager doorObserver;
     [SerializeField]
     private TMP_InputField field1, field2, field3;
     void Start()
@@ -39,7 +39,8 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
         if (score >= 0.5f){
             this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
-            currentDoor.unlocked = true;   
+            doorObserver.GetCurrentDoor().unlocked = true;  
+            doorObserver.SetNextDoor(); 
         }
         else{
             this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
@@ -51,7 +52,9 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
         // Score evluation logic here
         String completeText = field1.text + " " + field2.text + " " + field3.text;
-        Debug.Log(completeText);
+        String referenceText = doorObserver.GetCurrentDoor().referenceText;
+
+        Debug.Log(completeText + " " + referenceText);
 
         score = 0.5f;
 

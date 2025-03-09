@@ -5,21 +5,26 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour, IInteractable
+public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] private GameObject door;
-    private bool isPlayerNear = false;
+    [Header("Story Data")]
 
-    private Vector3 startPosition;
-    private Vector3 movedPosition;
-    [SerializeField] private float duration = 5f;
-    private float openElapsedTime = 0;
-    private float closeElapsedTime = 0;
+    [SerializeField] public String referenceText;
+    [SerializeField] public String keyWord;
+
+    [Header("Door Data")]
     public bool unlocked = false;
-    private bool triggerOpenOnce = false;
+    [SerializeField] private GameObject door;
+    [SerializeField] private float duration = 5f;
     [SerializeField] private AudioClip doorSound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UIManager uiManager;
+    private bool isPlayerNear = false;
+    private Vector3 startPosition;
+    private Vector3 movedPosition;
+    private float openElapsedTime = 0;
+    private bool triggerOpenOnce = false;
+
     // Start is called before the first frame update
 
     void Start(){
@@ -35,12 +40,7 @@ public class DoorScript : MonoBehaviour, IInteractable
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
         } 
-        // else{
-        //     openElapsedTime = 0;
-        //     closeElapsedTime += Time.deltaTime;
-        //     float percentageComplete = closeElapsedTime / duration;
-        //     door.transform.position = Vector3.Lerp(door.transform.position, startPosition, percentageComplete);
-        // }
+        
         triggerDoorSound();
     }
     void OnTriggerEnter2D(Collider2D other)

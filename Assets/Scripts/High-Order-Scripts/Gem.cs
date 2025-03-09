@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Gem : MonoBehaviour, IInteractable
 {
-    [SerializeField] private DoorScript door;
+    [SerializeField] private Door door;
     [SerializeField] private AudioClip gemSound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private String gemName;
