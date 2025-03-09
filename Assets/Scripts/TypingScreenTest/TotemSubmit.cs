@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class TotemSubmit : MonoBehaviour, IDropHandler
 {
@@ -16,6 +18,8 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     [SerializeField]
     // will change to serialized list later
     private DoorScript currentDoor;
+    [SerializeField]
+    private TMP_InputField field1, field2, field3;
     void Start()
     {
         
@@ -46,7 +50,11 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
         float score = 0.0f;
 
         // Score evluation logic here
+        String completeText = field1.text + field2.text + field3.text;
+        Debug.Log(completeText);
+
         score = 0.5f;
+
         return score;
     }
 }
