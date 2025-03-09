@@ -19,7 +19,6 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip doorSound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UIManager uiManager;
-    private bool isPlayerNear = false;
     private Vector3 startPosition;
     private Vector3 movedPosition;
     private float openElapsedTime = 0;
@@ -33,42 +32,38 @@ public class Door : MonoBehaviour, IInteractable
     }    
     void Update()
     {
-        //move door action
-        if (isPlayerNear && unlocked){
-            // closeElapsedTime = 0;
+        if (unlocked){
             openElapsedTime += Time.deltaTime;
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
         } 
-        
+
         triggerDoorSound();
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            isPlayerNear = true;
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.tag == "Player")
+    //     {
+    //         isPlayerNear = true;
+    //     }
+    // }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            isPlayerNear = false;
-        }
-    }
+    // void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (other.gameObject.tag == "Player")
+    //     {
+    //         isPlayerNear = false;
+    //     }
+    // }
 
    
     public void Interact()
     {
         uiManager.openTypingScreen();
-        
-        // unlocked = true;
     }
 
     private void triggerDoorSound(){
-        if (isPlayerNear && unlocked && !triggerOpenOnce){
+        if (unlocked && !triggerOpenOnce){
             audioSource.PlayOneShot(doorSound);
             triggerOpenOnce = true;
         }
