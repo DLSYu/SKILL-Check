@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isUsingKeyboard = false;
     private float speed = 5.0f;
     [SerializeField]
+    // This is for UI switching purposes
     private GameObject isJoystickPanelActive;
 
     private void OnEnable()
