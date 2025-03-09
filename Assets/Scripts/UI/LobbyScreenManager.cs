@@ -9,7 +9,7 @@ public class LobbyScreenManager : MonoBehaviour
     [SerializeField] int cameraMoveSpeed;
     [SerializeField] GameObject mainCharacter;
     [SerializeField] Animator UIAnimator;
-    [SerializeField] Animator transitionAnimator;
+    // [SerializeField] Animator transitionAnimator;
     private Vector2 MovementAmount;
     [SerializeField] Vector3 libraryPosition;
     [SerializeField] Vector3 ruinsPosition;
@@ -80,7 +80,7 @@ public class LobbyScreenManager : MonoBehaviour
         rightButton.SetActive(false);
         libraryMusic.mute = true;
         otherMusic.mute = true;
-        transitionAnimator.SetTrigger("startFade");
+        // transitionAnimator.SetTrigger("startFade");
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         MovementAmount.x = -1f;
@@ -95,7 +95,7 @@ public class LobbyScreenManager : MonoBehaviour
         rightButton.SetActive(false);
         libraryMusic.mute = true;
         otherMusic.mute = true;
-        transitionAnimator.SetBool("startFade", true);
+        // transitionAnimator.SetBool("startFade", true);
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         MovementAmount.x = 1f;
@@ -125,7 +125,7 @@ public class LobbyScreenManager : MonoBehaviour
             otherMusic.mute = true;
         }
 
-        transitionAnimator.SetBool("startFade", false);
+        // transitionAnimator.SetBool("startFade", false);
     }
 
     private void checkCharacterPosition()

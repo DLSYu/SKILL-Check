@@ -50,7 +50,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
         float score = 0.0f;
 
         // Score evluation logic here
-        String completeText = field1.text + field2.text + field3.text;
+        String completeText = field1.text + " " + field2.text + " " + field3.text;
         Debug.Log(completeText);
 
         score = 0.5f;
