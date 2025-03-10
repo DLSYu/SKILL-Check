@@ -66,10 +66,122 @@ public class ReadingMechanicPanel : MonoBehaviour
     }
     public void NextLine()
     {
-        Debug.Log("currentSentenceBeforeNextLine: " + currentSentence);
         if (lineSelector.SetSliderToNthSentence(currentSentence + 1) == 0)
             currentSentence += 1;
         
+    }
+
+    void HighlightFirstLineOfNextPage()
+    {  
+        int lastLine = ReturnLastLine(storyText.pageToDisplay-1);
+
+        bool found = false;
+        for (int i = 0; i < currentAppliedLines.Count && !found; i++)
+        {
+            Debug.Log(currentAppliedLines[i]);
+            if (lastLine == currentAppliedLines[i])
+            {
+                found = true;
+            }
+        }
+
+        currentAppliedLines.Clear();
+
+        if (found)
+        {
+            int firstLine = ReturnFirstLine(storyText.pageToDisplay);
+            if (storyText.textInfo.lineInfo[firstLine].characterCount != 0)
+            {   
+                int i = 0;
+                bool hasHighlighted = false;
+                storyText.ForceMeshUpdate();
+                while(storyText.text.Substring(storyText.textInfo.lineInfo[firstLine+i].firstCharacterIndex, storyText.textInfo.lineInfo[firstLine+i].characterCount).Trim((char)8203).Trim().Length != 0 || !hasHighlighted)
+                {
+                    hasHighlighted = true;
+                    ColorLine(firstLine+i, Color.yellow);
+                    currentAppliedLines.Add(firstLine+i);
+                    i++;
+                }
+                currentAppliedLines.Sort();
+            }
+        }
+    }
+
+
+    int ReturnLastLine(int page)
+    {
+        int lastCharIndex = storyText.textInfo.pageInfo[page - 1].lastCharacterIndex;
+
+        // Handle cases where the lastCharIndex is 0
+        if (lastCharIndex == 0)
+            lastCharIndex = storyText.textInfo.characterCount - 1;
+
+        // Find the last line that contains this character
+        int lastLine = -1;
+        for (int i = 0; i < storyText.textInfo.lineCount; i++)
+        {
+            TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
+
+            if (lineInfo.lastCharacterIndex >= lastCharIndex)
+            {
+                lastLine = i;
+                break; // We found the last line of the page
+            }
+        }
+
+        return lastLine;
+    }
+    int ReturnFirstLine(int page)
+    {
+        int firstCharIndex = storyText.textInfo.pageInfo[page - 1].firstCharacterIndex;
+
+        // Find the last line that contains this character
+        int firstLine = -1;
+        for (int i = 0; i < storyText.textInfo.lineCount; i++)
+        {
+            TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
+
+            if (lineInfo.firstCharacterIndex >= firstCharIndex)
+            {
+                firstLine = i;
+                break; // We found the last line of the page
+            }
+        }
+        // check if last line is highlighted
+            // if so, check if there's text on the next line
+
+        return firstLine;
+    }
+    void HighlightLastLineOfPreviousPage()
+    {
+        int firstLine = ReturnFirstLine(storyText.pageToDisplay+1);
+        bool found = false;
+        for (int i = 0; i < currentAppliedLines.Count && !found; i++)
+        {
+            if (firstLine == currentAppliedLines[i])
+            {
+                found = true;
+            }
+        }
+
+        currentAppliedLines.Clear();
+
+        if (found)
+        {
+            int lastLine = ReturnLastLine(storyText.pageToDisplay);
+            if (storyText.textInfo.lineInfo[lastLine].characterCount != 0)
+            {   
+                int i = 0;
+                storyText.ForceMeshUpdate();
+                while(storyText.text.Substring(storyText.textInfo.lineInfo[lastLine-i].firstCharacterIndex, storyText.textInfo.lineInfo[lastLine-i].characterCount).Trim((char)8203).Trim().Length != 0)
+                {
+                    ColorLine(lastLine-i, Color.yellow);
+                    currentAppliedLines.Add(lastLine-i);
+                    i++;
+                }
+                currentAppliedLines.Sort();
+            }
+        }
     }
 
 
@@ -81,8 +193,8 @@ public class ReadingMechanicPanel : MonoBehaviour
             storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
 
-            currentAppliedLines.Clear();
             UpdateEnabledButtons();
+            HighlightFirstLineOfNextPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay-1);
             currentSentence = 1;
@@ -98,8 +210,8 @@ public class ReadingMechanicPanel : MonoBehaviour
             storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
 
-            currentAppliedLines.Clear();
             UpdateEnabledButtons();
+            HighlightLastLineOfPreviousPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay-1);
             currentSentence = 1;
@@ -141,11 +253,6 @@ public class ReadingMechanicPanel : MonoBehaviour
     {
         TMP_TextInfo textInfo = storyText.textInfo;
 
-        if (lineIndex < 0 || lineIndex >= textInfo.lineCount)
-        {
-            Debug.LogWarning("Invalid line index!");
-            return;
-        }
 
         TMP_LineInfo lineInfo = textInfo.lineInfo[lineIndex];
 
@@ -163,6 +270,8 @@ public class ReadingMechanicPanel : MonoBehaviour
             vertexColors[vertexIndex + 1] = color;
             vertexColors[vertexIndex + 2] = color;
             vertexColors[vertexIndex + 3] = color;
+
+            
         }
 
         // Apply the modified colors
@@ -216,7 +325,11 @@ public class ReadingMechanicPanel : MonoBehaviour
             return true;
         }
         return false;
-            }
+    }
+
+    
+
+
 
   
 }

@@ -72,10 +72,6 @@ void UpdateScrollbarValue(){
           // Calculate midpoint in world space
         float midpointY = sumOfAllMidpoints / nearestIndexes.Count;
 
-        Debug.Log("first: " + worldTopLeft.y);
-        Debug.Log("last: " + worldBottomLeft.y);
-        Debug.Log("midpt: " + midpointY);
-
         scrollbar.value = Mathf.InverseLerp(
             worldTopLeft.y,
             worldBottomLeft.y,
@@ -88,6 +84,43 @@ public void ResetSliderToFirstLine()
         nearestIndexes.Clear();
         SetSliderToNthSentence(1);
 
+}
+
+public int ReturnSentenceCount()
+{
+        bool start = false;
+        int currentSentence = 0;
+
+        int currentTextLineCount = storyText.textInfo.lineCount;
+        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].firstCharacterIndex;
+        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].lastCharacterIndex;
+
+      for (int i = 0; i < currentTextLineCount; i++)
+            {
+                TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
+
+                string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
+
+
+                // Ensure the line's first character is within the visible page range
+                // start of a sentence and within a page
+                if (lineInfo.firstCharacterIndex >= firstCharIndex && !start && lineInfo.lastCharacterIndex <= lastCharIndex && s.Length != 0)
+                {
+                    start = true;
+                    currentSentence++;
+                }
+
+                if (lineInfo.lastCharacterIndex > lastCharIndex)
+                    break;
+
+                else if (start && s.Length == 0)
+                {
+                    
+                    start = false;
+                }  
+
+            }
+    return currentSentence;
 }
 
 public int SetSliderToNthSentence(int n)
@@ -105,9 +138,6 @@ public int SetSliderToNthSentence(int n)
             lastCharIndex = storyText.textInfo.characterCount;
 
 
-        Debug.Log($"Page {storyText.pageToDisplay}: First Char = {firstCharIndex}, Last Char = {lastCharIndex}");
-
-
 
         if (n >= 0)
         {
@@ -117,8 +147,6 @@ public int SetSliderToNthSentence(int n)
                 TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
 
                 string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
-
-                Debug.Log("currentSentence: " + s);
 
                 // Ensure the line's first character is within the visible page range
                 // start of a sentence and within a page
@@ -153,9 +181,6 @@ public int SetSliderToNthSentence(int n)
             nearestIndexes.Clear();
             nearestIndexes = tempIndex;
 
-            for (int i = 0; i < nearestIndexes.Count; i++)
-                Debug.Log(nearestIndexes[i]);
-
             UpdateScrollbarValue();
             return 0;
         }
@@ -178,9 +203,7 @@ private void UpdateNearestIndexes(UnityEngine.Vector2 screenPoint, Camera uiCame
 
     // Get the current page index (assuming you're using TMP pagination)
     int currentPage = storyText.pageToDisplay - 1;
-    Debug.Log("currentPage: " + currentPage);
 
-   
 
 
     // Get the first and last visible character index of the current page
@@ -203,7 +226,6 @@ private void UpdateNearestIndexes(UnityEngine.Vector2 screenPoint, Camera uiCame
 
         // Get trimmed string for the line
         string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
-        Debug.Log("string: " + s);
 
         if (s.Length > 0)
         {
@@ -251,13 +273,7 @@ private void UpdateNearestIndexes(UnityEngine.Vector2 screenPoint, Camera uiCame
             counter = 0;
         }
     }
-    Debug.Log("distances");
-    for (int i = 0; i < currentTextLineCount; i++)
-        Debug.Log(listOfDistances[i]);
 
-    Debug.Log("indexes");
-    for (int i = 0; i < nearestIndexes.Count; i++)
-        Debug.Log(nearestIndexes[i]);
 }
 
     
