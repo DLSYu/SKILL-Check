@@ -50,20 +50,31 @@ void UpdateScrollbarValue(){
     UnityEngine.Vector3[] worldCorners = new UnityEngine.Vector3[4];
     rectTransform.GetWorldCorners(worldCorners);
     
-    UnityEngine.Vector3 worldBottomLeft = worldCorners[0];  // Bottom-left corner (world space)
+        UnityEngine.Vector3 worldBottomLeft = worldCorners[0];  // Bottom-left corner (world space)
         UnityEngine.Vector3 worldTopLeft = worldCorners[1];     // Top-left corner (world space)
+        float sumOfAllMidpoints = 0;
 
+        for (int i = 0; i < nearestIndexes.Count; i++)
+        {
+            float worldNearestTopLeft = rectTransform.TransformPoint(
+            characterInfo[storyTextInfo.lineInfo[nearestIndexes[i]].firstCharacterIndex].topLeft
+            ).y;
+
+            float worldNearestBottomLeft = rectTransform.TransformPoint(
+                characterInfo[storyTextInfo.lineInfo[nearestIndexes[i]].firstCharacterIndex].bottomLeft
+            ).y;
+
+            sumOfAllMidpoints += (worldNearestTopLeft + worldNearestBottomLeft)/2f;
+
+        }
         // Convert character positions to world space
-        UnityEngine.Vector3 worldNearestTopLeft = rectTransform.TransformPoint(
-            characterInfo[storyTextInfo.lineInfo[nearestIndexes[nearestIndexes.Count - 1]].firstCharacterIndex].topLeft
-        );
-
-        UnityEngine.Vector3 worldNearestBottomLeft = rectTransform.TransformPoint(
-            characterInfo[storyTextInfo.lineInfo[nearestIndexes[0]].firstCharacterIndex].bottomLeft
-        );
-
+       
           // Calculate midpoint in world space
-        float midpointY = (worldNearestTopLeft.y + worldNearestBottomLeft.y) / 2f;
+        float midpointY = sumOfAllMidpoints / nearestIndexes.Count;
+
+        Debug.Log("first: " + worldTopLeft.y);
+        Debug.Log("last: " + worldBottomLeft.y);
+        Debug.Log("midpt: " + midpointY);
 
         scrollbar.value = Mathf.InverseLerp(
             worldTopLeft.y,
@@ -74,8 +85,6 @@ void UpdateScrollbarValue(){
 
 public void ResetSliderToFirstLine()
 {
-        storyText.ForceMeshUpdate();
-
         nearestIndexes.Clear();
         SetSliderToNthSentence(1);
 
@@ -86,7 +95,7 @@ public int SetSliderToNthSentence(int n)
         bool start = false;
         int currentSentence = 0;
         List<int> tempIndex = new List<int>();
-        storyText.ForceMeshUpdate();
+    
 
         int currentTextLineCount = storyText.textInfo.lineCount;
         int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].firstCharacterIndex;
@@ -109,6 +118,7 @@ public int SetSliderToNthSentence(int n)
 
                 string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
 
+                Debug.Log("currentSentence: " + s);
 
                 // Ensure the line's first character is within the visible page range
                 // start of a sentence and within a page
@@ -142,6 +152,9 @@ public int SetSliderToNthSentence(int n)
         {
             nearestIndexes.Clear();
             nearestIndexes = tempIndex;
+
+            for (int i = 0; i < nearestIndexes.Count; i++)
+                Debug.Log(nearestIndexes[i]);
 
             UpdateScrollbarValue();
             return 0;

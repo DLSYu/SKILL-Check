@@ -35,7 +35,7 @@ public class ReadingMechanicPanel : MonoBehaviour
     [SerializeField]
     private GameObject contentHolder;
 
-    private int currentBoldedLine = -1;
+    private List<int> currentAppliedLines = new List<int>();
     private int currentSentence = 1;
     
 
@@ -66,6 +66,7 @@ public class ReadingMechanicPanel : MonoBehaviour
     }
     public void NextLine()
     {
+        Debug.Log("currentSentenceBeforeNextLine: " + currentSentence);
         if (lineSelector.SetSliderToNthSentence(currentSentence + 1) == 0)
             currentSentence += 1;
         
@@ -75,11 +76,12 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void NextPage()
     {
-        RemoveBold();
         if (storyText.pageToDisplay < storyText.textInfo.pageCount)
         {
+            storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
 
+            currentAppliedLines.Clear();
             UpdateEnabledButtons();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay-1);
@@ -91,11 +93,12 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void PreviousPage()
     {
-        RemoveBold();
         if (storyText.pageToDisplay - 1 > 0)
         {
+            storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
 
+            currentAppliedLines.Clear();
             UpdateEnabledButtons();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay-1);
@@ -134,60 +137,86 @@ public class ReadingMechanicPanel : MonoBehaviour
         }
     }
 
-    public void BoldWordInLine()
+    void ColorLine(int lineIndex, Color color)
     {
-        // Ensure we have updated text info
-        storyText.ForceMeshUpdate();
+        TMP_TextInfo textInfo = storyText.textInfo;
 
-        int charCount = 0;
+        if (lineIndex < 0 || lineIndex >= textInfo.lineCount)
+        {
+            Debug.LogWarning("Invalid line index!");
+            return;
+        }
+
+        TMP_LineInfo lineInfo = textInfo.lineInfo[lineIndex];
+
+        for (int i = lineInfo.firstCharacterIndex; i <= lineInfo.lastCharacterIndex; i++)
+        {
+            if (!textInfo.characterInfo[i].isVisible) continue; // Skip hidden characters
+
+            int meshIndex = textInfo.characterInfo[i].materialReferenceIndex;
+            int vertexIndex = textInfo.characterInfo[i].vertexIndex;
+
+            Color32[] vertexColors = textInfo.meshInfo[meshIndex].colors32;
+
+            // Apply color to all four vertices of the character
+            vertexColors[vertexIndex + 0] = color;
+            vertexColors[vertexIndex + 1] = color;
+            vertexColors[vertexIndex + 2] = color;
+            vertexColors[vertexIndex + 3] = color;
+        }
+
+        // Apply the modified colors
+        storyText.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+    }
+
+    public void ApplyColorLine()
+    {
+
+        if (currentAppliedLines.Count == 0) // nothing highlighted yet
+        {
+             for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
+                ColorLine(lineSelector.nearestIndexes[i], Color.yellow);
+
+            currentAppliedLines = new List<int>(lineSelector.nearestIndexes);
+        }
+        
+        else if (!IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
+        // something has been already highlighted, and user wants to highlight something else
+         {
+            storyText.ForceMeshUpdate();
+            currentAppliedLines.Clear();
+        
+           for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
+                ColorLine(lineSelector.nearestIndexes[i], Color.yellow);
+
+            currentAppliedLines = new List<int>(lineSelector.nearestIndexes);
+
+           
+        }
+        else if (currentAppliedLines.Count != 0 && IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
+        // line indexes are the same
+        {
+            storyText.ForceMeshUpdate();
+            currentAppliedLines.Clear();
+        }
  
-        if (currentBoldedLine != lineSelector.nearestIndexes[lineSelector.nearestIndexes.Count-1]) {
-            RemoveBold();
+    }
 
-            TMP_TextInfo textInfo = storyText.textInfo;
-
-            TMP_LineInfo lineInfo = textInfo.lineInfo[lineSelector.nearestIndexes[0]];
-
-            for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
+    bool IsColoredLineIndexesSame(List<int> list1, List<int> list2)
+    {
+        if (list1.Count == list2.Count)
+        {
+            for(int i = 0; i < list1.Count; i++)
             {
-                charCount += textInfo.lineInfo[lineSelector.nearestIndexes[i]].characterCount;
+                if(list1[i] != list2[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
             }
 
-            Debug.Log("charCount: " + charCount);
-            
-            // TO-DO: make the text inbounds
-
-            // Extract full text from the line
-            string lineText = storyText.text.Substring(lineInfo.firstCharacterIndex, charCount);
-
-            // Replace the target word with a bold version
-            string boldText = "<b>" + lineText + "</b>";
-            string modifiedLine = lineText.Replace(lineText, boldText);
-
-            currentBoldedLine = lineSelector.nearestIndexes[lineSelector.nearestIndexes.Count-1];
-            
-
-
-            // Replace the original line in the full text
-            string modifiedText = storyText.text.Remove(lineInfo.firstCharacterIndex, charCount)
-                                .Insert(lineInfo.firstCharacterIndex, modifiedLine);
-
-            // Apply the new text
-            storyText.text = modifiedText;
-        }
-        else {
-            currentBoldedLine = -1;
-            RemoveBold();
-        }
-    }
-    void RemoveBold()
-    {
-        if (storyText.text.Contains("<b>"))
-        {
-           string cleanText = Regex.Replace(storyText.text, @"<\/?b>", "");
-
-             // Apply the cleaned text
-            storyText.text = cleanText;
-        }
-    }
+  
 }
