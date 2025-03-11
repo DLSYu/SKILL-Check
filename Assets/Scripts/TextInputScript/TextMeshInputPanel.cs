@@ -1,10 +1,7 @@
 using TMPro;
-using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(RectTransform))]
 public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
@@ -13,6 +10,7 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
     public RectTransform rt;
     public delegate void OnClick(TextMeshProUGUI _tmp);
     public static event OnClick onClick;
+    public string POS;
     private int wordIndex;
     void Awake()
     {
@@ -74,7 +72,7 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
         }
 
 
-
+        DictionaryReader.ReadDictionary(_tmp.textInfo.wordInfo[wordIndex].GetWord());
         Debug.Log(_tmp.textInfo.wordInfo[wordIndex].GetWord());
         onClick?.Invoke(_tmp);
     }

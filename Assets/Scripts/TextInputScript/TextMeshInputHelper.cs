@@ -1,13 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
-using System.Globalization;
-using System;
-using UnityEngine.UIElements;
-using UnityEngine.Rendering;
 
 public class TextMeshInputHelper : MonoBehaviour
 {
@@ -62,6 +54,8 @@ public class TextMeshInputHelper : MonoBehaviour
             ip.rt.sizeDelta = new Vector2(width, height);
             ip._tmp = _tmp;
             ip.SetWordIndex(i);
+
+            // Find the POS
         }
     }
 }
