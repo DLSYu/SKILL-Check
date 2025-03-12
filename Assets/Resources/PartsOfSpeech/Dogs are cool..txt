@@ -1,0 +1,4 @@
+0 NOUN
+1 AUX
+2 ADJ
+3 PUNCT
