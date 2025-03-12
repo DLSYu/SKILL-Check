@@ -38,6 +38,7 @@ public class PartOfSpeechGen : MonoBehaviour
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 WorkingDirectory = workingDirectory,
+                CreateNoWindow = true,
             }
         };
         process.Start();
@@ -58,7 +59,6 @@ public class PartOfSpeechGen : MonoBehaviour
         while (line != null && !line.Contains("PROCESS DONE"))
         {
             line = process.StandardOutput.ReadLine();
-            UnityEngine.Debug.Log(line);
             if (line != null && line.StartsWith("VALUE"))
             {
                 string[] splitLine = line.Split(' ').Skip(1).ToArray();
