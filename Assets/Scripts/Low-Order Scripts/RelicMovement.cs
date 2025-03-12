@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    public bool isMovable = true;
     private bool dragging = false;
 
     [SerializeField] private float holdMinDuration = 0.5f;
@@ -36,7 +37,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Invoke("StartDragging", holdMinDuration);
+        if (isMovable) Invoke("StartDragging", holdMinDuration);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -109,7 +110,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         {
             inCollisionWith = collision;
             newParent = collision.transform.GetComponent<RelicSlot>();
-            Debug.Log($"Staying at {collision.name}");
+            //Debug.Log($"Staying at {collision.name}");
         }
     }
 
@@ -118,7 +119,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (collision == inCollisionWith)
         {
             newParent = null;
-            Debug.Log($"Exited {collision.name}");
+            //Debug.Log($"Exited {collision.name}");
         }
     }
 

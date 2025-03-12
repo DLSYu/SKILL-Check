@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuickSortSortingGameManager : MonoBehaviour
 {
     //for Singleton
-    public static QuickSortSortingGameManager instance { get; private set; }
+    public static QuickSortSortingGameManager Instance { get; private set; }
 
     //for managing the entire game
-    public static GameObject inventoryPanel { get; private set; }
-    public static GameObject relicCheckedSlotsPanel { get; private set; }
-    public static List<GameObject> relicParts { get; set; }
+    public List<GameObject> relicParts { get; private set; }
+    public List<GameObject> shuffledRelicParts { get; private set; }
 
     //for managing the quick-sort mechanic
-    public static GameObject pivot { get; private set; }
+    public int pivotRandIndex { get; private set; } = -1;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this);
-        } else
-        {
-            instance = this;
-
-            DontDestroyOnLoad(this);
+            Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -40,30 +43,93 @@ public class QuickSortSortingGameManager : MonoBehaviour
         
     }
 
-    //public static void SetupInitScene(GameObject initialRelicPartsContainer)
+    //public void Initialize()
     //{
-    //    List<GameObject> initRelicParts = new List<GameObject>();
-
-    //    for (int i = 0; i < initialRelicPartsContainer.transform.childCount; i++)
+    //    for (int i = 0; i < transform.GetChild(0).childCount; i++)
     //    {
-    //        initRelicParts.Add(initialRelicPartsContainer.transform.GetChild(i).gameObject);
+    //        relicParts.Add(transform.GetChild(0).GetChild(i).gameObject);
     //    }
-    //    Shuffle<GameObject>(ref initRelicParts);
-    //    relicParts = initRelicParts;
+
+    //    shuffledRelicParts = relicParts;
+    //    shuffledRelicParts = Shuffle<GameObject>(shuffledRelicParts);
+
+    //    if (pivotRandIndex.IsUnityNull())
+    //    {
+    //        pivotRandIndex = Random.Range(2, 4);
+    //    }
     //}
 
-    public static void Shuffle<T>(ref List<T> list)
+    public GameObject GetPivot()
     {
-        int count = list.Count;
+        if(pivotRandIndex == -1) ChoosePivot();
+        return relicParts[pivotRandIndex];
+    }
+
+    public List<T> Shuffle<T>( List<T> list)
+    {
+        List<T> listToShuffle = list;
+        int count = listToShuffle.Count;
         int lastIndex = count - 1;
         int randIndex;
         for (int i = count - 1; i >= 0; i--)
         {
             randIndex = Random.Range(0, lastIndex);
-            var temp = list[i];
-            list[i] = list[randIndex];
-            list[randIndex] = temp;
+            var temp = listToShuffle[i];
+            listToShuffle[i] = listToShuffle[randIndex];
+            listToShuffle[randIndex] = temp;
             lastIndex--;
         }
+        return listToShuffle;
+    }
+
+    public void PutRelicPart (GameObject relicSlot, GameObject relicPart)
+    {
+        RelicSlot relicSlotComp = relicSlot.GetComponent<RelicSlot>();
+        relicSlotComp.RemoveRelic();
+        for (int i = 0; i < relicSlot.transform.childCount; i++)
+        {
+            Destroy(relicSlot.transform.GetChild(i).gameObject);
+        }
+
+        GameObject relicPartInst = Instantiate(relicPart, relicSlot.transform);
+        relicSlotComp.PlaceRelic(relicPart);
+        relicPartInst.transform.localPosition = Vector3.zero;
+        
+    }
+
+    public bool IsQuickSortCorrect (GameObject relicPart, bool checkForAfter)
+    {
+        int relicPartOrder = relicPart.GetComponent<StorySegment>().order;
+
+        Debug.Log($"check {relicPartOrder} vs {GetPivot().gameObject.GetComponent<StorySegment>().order}");
+
+        if (checkForAfter)
+        {
+            if (relicPartOrder > GetPivot().gameObject.GetComponent<StorySegment>().order) return true;
+
+            return false;
+        }
+        else
+        {
+            if (relicPartOrder < GetPivot().gameObject.GetComponent<StorySegment>().order) return true;
+
+            return false;
+        }
+    }
+
+    public void SetRelicPartsList(List<GameObject> relicPartsToSet)
+    {
+        relicParts = new List<GameObject>();
+        shuffledRelicParts = new List<GameObject>();
+
+        relicParts.AddRange(relicPartsToSet);
+        shuffledRelicParts.AddRange(Shuffle<GameObject>(relicPartsToSet));
+    }
+
+    private void ChoosePivot()
+    {
+        pivotRandIndex = Random.Range(2, 4);
+
+        Debug.Log($"{pivotRandIndex}");
     }
 }

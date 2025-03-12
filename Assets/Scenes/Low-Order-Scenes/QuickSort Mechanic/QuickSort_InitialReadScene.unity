@@ -1083,18 +1083,18 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961615300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 765.95087, y: 614.1755, z: 1007.0426}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 765.95087, y: 614.1755, z: 1007.0427}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1321835753}
-  - {fileID: 1388911444}
-  - {fileID: 1052821684}
-  - {fileID: 1855139723}
-  - {fileID: 13863412}
-  - {fileID: 598342026}
   - {fileID: 802154899}
+  - {fileID: 598342026}
+  - {fileID: 13863412}
+  - {fileID: 1855139723}
+  - {fileID: 1052821684}
+  - {fileID: 1388911444}
+  - {fileID: 1321835753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1052821683
@@ -1616,6 +1616,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Relic Part 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isRead
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2098,6 +2102,50 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7685013031262184835, guid: 6b36ec93450a527469fbf6bb631b6389, type: 3}
   m_PrefabInstance: {fileID: 1697479213}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1719700909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1719700911}
+  - component: {fileID: 1719700910}
+  m_Layer: 0
+  m_Name: QuickSortGameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1719700910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719700909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355fd44159767ed4fba7737624543dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1719700911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719700909}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 705.3223, y: 611.3939, z: 3071.803}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1855139722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2221,7 +2269,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1857304483}
-  - component: {fileID: 1857304485}
   - component: {fileID: 1857304484}
   m_Layer: 0
   m_Name: GameManager
@@ -2259,18 +2306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialRelicPartsContainer: {fileID: 961615300}
   initialRelicPanel: {fileID: 58589486}
---- !u!114 &1857304485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857304482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355fd44159767ed4fba7737624543dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  QuickSortSortingGameManagerObj: {fileID: 1719700909}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2280,3 +2316,4 @@ SceneRoots:
   - {fileID: 1464830173}
   - {fileID: 1857304483}
   - {fileID: 961615301}
+  - {fileID: 1719700911}

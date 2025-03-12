@@ -25,7 +25,7 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
     }
 
     // Called when a RelicPart is placed here
-    // return true if a swap happened and false if no placedRelic was found and no swap happened.
+    // return true if a swap happened and false if no placedRelic was found and no swap happened.s
     public bool PlaceRelic(GameObject relicToPlace)
     {
         bool toReturn = true;
@@ -47,13 +47,14 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
     public void RemoveRelic()
     {
         placedRelic = null;
+
     }
 
     public void SwapRelics (RelicSlot swapWith)
     {
         GameObject tempContatiner = placedRelic;
 
-        Debug.Log($"Swapping: {swapWith.name} and {name}");
+        //Debug.Log($"Swapping: {swapWith.name} and {name}");
 
         swapWith.placedRelic.GetComponent<RelicMovement>().OnSwap(this);
         swapWith.RemoveRelic();

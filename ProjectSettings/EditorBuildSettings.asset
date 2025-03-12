@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Low-Order-Scenes/Reading_Scene.unity
     guid: 2fc9eee0cf9c29349b5ab0cbb09616c4
+  - enabled: 1
+    path: Assets/Scenes/Low-Order-Scenes/QuickSort Mechanic/QuickSort_InitialReadScene.unity
+    guid: fe5dc70e707a8784ba1f31282c94b9a7
+  - enabled: 1
+    path: Assets/Scenes/Low-Order-Scenes/QuickSort Mechanic/QuickSort_PivotScene.unity
+    guid: 023f4ad9543de25478aa8a49d83831e4
+  - enabled: 1
+    path: Assets/Scenes/Low-Order-Scenes/QuickSort Mechanic/QuickSort_SortingScene.unity
+    guid: 65d0aca22ad7e5044b2c32d1b572b6dc
   m_configObjects: {}
