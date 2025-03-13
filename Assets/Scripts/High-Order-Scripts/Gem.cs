@@ -8,6 +8,7 @@ public class Gem : MonoBehaviour, IInteractable
     [SerializeField] private Door door;
     [SerializeField] private AudioClip gemSound;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private String gemName;
     [SerializeField] private String gemDescription;
 
@@ -29,6 +30,7 @@ public class Gem : MonoBehaviour, IInteractable
         audioSource.PlayOneShot(gemSound);
         
         gameObject.SetActive(false);
+        uiManager.openGemCanvas(gemDescription);
         // go to inventory
         //pop up modal with gemData
     }
