@@ -50,13 +50,23 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     private float EvaluateScore(){
         float score = 0.0f;
 
+        // temporary score
+        score = 0.4f;
+
         // Score evluation logic here
-        String completeText = field1.text + " " + field2.text + " " + field3.text;
-        String referenceText = doorObserver.GetCurrentDoor().referenceText;
+        string completeText = field1.text + " " + field2.text + " " + field3.text;
+        string referenceText = doorObserver.GetCurrentDoor().referenceText;
+        string keyWord = doorObserver.GetCurrentDoor().keyWord;
+
+        // String logic here
+        if (completeText.Contains(keyWord)){
+            score += 0.1f;
+            Debug.Log("KeyWord Bonus Points");
+        }
 
         Debug.Log(completeText + " " + referenceText);
 
-        score = 0.5f;
+        
 
         return score;
     }
