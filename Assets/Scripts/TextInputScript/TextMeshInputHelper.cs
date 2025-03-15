@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System;
+using System.Linq;
 
 public class TextMeshInputHelper : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class TextMeshInputHelper : MonoBehaviour
     public Canvas _canvas;
     public Camera _camera;
     public GameObject inputPanelPrefab;
+    public string[] posList;
 
     public void Awake()
     {
@@ -24,6 +27,14 @@ public class TextMeshInputHelper : MonoBehaviour
 
     public void Start()
     {
+        _tmp.ForceMeshUpdate();
+
+
+        TextAsset ta = Resources.Load<TextAsset>($"PartsOfSpeech/{_tmp.text}");
+        string text = ta.text.ToString().Trim();
+
+        posList = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
         _tmp.ForceMeshUpdate();
         AttachButtonsToWords();
     }
@@ -56,6 +67,24 @@ public class TextMeshInputHelper : MonoBehaviour
             ip.SetWordIndex(i);
 
             // Find the POS
+            ip.POS = posList[i];
+
+            POS value;
+            Enum.TryParse(ip.POS, out value);
+            if (value.ToString() == ip.POS.ToString())
+            {
+                ip.dictionaryDefinition = DictionaryReader.ReadDictionary(_tmp.textInfo.wordInfo[i].GetWord().ToLower(), value);
+            }
+            else
+            {
+                Destroy(ip.gameObject);
+                continue;
+            }
+
+            if (ip.dictionaryDefinition == null || !ip.dictionaryDefinition.exists)
+            {
+                Destroy(ip.gameObject);
+            }
         }
     }
 }

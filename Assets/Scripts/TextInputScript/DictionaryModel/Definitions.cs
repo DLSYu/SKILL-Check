@@ -11,3 +11,8 @@ public class Definitions
     public string pronoun { get; set; }
     public string preposition { get; set; }
 }
+
+public enum POS
+{
+    PROPN, NOUN, VERB, ADJ, ADV, CONJ, INTJ, PRON, NONE
+}

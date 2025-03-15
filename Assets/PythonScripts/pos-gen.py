@@ -8,9 +8,10 @@ if sys.argv[1] is None:
     print("No argument!")
     exit;
 doc = nlp(sys.argv[1])
-
-for token in doc:
-    print("VALUE", token.i, token.pos_)
+print("VALUE", doc[0].pos_, end=" ")
+for token in doc[1:]:
+    print(token.pos_, end=" ")
+print('\n')
 print("PROCESS DONE");
 
 

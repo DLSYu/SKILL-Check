@@ -1,7 +1,9 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
@@ -9,8 +11,9 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
     public TextMeshProUGUI _tmp;
     public RectTransform rt;
     public delegate void OnClick(TextMeshProUGUI _tmp);
-    public static event OnClick onClick;
+    public event OnClick onClick;
     public string POS;
+    public InTextDefinition dictionaryDefinition;
     private int wordIndex;
     void Awake()
     {
@@ -27,7 +30,6 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
             {
                 if (IsInsidePanel(touch.position))
                 {
-                    Debug.Log("Trying click in touch");
                     TryInvokeClick();
                 }
             }
@@ -37,7 +39,6 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
         {
             if (IsInsidePanel(Input.mousePosition))
             {
-                Debug.Log("Trying click in mouse");
                 TryInvokeClick();
             }
         }
@@ -58,7 +59,6 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
         Vector3 topRight = corners[2];
         if ((position.x > bottomLeft.x && position.x < topRight.x) && (position.y > bottomLeft.y && position.y < topRight.y))
         {
-            Debug.Log("True");
             return true;
         }
         return false;
@@ -71,9 +71,12 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
             Debug.LogError("TextInputPanel has no _TMP reference!");
         }
 
+        if (!dictionaryDefinition.exists)
+        {
+            Destroy(this.gameObject);
+        }
 
-        DictionaryReader.ReadDictionary(_tmp.textInfo.wordInfo[wordIndex].GetWord());
-        Debug.Log(_tmp.textInfo.wordInfo[wordIndex].GetWord());
+        Debug.Log(dictionaryDefinition);
         onClick?.Invoke(_tmp);
     }
 

@@ -50,7 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efabfc9298c790443a15a4fc9c84c8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tmp: {fileID: 0}
   rt: {fileID: 0}
+  POS: 
 --- !u!222 &-5201992468389235973
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4392157, g: 0.3040228, b: 0.3040228, a: 0}
+  m_Color: {r: 0.4392157, g: 0.3040228, b: 0.3040228, a: 0.7019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
