@@ -5,6 +5,7 @@ using System.Data;
 
 //using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,7 +20,12 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     // will change to serialized list later
     private DoorManager doorObserver;
     [SerializeField]
-    private TMP_InputField field1, field2, field3;
+    private TMP_InputField freeformField;
+    [SerializeField]
+    private TMP_InputField somebodyField, wantedField, butField, soField, thenField;
+    [SerializeField]
+    private ToggleWritingButton toggleWritingButton; // To get writing style
+    
     void Start()
     {
         
@@ -54,7 +60,17 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
         score = 0.4f;
 
         // Score evluation logic here
-        string completeText = field1.text + " " + field2.text + " " + field3.text;
+        string completeText = "";
+
+        // Get text from input field
+        if(toggleWritingButton.GetCurrentWritingStyle() == writingStyle.freeform){
+            completeText = freeformField.text;
+        }
+        else if(toggleWritingButton.GetCurrentWritingStyle() == writingStyle.swbst){
+            completeText = somebodyField.text + " " + wantedField.text + " " + 
+                            butField.text + " " + soField.text + " " + thenField.text;
+        }
+        
         string referenceText = doorObserver.GetCurrentDoor().referenceText;
         string keyWord = doorObserver.GetCurrentDoor().keyWord;
 
@@ -64,7 +80,8 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
             Debug.Log("KeyWord Bonus Points");
         }
 
-        Debug.Log(completeText + " " + referenceText);
+        Debug.Log("Written: " + completeText + "\n" +
+                "Reference: " + referenceText);
 
         
 
