@@ -30,7 +30,8 @@ public class Gem : MonoBehaviour, IInteractable
         audioSource.PlayOneShot(gemSound);
         
         gameObject.SetActive(false);
-        uiManager.openGemCanvas(gemDescription);
+        uiManager.openGemCanvas(gemDescription, gemName);
+        door.collectGem();
         // go to inventory
         //pop up modal with gemData
     }

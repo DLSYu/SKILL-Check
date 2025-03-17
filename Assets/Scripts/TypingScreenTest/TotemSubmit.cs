@@ -45,7 +45,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
         if (score >= 0.5f){
             this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
-            doorObserver.GetCurrentDoor().unlocked = true;  
+            doorObserver.GetCurrentDoor().unlockDoor();  
             doorObserver.SetNextDoor(); 
         }
         else{

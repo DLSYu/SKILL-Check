@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject JoystickCanvas;
     [SerializeField] private GameObject TypingCanvas;
     [SerializeField] private GameObject GemCanvas;
+    [SerializeField] private TMPro.TextMeshProUGUI gemTMProDescription, gemTMProName;
+    [SerializeField] private TMPro.TextMeshProUGUI keywordText;
+    [SerializeField] private DoorManager doorManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,13 @@ public class UIManager : MonoBehaviour
     public void openTypingScreen(){
         JoystickCanvas.SetActive(false);
         TypingCanvas.SetActive(true);
+
+        if(doorManager.GetCurrentDoor().checkIfKeywordUnlocked()){
+            keywordText.text = "Keyword: " + doorManager.GetCurrentDoor().keyWord;
+        }
+        else{
+            keywordText.text = "Keyword: ???";
+        }
     }
 
     public void exitTypingScreen(){
@@ -30,9 +40,10 @@ public class UIManager : MonoBehaviour
         JoystickCanvas.SetActive(true);
     }
 
-    public void openGemCanvas(String gemDescription)
+    public void openGemCanvas(String gemDescription, String gemName)
     {
-        GemCanvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = gemDescription;
+        this.gemTMProDescription.text = gemDescription;
+        this.gemTMProName.text = gemName;
         GemCanvas.SetActive(true);
         JoystickCanvas.SetActive(false);
     }
