@@ -22,11 +22,9 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Clicked");
-
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
-        StoryData.SetCurrentStage(currentStage);
+        StoryData.SetCurrentHighOrderStage(currentStage);
         loadingScreen.LoadScene("ReadingMechanicNew");
     }
 

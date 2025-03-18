@@ -9,6 +9,9 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
     private LoadingScreen loadingScreen;
     public void startGameScene()
     {
-        loadingScreen.LoadScene("PlatformerScene");
+        if (StoryData.currentGameMode == "HighOrder")
+            loadingScreen.LoadScene("PlatformerScene");
+        else if (StoryData.currentGameMode == "LowOrder")
+            loadingScreen.LoadScene("SortingScene");
     }
 }

@@ -2,22 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Refactor this later to be less brute forced
 public class StoryData : MonoBehaviour
 {
-    public static statueStage currentStage;
+    public static statueStage currentStatueStage;
+    public static bookStage currentBookStage;
+    public static string currentGameMode;
     private static string storyString;
 
 
-    public static void SetCurrentStage(statueStage stage)
+    public static void SetCurrentHighOrderStage(statueStage stage)
     {
         // conditionals for each stage to be implemented later
         // if (stage == statueStage.HO_1)
         // {
         //     storyString = "Once upon a time, in a faraway land, there was a kingdom called the Kingdom of Hearts. The kingdom was ruled by a kind and just king, who was loved by all his subjects. The king had a beautiful daughter, Princess Aurora, who was known for her kindness and beauty. The princess was loved by all the people of the kingdom, and many princes from neighboring kingdoms came to seek her hand in marriage. However, the princess was not interested in any of them, as she had not yet found her true love.";
         // }
-
+        currentGameMode = "HighOrder";
         storyString = "Juan Tamad and The Guava Tree\n\nOnce there was a boy named Juan Tamad, and he was very lazy. He always tried to find ways to avoid doing any work.\n\nOne day, he saw a guava tree with a shiny ripe fruit hanging low on a branch. It was so close that if he just reached out his arm and jumped a lottery, he could have grabbed it easily. But Juan, being clever in his own way, didn’t want to make any effort.\n\nHe thought, “Why should I reach for the fruit when I know it will come to me eventually?” So, He came up with a silly plan.\n\nJuan cleared the ground under the fruit and laid down, pretending to be a god with some berries in his hand. He thought he would wait there until the guava fruit fell right into his mouth. But while waiting, he fell asleep.\n\nAs he slept, some insects and juice accidentally fell on his face. He felt it and woke up. To his dismay, he saw a big bird eating the guava fruit. Juan was sad and hungry.\n\nHe went home with an empty stomach, realizing that his laziness had cost him the delicious fruit.\n\nFrom that day on, Juan learned a lesson. He understood that laziness doesn’t bring rewards, but hard work does.\n\nHe promised himself to be more active and not rely on shortcuts. And so, Juan Tamad’s story teaches us that it’s better to work hard and put in effort than to be lazy and miss out on the good things in life.";
-        currentStage = stage;
+        currentStatueStage = stage;
+    }
+
+    public static void SetCurrentLowOrderStage(bookStage stage)
+    {
+        currentGameMode = "LowOrder";
+        storyString = "Bakunawa and the Seven Moons\n\nOnce upon a time, in the ancient land of the Philippines, Bathala—a supreme god—created seven moons that lit up the earth. The moons illuminated each of the dark nights of the week and every evening was bright and glowed with beauty because of these moons.\n\nThis, however, caught the attention of one particular dragon—Bakunawa, a huge serpent-like dragon that coiled around the earth and ruled the oceans. Bakunawa lived deep in the ocean and was surrounded by darkness his whole life. Bakunawa saw the seven moons form in the sky and was amazed, he had simply never seen such beautiful things before! He was mesmerized by the moons’ radiant light and wanted to have them all.\n\nThe towering and ferocious Bukanawa yearned to possess all the moons and so one night, he sprung from the pitch-black ocean and bolted towards the sky—he opened his mouth as wide as he could around one of the moons and with one powerful swoop, swallowed it whole. As he did so, a huge wave of earthquake shook the ancient land of Philippines.\n\nBakunawa returned to his dwelling, satisfied that he had devoured a moon. Unfortunately, he soon realized the moon inside him was melting away like candle wax.\n\nBakunawa was furious! He wanted to take a moon that would last and so the next night, Bakunawa leapt towards the sky once more and swallowed another moon. But this too melted away. Bakunawa was infuriated and let out a loud roar in annoyance. \"Well, there are many more moons in the sky...I will eat them all if I have to!\" he huffed.\n\nNight after night he took a moon from the sky, and each time it melted away inside him.\n\nSoon, Bakunawa had devoured all—but one. \n\nThe ancient Filipinos, who suffered from the earthquakes that Bakunawa caused when he ate each moon, knew they had to do something or their world would be destroyed. Finally, they thought of an idea—they had heard that the Bakunawa was afraid of loud noises so they gathered some pots and pans and waited for the Bakunawa to appear again...\n\nOne fateful night, Bakunawa sprung out of the ocean once more, and with a terrifying screech, sped towards the last moon and locked its jaws around it. As Bakunawa's teeth grabbed hold of the seventh moon, the earth began to be engulfed in a deep and terrifying darkness.\n\nThe ancient Filipinos ran to the ocean while banging their pots and pans and shouted together \"Return our moon!\". Bakunawa was so startled by the loud sudden noise that it spat out the seventh moon just as it was about to swallow it whole. The dragon, frightened by the loud screams and noise coming from the people on land, hastily retreated to his caverns in the oceans while the deafening sounds grew louder and louder.\n\nThe last moon, now returned to the skies above, illuminated the dark skies once more, and the ancient Filipinos celebrated as the dragon hid inside his caves waiting for another chance to gobble up the last remaining moon.\n\nLittle did Bakunawa know, Bathala had seen what he had been doing to his moons. To prevent him from ever swallowing the last moon again and casting the earth in eternal darkness, Bathala planted tall bamboo trees so that Bakunawa would not be able to swallow the moon so easily. These bamboo trees looked like stains or dark spots on the surface of the moon from afar.\n\nBakunawa never gave up as he would attempt to swallow the last remaining moon in the sky from time to time. But the people guarded the moon with their own lives and remained on alert, ready to create thundering noises for the moon's return should Bakunawa return. As long as the bamboo trees remain on the moon, the dragon will never succeed in his evil deed.";
+        currentBookStage = stage;
     }
 
     public static string GetStoryString()
