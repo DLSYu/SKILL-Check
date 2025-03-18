@@ -22,7 +22,7 @@ namespace TMPro.Examples
 
         private Transform m_Transform;
 
-// Since this script is used for visual debugging, we exclude most of it in builds.
+        // Since this script is used for visual debugging, we exclude most of it in builds.
 #if UNITY_EDITOR
 
         void OnEnable()
@@ -439,7 +439,7 @@ namespace TMPro.Examples
         void DrawBounds()
         {
             Bounds meshBounds = m_TextComponent.bounds;
-            
+
             // Get Bottom Left and Top Right position of each word
             Vector3 bottomLeft = m_TextComponent.transform.position + (meshBounds.center - meshBounds.extents);
             Vector3 topRight = m_TextComponent.transform.position + (meshBounds.center + meshBounds.extents);
