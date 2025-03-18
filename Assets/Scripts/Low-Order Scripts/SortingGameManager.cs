@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Linq;
 
 public class SortingGameManager : MonoBehaviour
 {
     public static SortingGameManager Instance;
 
-    // Assign the RelicCheckedSlot component on the dragon in the Inspector.
-    public RelicCheckedSlot relicDragon;
+    [SerializeField] private bool forceCompletion = false;
 
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
     void Awake() => Instance = this;
+
+    // Dragon stuff
+    public GameObject fullDragon;
+    public List<RelicCheckedSlot> slots = new List<RelicCheckedSlot>();
+    public List<GameObject> allRelics;
 
     private void Update()
     {
@@ -21,13 +28,28 @@ public class SortingGameManager : MonoBehaviour
 
     public void CheckCompletion()
     {
-        // Check if the relic sequence is complete on the dragon
-        if (relicDragon.IsSequenceComplete)
+        bool allCorrect = slots.All(s => s.IsCorrect);
+
+        // Toggle final dragon
+        fullDragon.SetActive(allCorrect);
+
+        // Hide ALL dragon parts when completed
+        if (allCorrect)
         {
-            isGameCompleted = true; // Stop the timer
-            CalculateStars(); // Evaluate score based on time
-            Debug.Log("Sequence complete! Loading next scene...");
-            StartCoroutine(LoadEndSceneAfterDelay(2f)); // 2-second delay
+            foreach (var slot in slots)
+            {
+                if (slot.originalPart != null) slot.originalPart.SetActive(false);
+                if (slot.hiddenPart != null) slot.hiddenPart.SetActive(false);
+            }
+
+            // Hide relics
+            foreach (var relic in allRelics) relic.SetActive(false);
+        }
+
+        if (allCorrect && !isGameCompleted)
+        {
+            isGameCompleted = true;
+            StartCoroutine(LoadEndSceneAfterDelay(1f));
         }
     }
 
@@ -43,11 +65,12 @@ public class SortingGameManager : MonoBehaviour
 
     IEnumerator LoadEndSceneAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
-
-        // Save the elapsed time to PlayerPrefs
-        PlayerPrefs.SetFloat("ElapsedTime", timer);
-        PlayerPrefs.Save();
+        // Show dragon for 2 seconds before transition
+        if (fullDragon != null)
+        {
+            fullDragon.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+        }
 
         SceneManager.LoadScene("Sequence_End");
     }
