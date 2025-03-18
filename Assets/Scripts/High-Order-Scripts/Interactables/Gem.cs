@@ -9,30 +9,22 @@ public class Gem : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip gemSound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private String gemName;
     [SerializeField] private String gemDescription;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void Interact()
     {
         audioSource.PlayOneShot(gemSound);
-        
         gameObject.SetActive(false);
         uiManager.openGemCanvas(gemDescription, gemName);
         door.collectGem();
-        // go to inventory
-        //pop up modal with gemData
+        inventoryManager.addGemToInventory(this);
+    }
+
+    public string[] getGemData()
+    {
+        string[] gemData = { gemName, gemDescription };
+        return gemData;
     }
 }

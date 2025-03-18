@@ -209,6 +209,7 @@ MonoBehaviour:
   gemSound: {fileID: 8300000, guid: 85aca8acc1c1d4cef8afd4ee44042f8b, type: 3}
   audioSource: {fileID: 0}
   uiManager: {fileID: 0}
+  inventoryManager: {fileID: 0}
   gemName: 
   gemDescription: Write it
 --- !u!61 &9142425718951462978
