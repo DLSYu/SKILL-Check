@@ -69,7 +69,6 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
         if (!IsDraggingRelic())
         {
             Debug.Log($"Tapped on RelicSlot: {name}");
-            LoadReadingScene();
         }
     }
 
@@ -86,11 +85,5 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
             }
         }
         return false;
-    }
-
-    // Load the Reading_Scene
-    private void LoadReadingScene()
-    {
-        SceneManager.LoadScene("Reading_Scene");
     }
 }

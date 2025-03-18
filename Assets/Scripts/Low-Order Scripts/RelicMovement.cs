@@ -8,12 +8,15 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 {
     public bool isMovable = true;
     private bool dragging = false;
+    private bool isAttemptingDrag = false; // New flag to track drag attempt
 
     [SerializeField] private float holdMinDuration = 0.5f;
 
     private Vector3 initLocalScale;
     public RelicSlot originalParent { get; private set; } // The original RelicSlot
     [SerializeField] private RelicSlot newParent; // The new RelicPlace or RelicSlot
+
+    public RelicPopupHandler popupHandler; // Reference to RelicPopupHandler
 
     // Method for RelicSlot to check if the relic is being dragged
     public bool IsDragging()
@@ -37,7 +40,11 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isMovable) Invoke("StartDragging", holdMinDuration);
+        if (isMovable)
+        {
+            isAttemptingDrag = true;
+            Invoke("StartDragging", holdMinDuration);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -52,6 +59,17 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         CancelInvoke("StartDragging");
 
+        // Handle tap if we released before hold duration
+        if (isAttemptingDrag)
+        {
+            if (popupHandler != null)
+            {
+                popupHandler.OnRelicTapped();
+            }
+        }
+
+        isAttemptingDrag = false;
+
         if (dragging)
         {
             transform.localScale = initLocalScale;
@@ -60,10 +78,12 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             if (newParent != null)
             {
                 // Assign new RelicSlot into newParent
-                RelicSlot newRelicSlot = newParent.GetComponent<RelicSlot>();
+                // RelicSlot newRelicSlot = newParent.GetComponent<RelicSlot>();
+                RelicCheckedSlot dragonSlot = newParent as RelicCheckedSlot;
 
                 //Place RelicPart into newRelicSlot and check if swapped
                 //(true = swapped; false = not swapped)
+                /*
                 if (newRelicSlot.PlaceRelic(gameObject))
                 {
                     //Remove RelicPart of the previous RelicSlot
@@ -72,6 +92,30 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
                 //Assign new transfor.parent
                 transform.SetParent(newParent.transform);
+                */
+
+                if (dragonSlot != null)
+                {
+                    bool placedCorrectly = dragonSlot.TryPlaceRelic(gameObject);
+                    if (placedCorrectly)
+                    {
+                        transform.SetParent(newParent.transform);
+                        originalParent.RemoveRelic();
+                    }
+                    else
+                    {
+                        transform.SetParent(originalParent.transform);
+                    }
+                }
+                else
+                {
+                    RelicSlot newRelicSlot = newParent.GetComponent<RelicSlot>();
+                    if (newRelicSlot.PlaceRelic(gameObject))
+                    {
+                        originalParent.RemoveRelic();
+                    }
+                    transform.SetParent(newParent.transform);
+                }
 
             }
             else
@@ -98,19 +142,42 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void StartDragging()
     {
+        if (!isAttemptingDrag) return;
+
         StartCoroutine(SizeDown());
         transform.SetParent(transform.root); // Move to the root of the hierarchy
         transform.SetAsLastSibling(); // Ensure it renders on top
         dragging = true;
+        isAttemptingDrag = false; // Clear drag attempt
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        RelicCheckedSlot dragonSlot = collision.GetComponent<RelicCheckedSlot>();
+
         if (collision.transform.GetComponent<RelicSlot>())
         {
             inCollisionWith = collision;
             newParent = collision.transform.GetComponent<RelicSlot>();
             //Debug.Log($"Staying at {collision.name}");
+        }
+        else if (dragonSlot != null)
+        {
+            inCollisionWith = collision;
+            newParent = dragonSlot;
+        }
+        else
+        {
+            RelicSlot relicSlot = collision.GetComponent<RelicSlot>();
+            if (relicSlot != null)
+            {
+                inCollisionWith = collision;
+                newParent = relicSlot;
+            }
+            else
+            {
+                newParent = null;
+            }
         }
     }
 

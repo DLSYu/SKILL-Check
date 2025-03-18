@@ -5,7 +5,9 @@ using System.Collections;
 public class SortingGameManager : MonoBehaviour
 {
     public static SortingGameManager Instance;
-    public RelicCheckedSlot[] relicPlaces; // Array of RelicPlace objects
+
+    // Assign the RelicCheckedSlot component on the dragon in the Inspector.
+    public RelicCheckedSlot relicDragon;
 
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
@@ -19,21 +21,14 @@ public class SortingGameManager : MonoBehaviour
 
     public void CheckCompletion()
     {
-        foreach (var place in relicPlaces)
+        // Check if the relic sequence is complete on the dragon
+        if (relicDragon.IsSequenceComplete)
         {
-            if (!place.IsCorrect)
-            {
-                Debug.Log($"Incorrect relic in place: {place.name}");
-                return;
-            }
+            isGameCompleted = true; // Stop the timer
+            CalculateStars(); // Evaluate score based on time
+            Debug.Log("Sequence complete! Loading next scene...");
+            StartCoroutine(LoadEndSceneAfterDelay(2f)); // 2-second delay
         }
-
-        isGameCompleted = true; // Stop the timer
-
-        CalculateStars(); // Shows how many stars depending on time finished
-
-        // All relics are correct
-        StartCoroutine(LoadEndSceneAfterDelay(2f)); // 2-second delay
     }
 
     private void CalculateStars()
