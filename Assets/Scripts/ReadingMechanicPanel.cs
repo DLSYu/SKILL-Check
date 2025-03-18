@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 public class ReadingMechanicPanel : MonoBehaviour
 {
-    
+
     [SerializeField]
     private TextMeshProUGUI storyText;
 
@@ -20,7 +20,7 @@ public class ReadingMechanicPanel : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Button previousRelic;
 
-     [SerializeField]
+    [SerializeField]
     private UnityEngine.UI.Button nextRelic;
 
     [SerializeField]
@@ -37,14 +37,16 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     private List<int> currentAppliedLines = new List<int>();
     private int currentSentence = 1;
-    
+
 
     private List<GameObject> pagePrefabList = new List<GameObject>();
-    
+
 
 
     void Start()
     {
+        //this sets the story based on the static class
+        fullText = StoryData.GetStoryString();
         storyText.text = fullText;
         storyText.ForceMeshUpdate();
 
@@ -52,11 +54,11 @@ public class ReadingMechanicPanel : MonoBehaviour
 
         for (int i = 0; i < storyText.textInfo.pageCount; i++)
         {
-            pagePrefabList.Add(Instantiate(pagePrefab, contentHolder.transform)); 
+            pagePrefabList.Add(Instantiate(pagePrefab, contentHolder.transform));
         }
         ChangePagePrefab(0);
         currentSentence = 1;
-        
+
     }
 
     public void PreviousLine()
@@ -68,12 +70,12 @@ public class ReadingMechanicPanel : MonoBehaviour
     {
         if (lineSelector.SetSliderToNthSentence(currentSentence + 1) == 0)
             currentSentence += 1;
-        
+
     }
 
     void HighlightFirstLineOfNextPage()
-    {  
-        int lastLine = ReturnLastLine(storyText.pageToDisplay-1);
+    {
+        int lastLine = ReturnLastLine(storyText.pageToDisplay - 1);
 
         bool found = false;
         for (int i = 0; i < currentAppliedLines.Count && !found; i++)
@@ -91,15 +93,15 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             int firstLine = ReturnFirstLine(storyText.pageToDisplay);
             if (storyText.textInfo.lineInfo[firstLine].characterCount != 0)
-            {   
+            {
                 int i = 0;
                 bool hasHighlighted = false;
                 storyText.ForceMeshUpdate();
-                while(storyText.text.Substring(storyText.textInfo.lineInfo[firstLine+i].firstCharacterIndex, storyText.textInfo.lineInfo[firstLine+i].characterCount).Trim((char)8203).Trim().Length != 0 || !hasHighlighted)
+                while (storyText.text.Substring(storyText.textInfo.lineInfo[firstLine + i].firstCharacterIndex, storyText.textInfo.lineInfo[firstLine + i].characterCount).Trim((char)8203).Trim().Length != 0 || !hasHighlighted)
                 {
                     hasHighlighted = true;
-                    ColorLine(firstLine+i, Color.yellow);
-                    currentAppliedLines.Add(firstLine+i);
+                    ColorLine(firstLine + i, Color.yellow);
+                    currentAppliedLines.Add(firstLine + i);
                     i++;
                 }
                 currentAppliedLines.Sort();
@@ -148,13 +150,13 @@ public class ReadingMechanicPanel : MonoBehaviour
             }
         }
         // check if last line is highlighted
-            // if so, check if there's text on the next line
+        // if so, check if there's text on the next line
 
         return firstLine;
     }
     void HighlightLastLineOfPreviousPage()
     {
-        int firstLine = ReturnFirstLine(storyText.pageToDisplay+1);
+        int firstLine = ReturnFirstLine(storyText.pageToDisplay + 1);
         bool found = false;
         for (int i = 0; i < currentAppliedLines.Count && !found; i++)
         {
@@ -170,13 +172,13 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             int lastLine = ReturnLastLine(storyText.pageToDisplay);
             if (storyText.textInfo.lineInfo[lastLine].characterCount != 0)
-            {   
+            {
                 int i = 0;
                 storyText.ForceMeshUpdate();
-                while(storyText.text.Substring(storyText.textInfo.lineInfo[lastLine-i].firstCharacterIndex, storyText.textInfo.lineInfo[lastLine-i].characterCount).Trim((char)8203).Trim().Length != 0)
+                while (storyText.text.Substring(storyText.textInfo.lineInfo[lastLine - i].firstCharacterIndex, storyText.textInfo.lineInfo[lastLine - i].characterCount).Trim((char)8203).Trim().Length != 0)
                 {
-                    ColorLine(lastLine-i, Color.yellow);
-                    currentAppliedLines.Add(lastLine-i);
+                    ColorLine(lastLine - i, Color.yellow);
+                    currentAppliedLines.Add(lastLine - i);
                     i++;
                 }
                 currentAppliedLines.Sort();
@@ -196,10 +198,10 @@ public class ReadingMechanicPanel : MonoBehaviour
             UpdateEnabledButtons();
             HighlightFirstLineOfNextPage();
             lineSelector.ResetSliderToFirstLine();
-            ChangePagePrefab(storyText.pageToDisplay-1);
+            ChangePagePrefab(storyText.pageToDisplay - 1);
             currentSentence = 1;
         }
-    
+
 
     }
 
@@ -213,16 +215,16 @@ public class ReadingMechanicPanel : MonoBehaviour
             UpdateEnabledButtons();
             HighlightLastLineOfPreviousPage();
             lineSelector.ResetSliderToFirstLine();
-            ChangePagePrefab(storyText.pageToDisplay-1);
+            ChangePagePrefab(storyText.pageToDisplay - 1);
             currentSentence = 1;
         }
     }
 
     void UpdateEnabledButtons()
     {
-         if (storyText.pageToDisplay == 1)
+        if (storyText.pageToDisplay == 1)
             previousRelic.enabled = false;
-        
+
         else
             previousRelic.enabled = true;
 
@@ -239,12 +241,12 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             if (i != currentPage)
             {
-                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255,255,225,20);
+                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255, 255, 225, 20);
             }
 
             else
             {
-                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255,255,225,100);
+                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255, 255, 225, 100);
             }
         }
     }
@@ -271,7 +273,7 @@ public class ReadingMechanicPanel : MonoBehaviour
             vertexColors[vertexIndex + 2] = color;
             vertexColors[vertexIndex + 3] = color;
 
-            
+
         }
 
         // Apply the modified colors
@@ -283,24 +285,24 @@ public class ReadingMechanicPanel : MonoBehaviour
 
         if (currentAppliedLines.Count == 0) // nothing highlighted yet
         {
-             for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
+            for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
                 ColorLine(lineSelector.nearestIndexes[i], Color.yellow);
 
             currentAppliedLines = new List<int>(lineSelector.nearestIndexes);
         }
-        
+
         else if (!IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
         // something has been already highlighted, and user wants to highlight something else
-         {
+        {
             storyText.ForceMeshUpdate();
             currentAppliedLines.Clear();
-        
-           for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
+
+            for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
                 ColorLine(lineSelector.nearestIndexes[i], Color.yellow);
 
             currentAppliedLines = new List<int>(lineSelector.nearestIndexes);
 
-           
+
         }
         else if (currentAppliedLines.Count != 0 && IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
         // line indexes are the same
@@ -308,16 +310,16 @@ public class ReadingMechanicPanel : MonoBehaviour
             storyText.ForceMeshUpdate();
             currentAppliedLines.Clear();
         }
- 
+
     }
 
     bool IsColoredLineIndexesSame(List<int> list1, List<int> list2)
     {
         if (list1.Count == list2.Count)
         {
-            for(int i = 0; i < list1.Count; i++)
+            for (int i = 0; i < list1.Count; i++)
             {
-                if(list1[i] != list2[i])
+                if (list1[i] != list2[i])
                 {
                     return false;
                 }
@@ -327,9 +329,9 @@ public class ReadingMechanicPanel : MonoBehaviour
         return false;
     }
 
-    
 
 
 
-  
+
+
 }

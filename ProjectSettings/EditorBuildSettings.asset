@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Low-Order-Scenes/Sequence_End.unity
     guid: 84acacf53c8ee5147bd725f37a9462eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Low-Order-Scenes/Reading_Scene.unity
     guid: 2fc9eee0cf9c29349b5ab0cbb09616c4
   - enabled: 1
@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Low-Order-Scenes/QuickSort Mechanic/QuickSort_SortingScene.unity
     guid: 65d0aca22ad7e5044b2c32d1b572b6dc
+  - enabled: 1
+    path: Assets/Scenes/Tests/ReadingMechanicNew.unity
+    guid: 7aa7fd00349704540ba2bdce76fd8faa
   m_configObjects: {}
