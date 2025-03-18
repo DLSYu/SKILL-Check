@@ -40,8 +40,8 @@ public class TextBubblePopup : MonoBehaviour
         // Fade in
         yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 0f, 1f, fadeDuration));
 
-        // Wait for 5 seconds
-        yield return new WaitForSeconds(5f);
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3f);
 
         // Fade out
         yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1f, 0f, fadeDuration));

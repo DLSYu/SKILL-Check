@@ -59,96 +59,81 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         CancelInvoke("StartDragging");
 
-        // Handle tap if we released before hold duration
-        if (isAttemptingDrag)
+        if (isAttemptingDrag && popupHandler != null)
         {
-            if (popupHandler != null)
-            {
-                popupHandler.OnRelicTapped();
-            }
+            popupHandler.OnRelicTapped();
         }
-
         isAttemptingDrag = false;
 
         if (dragging)
         {
             transform.localScale = initLocalScale;
 
-            //Check if the relic was dropped into a RelicSlot
+            // Store previous parent
+            RelicSlot previousParent = originalParent;
+
             if (newParent != null)
             {
-                // Assign new RelicSlot into newParent
-                // RelicSlot newRelicSlot = newParent.GetComponent<RelicSlot>();
-                RelicCheckedSlot dragonSlot = newParent as RelicCheckedSlot;
-
-                //Place RelicPart into newRelicSlot and check if swapped
-                //(true = swapped; false = not swapped)
-                /*
-                if (newRelicSlot.PlaceRelic(gameObject))
-                {
-                    //Remove RelicPart of the previous RelicSlot
-                    originalParent.RemoveRelic();
-                }
-
-                //Assign new transfor.parent
+                // Move to new parent
                 transform.SetParent(newParent.transform);
-                */
+                transform.SetAsLastSibling(); // Add this line
+                transform.localPosition = Vector3.zero;
 
-                if (dragonSlot != null)
+                // Update new slot
+                RelicCheckedSlot newCheckedSlot = newParent.GetComponent<RelicCheckedSlot>();
+                if (newCheckedSlot != null)
                 {
-                    bool placedCorrectly = dragonSlot.TryPlaceRelic(gameObject);
-                    if (placedCorrectly)
-                    {
-                        transform.SetParent(newParent.transform);
-                        originalParent.RemoveRelic();
-                    }
-                    else
-                    {
-                        transform.SetParent(originalParent.transform);
-                    }
+                    newCheckedSlot.UpdateSlotVisuals(gameObject);
                 }
-                else
-                {
-                    RelicSlot newRelicSlot = newParent.GetComponent<RelicSlot>();
-                    if (newRelicSlot.PlaceRelic(gameObject))
-                    {
-                        originalParent.RemoveRelic();
-                    }
-                    transform.SetParent(newParent.transform);
-                }
-
             }
             else
             {
-                // If not dropped into a valid RelicSlot, return to the original RelicSlot
-                transform.SetParent(originalParent.transform);
+                // Return to original parent if exists
+                if (originalParent != null && originalParent.transform != null)
+                {
+                    transform.SetParent(originalParent.transform);
+                    transform.localPosition = Vector3.zero;
+                }
             }
 
-            transform.localPosition = Vector3.zero; // Reset position
-            dragging = false;
+            // Reset previous slot
+            if (previousParent != null)
+            {
+                RelicCheckedSlot previousCheckedSlot = previousParent.GetComponent<RelicCheckedSlot>();
+                if (previousCheckedSlot != null)
+                {
+                    previousCheckedSlot.UpdateSlotVisuals(null); // Pass null to reset
+                }
+            }
 
-            // Check if the sorting is complete
+            // Update original parent reference
+            originalParent = (newParent != null) ? newParent.GetComponent<RelicSlot>() : previousParent;
+
+            // Update game state
             SortingGameManager.Instance.CheckCompletion();
+            dragging = false;
         }
-        else
-        {
-            //tapped
-            //  - instantiate reading mechanic textbox
-        }
-
-        originalParent = transform.parent.GetComponent<RelicSlot>(); // Update the original parent
-        newParent = null;
     }
 
     private void StartDragging()
     {
         if (!isAttemptingDrag) return;
 
+        // Reset previous slot if coming from a checked slot
+        if (originalParent != null)
+        {
+            RelicCheckedSlot previousSlot = originalParent.GetComponent<RelicCheckedSlot>();
+            if (previousSlot != null)
+            {
+                previousSlot.ResetSlot();
+            }
+        }
+
         StartCoroutine(SizeDown());
-        transform.SetParent(transform.root); // Move to the root of the hierarchy
-        transform.SetAsLastSibling(); // Ensure it renders on top
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
         dragging = true;
-        isAttemptingDrag = false; // Clear drag attempt
+        isAttemptingDrag = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

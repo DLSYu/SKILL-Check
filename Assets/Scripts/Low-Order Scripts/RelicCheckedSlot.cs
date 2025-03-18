@@ -1,46 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-/*
- *  RelicCheckedSlot now functions as the drop zone on the dragon that checks relics in a defined sequence.
- */
 public class RelicCheckedSlot : RelicSlot
 {
-    [Tooltip("Assign the relic parts in the correct order (e.g., first element = Relic Part 3, etc.).")]
-    public List<GameObject> correctSequence;  // Correct order defined in the Inspector
+    public GameObject correctRelic;
+    public Image partialImage;
+    public Sprite defaultSprite;
+    public Sprite partialSprite;
+    private Image slotImage;
 
-    // Internal list to track which relics have been placed so far
-    private List<GameObject> placedRelics = new List<GameObject>();
+    public bool IsCorrect { get; private set; }
 
-    // Returns true when all relics have been correctly placed
-    public bool IsSequenceComplete => placedRelics.Count == correctSequence.Count;
-
-    // Call this method when a relic is dropped on the dragon.
-    // It checks if the relic is the expected one in the sequence.
-    public bool TryPlaceRelic(GameObject relic)
+    void Start()
     {
-        int currentIndex = placedRelics.Count;
-        if (currentIndex < correctSequence.Count)
-        {
-            if (relic == correctSequence[currentIndex])
-            {
-                placedRelics.Add(relic);
-                Debug.Log($"Correct relic {relic.name} placed at position {currentIndex + 1}");
-                return true;
-            }
-            else
-            {
-                Debug.Log($"Incorrect relic {relic.name} for position {currentIndex + 1}. Expected: {correctSequence[currentIndex].name}");
-                return false;
-            }
-        }
-        return false;
+        slotImage = GetComponent<Image>();
+        ResetSlot();
     }
 
-    // Method to reset the sequence if you want to allow reattempts.
-    public void ResetSequence()
+    public void UpdateSlotVisuals(GameObject relic)
     {
-        placedRelics.Clear();
+        bool hasRelic = relic != null;
+        bool isCorrect = hasRelic && (relic == correctRelic);
+
+        // Always show partial image when occupied
+        partialImage.enabled = hasRelic;
+
+        // Change color to indicate correctness without giving away answer
+        partialImage.color = isCorrect ? Color.white : new Color(1, 1, 1, 0.4f);
+
+        // Track correctness for game completion
+        IsCorrect = isCorrect;
+    }
+
+    public void ResetSlot()
+    {
+        IsCorrect = false;
+        partialImage.enabled = false;
+        slotImage.sprite = defaultSprite;
     }
 }
