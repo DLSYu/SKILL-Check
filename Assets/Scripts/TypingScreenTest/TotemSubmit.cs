@@ -39,6 +39,14 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        // Check if the object being dragged has the DraggableRelic component
+        DraggableRelic draggable = eventData.pointerDrag?.GetComponent<DraggableRelic>();
+        if (draggable == null)
+        {
+            // If the object is not a valid draggable object, ignore the drop
+            return;
+        }
+
         percentage.SetActive(true);
         float score = EvaluateScore();
 
