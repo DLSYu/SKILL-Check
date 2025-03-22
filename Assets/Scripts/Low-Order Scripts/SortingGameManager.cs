@@ -14,7 +14,18 @@ public class SortingGameManager : MonoBehaviour
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
-    void Awake() => Instance = this;
+    void Awake()
+    {
+        // Singleton pattern fix
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     // Dragon stuff
     public GameObject fullDragon;
@@ -23,7 +34,10 @@ public class SortingGameManager : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (!isGameCompleted) 
+        {
+            timer += Time.deltaTime;
+        }
     }
 
     public void CheckCompletion()
@@ -49,6 +63,7 @@ public class SortingGameManager : MonoBehaviour
         if (allCorrect && !isGameCompleted)
         {
             isGameCompleted = true;
+            CalculateStars();
             StartCoroutine(LoadEndSceneAfterDelay(1f));
         }
     }
@@ -65,12 +80,17 @@ public class SortingGameManager : MonoBehaviour
 
     IEnumerator LoadEndSceneAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         // Show dragon for 2 seconds before transition
         if (fullDragon != null)
         {
             fullDragon.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
         }
+
+        PlayerPrefs.SetFloat("ElapsedTime", timer);
+        PlayerPrefs.Save();
 
         SceneManager.LoadScene("Sequence_End");
     }

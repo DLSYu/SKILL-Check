@@ -43,6 +43,9 @@ public class EndSceneManager : MonoBehaviour
         // Add delay before stars appear 
         yield return new WaitForSeconds(0.5f);
 
+        // Wait until stars are properly initialized
+        yield return new WaitForEndOfFrame();
+
         // Activate stars one by one with animation
         for (int i = 0; i < starCount; i++)
         {
