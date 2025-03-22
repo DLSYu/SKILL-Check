@@ -1586,7 +1586,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 300536504}
+      objectReference: {fileID: 1141392454}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
@@ -1843,7 +1843,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 819594477}
+      objectReference: {fileID: 300536504}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
@@ -3688,7 +3688,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 1141392454}
+      objectReference: {fileID: 819594477}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
