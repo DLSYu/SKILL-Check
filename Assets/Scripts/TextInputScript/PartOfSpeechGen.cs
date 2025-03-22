@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +10,8 @@ using UnityEngine;
 public class PartOfSpeechGen : MonoBehaviour
 {
     private string scriptPath = Application.dataPath + "/PythonScripts/pos-gen.py";
-    private string condaPath = "D:/Programs/Miniconda";
+    // private string condaPath = "D:/Programs/Miniconda";
+    private string condaPath = "/Users/hanzpatrickyu/miniconda3";
     private string envName = "spacy";
 
     [ContextMenu("GeneratePOS")]
@@ -32,7 +32,7 @@ public class PartOfSpeechGen : MonoBehaviour
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = "cmd.exe",
+                FileName = IsWindows() ? "cmd.exe" : "/bin/bash",
                 RedirectStandardInput = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -47,12 +47,37 @@ public class PartOfSpeechGen : MonoBehaviour
         {
             if (sw.BaseStream.CanWrite)
             {
-                sw.WriteLine($"cmd.exe /K {condaPath}/Scripts/activate.bat {condaPath}"); // change this later depending on your path
-                sw.WriteLine($"conda activate {envName}"); // change this later depending on your environment file
+                if (IsWindows())
+                {
+                    sw.WriteLine($"cmd.exe /K {condaPath}/Scripts/activate.bat {condaPath}"); // change this later depending on your path
+                    sw.WriteLine($"conda activate {envName}"); // change this later depending on your environment file
+                    sw.WriteLine($"python {scriptPath} \"{text}\"");
+                }
+                else
+                {
+                    string spacyPythonPath = "/Users/hanzpatrickyu/anaconda3/envs/spacy/bin/python";
+                    sw.WriteLine($"{spacyPythonPath} \"{scriptPath}\" \"{text}\"");
+
+                }
+
             }
-            sw.WriteLine($"python {scriptPath} \"{text}\"");
+
             sw.Flush();
         }
+
+        // for debuggin
+        // string output = process.StandardOutput.ReadToEnd();
+        // string error = process.StandardError.ReadToEnd();
+
+        // if (!string.IsNullOrEmpty(output))
+        // {
+        //     UnityEngine.Debug.Log($"Python Output: {output}");
+        // }
+
+        // if (!string.IsNullOrEmpty(error))
+        // {
+        //     UnityEngine.Debug.LogError($"Python Error: {error}");
+        // }
 
         List<string> lines = new();
         string line = process.StandardOutput.ReadLine();
@@ -68,5 +93,10 @@ public class PartOfSpeechGen : MonoBehaviour
         }
         File.WriteAllLines(workingDirectory + $"/{text}.txt", lines);
         process.WaitForExit();
+    }
+
+    private bool IsWindows()
+    {
+        return SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows;
     }
 }

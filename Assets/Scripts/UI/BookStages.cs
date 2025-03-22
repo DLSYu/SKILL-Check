@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public enum bookStage
 {
+    Not_Book_Stage,
     LO_1,
     LO_2,
     LO_3,

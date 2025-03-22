@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 public enum statueStage
 {
+    Not_Statue_Stage,
     HO_1,
     HO_2,
     HO_3,
