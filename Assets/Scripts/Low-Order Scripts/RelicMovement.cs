@@ -13,7 +13,14 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private float holdMinDuration = 0.5f;
 
     private Vector3 initLocalScale;
-    public RelicSlot originalParent { get; private set; } // The original RelicSlot
+    // The original RelicSlot
+    private RelicSlot _originalParent;
+    public RelicSlot originalParent
+    {
+        get => _originalParent;
+        set => _originalParent = value;
+    }
+
     [SerializeField] private RelicSlot newParent; // The new RelicPlace or RelicSlot
 
     public RelicPopupHandler popupHandler; // Reference to RelicPopupHandler
@@ -70,48 +77,26 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (dragging)
         {
             transform.localScale = initLocalScale;
-
-            // Store previous parent
             RelicSlot previousParent = originalParent;
 
             if (newParent != null)
             {
-                // Move to new parent
-                transform.SetParent(newParent.transform);
-                transform.SetAsLastSibling(); // Add this line
-                transform.localPosition = Vector3.zero;
-
-                // Update new slot
-                RelicCheckedSlot newCheckedSlot = newParent.GetComponent<RelicCheckedSlot>();
-                if (newCheckedSlot != null)
-                {
-                    newCheckedSlot.UpdateSlotVisuals(gameObject);
-                }
+                newParent.PlaceRelic(gameObject);
             }
             else
             {
-                // Return to original parent if exists
-                if (originalParent != null && originalParent.transform != null)
-                {
-                    transform.SetParent(originalParent.transform);
-                    transform.localPosition = Vector3.zero;
-                }
+                previousParent.placedRelic = gameObject;
+                transform.SetParent(previousParent.transform);
+                transform.localPosition = Vector3.zero;
             }
 
-            // Reset previous slot
+            // Explicitly update previous parent visuals
             if (previousParent != null)
             {
-                RelicCheckedSlot previousCheckedSlot = previousParent.GetComponent<RelicCheckedSlot>();
-                if (previousCheckedSlot != null)
-                {
-                    previousCheckedSlot.UpdateSlotVisuals(null); // Pass null to reset
-                }
+                previousParent.UpdateCheckedSlotVisuals(previousParent);
             }
 
-            // Update original parent reference
-            originalParent = (newParent != null) ? newParent.GetComponent<RelicSlot>() : previousParent;
-
-            // Update game state
+            originalParent = newParent ?? originalParent;
             SortingGameManager.Instance.CheckCompletion();
             dragging = false;
         }
@@ -121,13 +106,13 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         if (!isAttemptingDrag) return;
 
-        // Reset previous slot if coming from a checked slot
+        // If coming from a checked slot, reset its visuals immediately
         if (originalParent != null)
         {
             RelicCheckedSlot previousSlot = originalParent.GetComponent<RelicCheckedSlot>();
             if (previousSlot != null)
             {
-                previousSlot.ResetSlot();
+                previousSlot.ResetToOriginal();
             }
         }
 
@@ -140,51 +125,26 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        RelicCheckedSlot dragonSlot = collision.GetComponent<RelicCheckedSlot>();
-
-        if (collision.transform.GetComponent<RelicSlot>())
+        RelicSlot slot = collision.GetComponent<RelicSlot>();
+        if (slot != null && slot != originalParent)
         {
-            inCollisionWith = collision;
-            newParent = collision.transform.GetComponent<RelicSlot>();
-            //Debug.Log($"Staying at {collision.name}");
-        }
-        else if (dragonSlot != null)
-        {
-            inCollisionWith = collision;
-            newParent = dragonSlot;
-        }
-        else
-        {
-            RelicSlot relicSlot = collision.GetComponent<RelicSlot>();
-            if (relicSlot != null)
-            {
-                inCollisionWith = collision;
-                newParent = relicSlot;
-            }
-            else
-            {
-                newParent = null;
-            }
+            newParent = slot;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision == inCollisionWith)
+        if (collision.GetComponent<RelicSlot>() == newParent)
         {
             newParent = null;
-            //Debug.Log($"Exited {collision.name}");
         }
     }
 
-    public RelicSlot OnSwap(RelicSlot destinationRelicSlot)
+    public void OnSwap(RelicSlot destinationRelicSlot)
     {
-        RelicSlot toReturn = originalParent;
-
+        _originalParent = destinationRelicSlot;
         transform.SetParent(destinationRelicSlot.transform);
-        originalParent = destinationRelicSlot;
         transform.localPosition = Vector3.zero;
-        return toReturn;
     }
 
     IEnumerator SizeDown()

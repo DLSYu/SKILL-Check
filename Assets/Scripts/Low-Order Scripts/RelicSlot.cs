@@ -28,38 +28,119 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
     // return true if a swap happened and false if no placedRelic was found and no swap happened.s
     public bool PlaceRelic(GameObject relicToPlace)
     {
-        bool toReturn = true;
+        if (placedRelic == relicToPlace)
+            return false;
 
-        //check if swap is necessary
-        if(placedRelic != null)
+        RelicMovement relicMovement = relicToPlace.GetComponent<RelicMovement>();
+        RelicSlot fromSlot = relicMovement?.originalParent;
+
+        if (placedRelic != null)
         {
-            // Takes care of setting the originalParent, newParent, transform.parent, and position.
-            SwapRelics(relicToPlace.GetComponent<RelicMovement>().originalParent);
-            toReturn = false;
+            if (fromSlot != null)
+            {
+                fromSlot.SwapRelics(this);
+            }
+            return true;
         }
-        
-        placedRelic = relicToPlace;
 
-        return toReturn;
+        // New placement
+        placedRelic = relicToPlace;
+        relicToPlace.transform.SetParent(transform);
+        relicToPlace.transform.localPosition = Vector3.zero;
+
+        // Clear original parent's relic reference
+        if (fromSlot != null)
+        {
+            fromSlot.placedRelic = null;
+            fromSlot.RemoveRelic(); // Triggers visual reset
+        }
+
+        UpdateCheckedSlotVisuals(this);
+        return true;
     }
 
     // Called when a RelicPart is removed
     public void RemoveRelic()
     {
+        // Clear the relic FIRST
+        GameObject removedRelic = placedRelic;
         placedRelic = null;
 
+        // Handle checked slot reset AFTER clearing
+        RelicCheckedSlot checkedSlot = GetComponent<RelicCheckedSlot>();
+        if (checkedSlot != null)
+        {
+            checkedSlot.ResetToOriginal();
+        }
     }
 
     public void SwapRelics (RelicSlot swapWith)
     {
-        GameObject tempContatiner = placedRelic;
+        GameObject currentRelic = placedRelic;
+        GameObject incomingRelic = swapWith.placedRelic;
 
-        //Debug.Log($"Swapping: {swapWith.name} and {name}");
+        // --- STEP 1: Reset visuals on the original checked slots (if applicable) ---
+        if (currentRelic != null)
+        {
+            RelicMovement currentMovement = currentRelic.GetComponent<RelicMovement>();
+            if (currentMovement != null && currentMovement.originalParent != null)
+            {
+                RelicCheckedSlot cs = currentMovement.originalParent.GetComponent<RelicCheckedSlot>();
+                if (cs != null)
+                {
+                    cs.ResetToOriginal();
+                }
+            }
+        }
+        if (incomingRelic != null)
+        {
+            RelicMovement incomingMovement = incomingRelic.GetComponent<RelicMovement>();
+            if (incomingMovement != null && incomingMovement.originalParent != null)
+            {
+                RelicCheckedSlot cs = incomingMovement.originalParent.GetComponent<RelicCheckedSlot>();
+                if (cs != null)
+                {
+                    cs.ResetToOriginal();
+                }
+            }
+        }
 
-        swapWith.placedRelic.GetComponent<RelicMovement>().OnSwap(this);
-        swapWith.RemoveRelic();
-        tempContatiner.GetComponent<RelicMovement>().OnSwap(swapWith);
-        swapWith.PlaceRelic(tempContatiner);
+        // --- STEP 2: Clear both slots immediately ---
+        this.placedRelic = null;
+        swapWith.placedRelic = null;
+
+        // --- STEP 3: Reparent relics (optionally animate the movement for smoothness) ---
+        if (currentRelic != null)
+        {
+            currentRelic.transform.SetParent(swapWith.transform);
+            // Replace the next line with a tween if desired, e.g., using DOTween:
+            // currentRelic.transform.DOLocalMove(Vector3.zero, 0.3f);
+            currentRelic.transform.localPosition = Vector3.zero;
+            swapWith.placedRelic = currentRelic;
+            currentRelic.GetComponent<RelicMovement>().originalParent = swapWith;
+        }
+
+        if (incomingRelic != null)
+        {
+            incomingRelic.transform.SetParent(this.transform);
+            incomingRelic.transform.localPosition = Vector3.zero;
+            this.placedRelic = incomingRelic;
+            incomingRelic.GetComponent<RelicMovement>().originalParent = this;
+        }
+
+        // --- STEP 4: Final visual update on both slots ---
+        UpdateCheckedSlotVisuals(this);
+        UpdateCheckedSlotVisuals(swapWith);
+    }
+
+    public void UpdateCheckedSlotVisuals(RelicSlot slot)
+    {
+        RelicCheckedSlot checkedSlot = slot.GetComponent<RelicCheckedSlot>();
+        if (checkedSlot != null)
+        {
+            // Update visuals even if no relic is present.
+            checkedSlot.UpdateSlotVisuals(slot.placedRelic);
+        }
     }
 
     // Detect tap/click on the RelicSlot
