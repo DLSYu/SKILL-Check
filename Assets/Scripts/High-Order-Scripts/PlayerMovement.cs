@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFingerMove(Finger MovedFinger)
     {
-        if (!isJoystickPanelActive.activeSelf){return;}
+        if (!isJoystickPanelActive.activeSelf) { return; }
 
         if (MovedFinger == MovementFinger)
         {
@@ -82,23 +82,23 @@ public class PlayerMovement : MonoBehaviour
         {
             MovementFinger = null;
             Joystick.Knob.anchoredPosition = Vector2.zero;
-            Joystick.gameObject.SetActive(false);
+            // Joystick.gameObject.SetActive(false);
             MovementAmount = Vector2.zero;
         }
     }
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        if (!isJoystickPanelActive.activeSelf){return;}
+        if (!isJoystickPanelActive.activeSelf) { return; }
 
         if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
         {
             isUsingKeyboard = false;
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
-            Joystick.gameObject.SetActive(true);
+            // Joystick.gameObject.SetActive(true);
             Joystick.RectTransform.sizeDelta = joystick_size;
-            Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
+            // Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
         }
     }
 
@@ -126,12 +126,12 @@ public class PlayerMovement : MonoBehaviour
         HandleKeyboardInput();
         this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
         UpdateAnimator();
-        
+
     }
 
     private void HandleKeyboardInput()
     {
-        if (!isJoystickPanelActive.activeSelf){return;}
+        if (!isJoystickPanelActive.activeSelf) { return; }
         Vector2 input = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
@@ -173,7 +173,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Interacting with object");
         }
     }
-    public void UpdateAnimator(){
+    public void UpdateAnimator()
+    {
 
         // x movement
         animator.SetFloat("Speed", MovementAmount.magnitude);
@@ -189,5 +190,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
 }

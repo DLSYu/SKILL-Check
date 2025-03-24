@@ -30,18 +30,20 @@ public class Door : MonoBehaviour, IInteractable
 
     // Start is called before the first frame update
 
-    void Start(){
+    void Start()
+    {
         startPosition = door.transform.position;
         movedPosition = new Vector3(startPosition.x, startPosition.y + 5f, startPosition.z);
         activeGemCount = gems.Length;
-    }    
+    }
     void Update()
     {
-        if (isDoorUnlocked){
+        if (isDoorUnlocked)
+        {
             openElapsedTime += Time.deltaTime;
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
-        } 
+        }
 
         checkIfUnlockKeyword();
 
@@ -63,39 +65,65 @@ public class Door : MonoBehaviour, IInteractable
     //     }
     // }
 
-   
+
     public void Interact()
     {
         uiManager.openTypingScreen();
     }
 
-    private void triggerDoorSound(){
-        if (isDoorUnlocked && !triggerOpenOnce){
+    private void triggerDoorSound()
+    {
+        if (isDoorUnlocked && !triggerOpenOnce)
+        {
             audioSource.PlayOneShot(doorSound);
             triggerOpenOnce = true;
         }
     }
 
-    private void checkIfUnlockKeyword(){
-        if(activeGemCount == 0){
+    private void checkIfUnlockKeyword()
+    {
+        if (activeGemCount == 0)
+        {
             isKeyWordUnlocked = true;
         }
     }
 
     // public functions
-    public bool checkIfDoorUnlocked(){
+    public bool checkIfDoorUnlocked()
+    {
         return isDoorUnlocked;
     }
 
-    public void unlockDoor(){
+    public void unlockDoor()
+    {
         isDoorUnlocked = true;
     }
 
-    public void collectGem(){
+    public void collectGem()
+    {
         activeGemCount--;
         Debug.Log("Gem collected. Remaining: " + activeGemCount);
     }
-    public bool checkIfKeywordUnlocked(){
+    public bool checkIfKeywordUnlocked()
+    {
         return isKeyWordUnlocked;
+    }
+
+    public Vector3 getDoorLocation()
+    {
+        return door.transform.position;
+    }
+
+    public List<Vector3> getActiveGemsLocations()
+    {
+        List<Vector3> activeGems = new List<Vector3>();
+        foreach (GameObject gem in gems)
+        {
+            if (gem.activeSelf)
+            {
+                activeGems.Add(gem.transform.position);
+            }
+        }
+        return activeGems;
     }
 }
