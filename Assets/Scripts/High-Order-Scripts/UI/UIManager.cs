@@ -17,6 +17,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private LoadingScreen loadingScreen;
 
+    private void Awake()
+    {
+        Screen.SetResolution(2000, 1200, true);
+    }
+
     public void openTypingScreen()
     {
         JoystickCanvas.SetActive(false);
