@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Low-Order-Scenes/SortingScene3.unity
     guid: b608892816786ef40b30f06e38f1835f
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/PlatformerScene2.unity
+    guid: 99cf399d0f81147ebba2aea482144361
   m_configObjects: {}

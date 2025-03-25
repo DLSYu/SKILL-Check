@@ -2553,7 +2553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 681025165}
-  currentStage: 1
+  currentStage: 2
 --- !u!61 &754807071
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5422,7 +5422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 681025165}
-  currentStage: 3
+  currentStage: 4
 --- !u!61 &1901463960
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5987,7 +5987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 681025165}
-  currentStage: 2
+  currentStage: 3
 --- !u!61 &2034120618
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6154,7 +6154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 681025165}
-  currentStage: 4
+  currentStage: 5
 --- !u!61 &2042535419
 BoxCollider2D:
   m_ObjectHideFlags: 0
