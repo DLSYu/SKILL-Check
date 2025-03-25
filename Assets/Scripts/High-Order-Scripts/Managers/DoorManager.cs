@@ -11,6 +11,10 @@ public class DoorManager : MonoBehaviour
     [SerializeField]
     private Door[] doorList;
     private int currentDoorIndex;
+    [SerializeField]
+    private GameObject percentage, scorePanel;
+    [SerializeField]
+    private UIManager uiManager;
 
     void Start()
     {
@@ -27,11 +31,18 @@ public class DoorManager : MonoBehaviour
         if (currentDoorIndex < doorList.Length - 1)
         {
             currentDoorIndex++;
+            uiManager.isScorePanelCleanable = true;
         }
 
         if (currentDoorIndex == doorList.Length - 1)
         {
             Debug.Log("All doors unlocked");
         }
+    }
+
+    public void clearScorePanel()
+    {
+        percentage.SetActive(false);
+        scorePanel.GetComponent<UnityEngine.UI.Image>().color = Color.white;
     }
 }

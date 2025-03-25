@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private DoorManager doorManager;
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private LoadingScreen loadingScreen;
+    public bool isScorePanelCleanable = false;
 
     private void Awake()
     {
@@ -41,6 +42,11 @@ public class UIManager : MonoBehaviour
     {
         TypingCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
+
+        if (isScorePanelCleanable)
+        {
+            doorManager.clearScorePanel();
+        }
     }
 
     public void openGemCanvas(String gemDescription, String gemName)
