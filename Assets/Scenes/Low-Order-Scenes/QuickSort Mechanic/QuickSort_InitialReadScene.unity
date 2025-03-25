@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Relic Part 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -757,6 +765,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Relic Part 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -862,6 +878,14 @@ PrefabInstance:
     - target: {fileID: 1169703596943430081, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Name
       value: Relic Part 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
@@ -1108,6 +1132,14 @@ PrefabInstance:
     - target: {fileID: 1169703596943430081, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Name
       value: Relic Part 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
@@ -1502,6 +1534,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Relic Part 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1619,6 +1659,14 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: isRead
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x
@@ -2157,6 +2205,14 @@ PrefabInstance:
     - target: {fileID: 1169703596943430081, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Name
       value: Relic Part 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: isMovable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979243684352774519, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: useWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: m_Pivot.x

@@ -18,6 +18,8 @@ public class QuickSortSortingGameManager : MonoBehaviour
 
     private void Awake()
     {
+        Screen.SetResolution(2000, 1200, true);
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -62,6 +64,7 @@ public class QuickSortSortingGameManager : MonoBehaviour
     public GameObject GetPivot()
     {
         if(pivotRandIndex == -1) ChoosePivot();
+        Debug.Log($"relicParts Count: {relicParts.Count}");
         return relicParts[pivotRandIndex];
     }
 
@@ -82,7 +85,7 @@ public class QuickSortSortingGameManager : MonoBehaviour
         return listToShuffle;
     }
 
-    public void PutRelicPart (GameObject relicSlot, GameObject relicPart)
+    public GameObject PutRelicPart (GameObject relicSlot, GameObject relicPart)
     {
         RelicSlot relicSlotComp = relicSlot.GetComponent<RelicSlot>();
         relicSlotComp.RemoveRelic();
@@ -92,8 +95,10 @@ public class QuickSortSortingGameManager : MonoBehaviour
         }
 
         GameObject relicPartInst = Instantiate(relicPart, relicSlot.transform);
-        relicSlotComp.PlaceRelic(relicPart);
+        relicSlotComp.placedRelic = relicPartInst;
         relicPartInst.transform.localPosition = Vector3.zero;
+
+        return relicPartInst;
         
     }
 
@@ -128,7 +133,7 @@ public class QuickSortSortingGameManager : MonoBehaviour
 
     private void ChoosePivot()
     {
-        pivotRandIndex = Random.Range(2, 4);
+        pivotRandIndex = Random.Range(2, 5);
 
         Debug.Log($"{pivotRandIndex}");
     }

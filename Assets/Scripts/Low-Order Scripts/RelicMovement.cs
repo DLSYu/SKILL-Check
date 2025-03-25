@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    [SerializeField] private bool useWorldSpace = false;
     public bool isMovable = true;
     private bool dragging = false;
     private bool isAttemptingDrag = false; // New flag to track drag attempt
@@ -37,7 +40,10 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     void Start()
     {
         initLocalScale = transform.localScale;
-        originalParent = transform.parent.GetComponent<RelicSlot>(); // Set the original parent (RelicSlot)
+        if (transform.parent.GetComponent<RelicSlot>() != null)
+        {
+            originalParent = transform.parent.GetComponent<RelicSlot>(); // Set the original parent (RelicSlot)
+        }
     }
 
     // Update is called once per frame
@@ -58,7 +64,16 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         if (dragging)
         {
-            transform.position = Input.mousePosition;
+            if (useWorldSpace)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                transform.position = ray.GetPoint(1000);
+            }
+            else
+            {
+                transform.position = Input.mousePosition;
+            }
+
         }
     }
 

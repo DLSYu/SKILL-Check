@@ -97,6 +97,8 @@ public class PivotSceneManager : MonoBehaviour
 
                 currRelicPartIndex = 0;
                 rightOrder = true;
+
+                QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
             }
         }
         else

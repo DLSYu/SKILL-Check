@@ -44,6 +44,8 @@ public class SortingGameManager : MonoBehaviour
     {
         bool allCorrect = slots.All(s => s.IsCorrect);
 
+        if (allCorrect) Debug.Log("ALL CORRECT!");
+
         // Toggle final dragon
         fullDragon.SetActive(allCorrect);
 
