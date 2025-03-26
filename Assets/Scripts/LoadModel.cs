@@ -8,6 +8,8 @@ public class LoadModel : MonoBehaviour
 
     void Awake()
     {
+        Screen.SetResolution(2000, 1200, true);
+
         bertScoreEval = new AndroidJavaClass("com.skillcheck.bertscore_aar.BertScoreEval");
         bertScoreEval.CallStatic("loadModel");
     }
