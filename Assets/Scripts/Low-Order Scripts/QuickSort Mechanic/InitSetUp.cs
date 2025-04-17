@@ -10,6 +10,7 @@ public class InitSetUp : MonoBehaviour
     [SerializeField] private GameObject initialRelicPartsContainer;
     [SerializeField] private GameObject initialRelicPanel;
     [SerializeField] private GameObject QuickSortSortingGameManagerObj;
+    [SerializeField] private GameObject popUpCanvas;
 
     private void Awake()
     {
@@ -46,13 +47,20 @@ public class InitSetUp : MonoBehaviour
             //toPlace.transform.localPosition = Vector3.zero;
         }
 
-        StartCoroutine(tempNextScene());
+        //StartCoroutine(tempNextScene());
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void NextScene()
+    {
+        initialRelicPartsContainer.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
+        popUpCanvas.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
+        SceneManager.LoadScene("QuickSort_PivotScene");
     }
 
     IEnumerator tempNextScene()

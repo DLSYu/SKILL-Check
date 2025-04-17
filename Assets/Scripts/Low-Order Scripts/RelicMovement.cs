@@ -27,6 +27,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private RelicSlot newParent; // The new RelicPlace or RelicSlot
 
     public RelicPopupHandler popupHandler; // Reference to RelicPopupHandler
+    private StorySegment storySegment;
 
     // Method for RelicSlot to check if the relic is being dragged
     public bool IsDragging()
@@ -39,6 +40,8 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     // Start is called before the first frame update
     void Start()
     {
+        storySegment = GetComponent<StorySegment>();
+
         initLocalScale = transform.localScale;
         if (transform.parent.GetComponent<RelicSlot>() != null)
         {
@@ -82,11 +85,16 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         CancelInvoke("StartDragging");
 
         // Handle tap if we released before hold duration
-        if (isAttemptingDrag && popupHandler != null)
+        //if (isAttemptingDrag && popupHandler != null)
+        //{
+        //    popupHandler.OnRelicTapped();
+        //}
+
+        if ((isAttemptingDrag || !isMovable) && storySegment != null)
         {
-            popupHandler.OnRelicTapped();
+            storySegment.ReadStorySegment();
         }
-        
+
         isAttemptingDrag = false;
 
         if (dragging)
