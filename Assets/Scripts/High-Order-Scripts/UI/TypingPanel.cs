@@ -69,5 +69,4 @@ public class TypingPanel : MonoBehaviour
         storyAndGemsPanel.SetActive(false);
 
     }
-
 }
