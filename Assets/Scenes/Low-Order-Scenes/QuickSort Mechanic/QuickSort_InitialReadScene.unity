@@ -138,10 +138,14 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 3
+      value: "On the way they were obliged to cross a wide and deep river, over which
+        there was no bridge, and as they were unable to find a boat, they determined
+        to swim across it. The dog said to the cat: \u201CGive me the magic ring.\u201D
+        \u201COh, no,\u201D replied the cat. \u201CDid you not hear the master say
+        just what each of us had to do?\u201D"
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -437,17 +441,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58589486}
   m_CullTransparentMesh: 1
---- !u!114 &94397204 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4823855787927290474, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
-  m_PrefabInstance: {fileID: 1765803944}
+--- !u!1 &96105914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96105915}
+  - component: {fileID: 96105917}
+  - component: {fileID: 96105916}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &96105915
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96105914}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600881331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.21101487}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &96105916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96105914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &96105917
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96105914}
+  m_CullTransparentMesh: 1
 --- !u!1001 &254537892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -909,6 +977,132 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540741897}
   m_CullTransparentMesh: 1
+--- !u!1 &540888560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540888561}
+  - component: {fileID: 540888564}
+  - component: {fileID: 540888563}
+  - component: {fileID: 540888562}
+  m_Layer: 5
+  m_Name: Scrollbar Vertical
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &540888561
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540888560}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 600881331}
+  m_Father: {fileID: 1091250942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -8.5}
+  m_SizeDelta: {x: 20, y: 0}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &540888562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540888560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 96105916}
+  m_HandleRect: {fileID: 96105915}
+  m_Direction: 2
+  m_Value: 1
+  m_Size: 0.78898513
+  m_NumberOfSteps: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &540888563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540888560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &540888564
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540888560}
+  m_CullTransparentMesh: 1
 --- !u!1001 &598342025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -924,10 +1118,16 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 2
+      value: "One day the rich man wished to send a magic ring to his daughter, so
+        he called the dog and the cat to him. To the cat he said: \u201CYou are very
+        cunning and prudent. You may carry this magic ring to my daughter, but be
+        sure to take very great care of it.\u201D To the dog he said: \u201CYou are
+        to go with the cat to take a magic ring to my daughter. Take care not to
+        lose the way, and see that no one molests the cat.\u201D Both animals promised
+        to do their best and set out immediately."
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -1035,6 +1235,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7353815102123788826, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
   m_PrefabInstance: {fileID: 598342025}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &600881330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 600881331}
+  m_Layer: 5
+  m_Name: Sliding Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &600881331
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600881330}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 96105915}
+  m_Father: {fileID: 540888561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &802154898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1050,10 +1286,16 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 1
+      value: Once upon a time there lived in a certain pueblo a rich man who had
+        a dog and a cat. His only daughter, of whom he was very fond, was studying
+        in a convent in a city several miles distant and it was his custom, about
+        once a week, to send the dog and cat to take her a little present. The dog
+        was so old that he had lost all his teeth, and so was unable to fight, but
+        the cat was strong and very cunning, and so one could help the other, since
+        the dog knew better how to find the way.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -1172,6 +1414,158 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b124305a9258c544eb5c1979204f3749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &838447024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 838447025}
+  - component: {fileID: 838447028}
+  - component: {fileID: 838447027}
+  - component: {fileID: 838447026}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &838447025
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838447024}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1740118929}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_SizeDelta: {x: 0, y: 166.6701}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &838447026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838447024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!114 &838447027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838447024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Once upon a time, in the ancient land of the Philippines, Bathala\u2014a
+    supreme god\u2014created seven moons that lit up the earth. The moons illuminated
+    each of the dark nights of the week and every evening was bright and glowed with
+    beauty because of these moons.  \r\n"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
+  m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4279578459
+  m_fontColor: {r: 0.35686275, g: 0.18431373, b: 0.08235294, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 75
+  m_fontSizeBase: 75
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 50, y: 50, z: 50, w: 50}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &838447028
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838447024}
+  m_CullTransparentMesh: 1
 --- !u!1001 &904353492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1327,10 +1721,17 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 5
+      value: "Then they began to swim across the river, which was so strong that
+        they were about= an hour in getting over, so that both became very tired
+        and weak. Just before they came to the other side, the dog dropped the ring
+        into the water, and it was impossible to find it. \u201CNow,\u201D said the
+        cat, \u201Cwe had better go back home and tell our master that we have lost
+        the ring.\u201D \u201CYes,\u201D answered the dog, \u201Cbut I am very much
+        afraid.\u201D So they turned back toward home, but as they drew near the
+        house his fear so overcame him that he ran away and was never seen again."
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -1581,6 +1982,114 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060760987}
+  m_CullTransparentMesh: 1
+--- !u!1 &1091250941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091250942}
+  - component: {fileID: 1091250945}
+  - component: {fileID: 1091250944}
+  - component: {fileID: 1091250943}
+  m_Layer: 5
+  m_Name: Scroll View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1091250942
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091250941}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1740118929}
+  - {fileID: 540888561}
+  m_Father: {fileID: 1321490263}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -2.8553467, y: 54.022827}
+  m_SizeDelta: {x: -77.31201, y: -176.82013}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1091250943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091250941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Content: {fileID: 838447025}
+  m_Horizontal: 0
+  m_Vertical: 1
+  m_MovementType: 1
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 1740118929}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 540888562}
+  m_HorizontalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 2
+  m_HorizontalScrollbarSpacing: -3
+  m_VerticalScrollbarSpacing: -3
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1091250944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091250941}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1091250945
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091250941}
   m_CullTransparentMesh: 1
 --- !u!1001 &1170576729
 PrefabInstance:
@@ -1886,10 +2395,19 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 7
+      value: "Then the master made a proclamation to the people, offering a reward
+        to the one who should find his old dog and bring him to him. They could recognize
+        the dog by his being old and having no teeth. The master also declared that
+        when he had found the delinquent he would punish him by cutting off his tail.
+        He ordered that the dogs all around the world should take part in the search,
+        and so ever since that time, when one dog meets another he always asks: \u201CAre
+        you the old dog who lost the magic ring? If you are, your tail must be cut
+        off.\u201D Then instantly both show their teeth and wag their tails to mean
+        no. Since that time, also, cats have been afraid of water, and will never
+        swim across a river if it can be avoided."
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -2024,10 +2542,22 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 6
+      value: "The master was very much surprised to see the cat back so soon, and
+        asked him, \u201CWhere is your companion?\u201D The cat was at first afraid
+        to answer. \u201CWhere is the dog?\u201D asked the master again. \u201COh,
+        he ran away,\u201D replied the cat. \u201CRan away?\u201D said the master.
+        \u201CWhat do you mean? Where is the ring?\u201D \u201COh, pardon me, my
+        master,\u201D answered the cat. \u201CDo not be angry, and I will tell you
+        what has happened. When we reached the bank of the river, the dog asked me
+        to give him the ring. This I refused many times, until at last he threatened
+        to kill me if I did not give it to him, and I was obliged to do so. The river
+        was very hard to cross, and on the way the dog dropped the ring into the
+        water and we could not find it. I persuaded the dog to come back with me
+        to tell you about it, but on the way he became so frightened that he ran
+        away.\u201D"
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -2568,6 +3098,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1740118928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740118929}
+  - component: {fileID: 1740118932}
+  - component: {fileID: 1740118931}
+  - component: {fileID: 1740118930}
+  m_Layer: 5
+  m_Name: Viewport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1740118929
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740118928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 838447025}
+  m_Father: {fileID: 1091250942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1740118930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740118928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!114 &1740118931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740118928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1740118932
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740118928}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1765803944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2582,6 +3202,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677566949364076406, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939516970646493883, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939516970646493883, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343919714858958195, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
@@ -2599,6 +3227,14 @@ PrefabInstance:
     - target: {fileID: 3343919714858958195, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: StorySegment, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617273390249258812, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4.3569946
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617273390249258812, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.765808
       objectReference: {fileID: 0}
     - target: {fileID: 6715973460098607695, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
       propertyPath: m_Pivot.x
@@ -2680,9 +3316,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7420864688277437277, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 169.26271
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888540129349069524, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888540129349069524, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2177450800415493427, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6715973460098607695, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1091250942}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce7d75a54c3be3243a2698ced8ab2bf0, type: 3}
 --- !u!1 &1853917783
@@ -2762,7 +3414,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
@@ -2802,10 +3454,14 @@ PrefabInstance:
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicText
       value: 
-      objectReference: {fileID: 94397204}
+      objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 4
+      value: "\u201CYes, but you are not very good at swimming, and may lose the
+        ring, while I am strong and can take good care of it,\u201D answered the
+        dog. The cat continued to refuse to disobey its master, until at last the
+        dog threatened to kill it, and it was obliged to entrust the ring to the
+        dog\u2019s keeping."
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel

@@ -135,6 +135,6 @@ public class QuickSortSortingGameManager : MonoBehaviour
     {
         pivotRandIndex = Random.Range(2, 5);
 
-        Debug.Log($"{pivotRandIndex}");
+        Debug.Log($"pivot: {pivotRandIndex}");
     }
 }

@@ -56,12 +56,12 @@ public class PivotSceneManager : MonoBehaviour
         bool result = QuickSortSortingGameManager.Instance.IsQuickSortCorrect(shuffledRelicParts[currRelicPartIndex], true);
         rightOrder = result && rightOrder;
 
-        currRelicPartIndex++;
-        if (pivot.GetComponent<StorySegment>().order == 
-            shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
-        {
-            currRelicPartIndex++;
-        }
+        //currRelicPartIndex++;
+        //if (pivot.GetComponent<StorySegment>().order == 
+        //    shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
+        //{
+        //    currRelicPartIndex++;
+        //}
 
         ResetScene();
     }
@@ -71,24 +71,23 @@ public class PivotSceneManager : MonoBehaviour
         bool result = QuickSortSortingGameManager.Instance.IsQuickSortCorrect(shuffledRelicParts[currRelicPartIndex], false);
         rightOrder = result && rightOrder;
 
-        currRelicPartIndex++;
-        if (pivot.GetComponent<StorySegment>().order ==
-            shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
-        {
-            currRelicPartIndex++;
-        }
+        //currRelicPartIndex++;
+        //if (pivot.GetComponent<StorySegment>().order ==
+        //    shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
+        //{
+        //    currRelicPartIndex++;
+        //}
 
         ResetScene();
     }
 
     private void ResetScene()
     {
-        Debug.Log($"shuffled index: {currRelicPartIndex}");
-
         if(currRelicPartIndex >= shuffledRelicParts.Count - 1)
         {
             if (rightOrder)
             {
+                Debug.Log($"shuffled index: {currRelicPartIndex}");
                 SceneManager.LoadScene("QuickSort_SortingScene");
             }
             else
@@ -99,12 +98,22 @@ public class PivotSceneManager : MonoBehaviour
                 rightOrder = true;
 
                 QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+                Debug.Log($"shuffled index: {currRelicPartIndex}");
             }
         }
         else
         {
-            QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+            currRelicPartIndex++;
 
+            // if next relic is same as pivot relic, skip this relic
+            if (pivot.GetComponent<StorySegment>().order ==
+                shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
+            {
+                currRelicPartIndex++;
+            }
+
+            QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+            Debug.Log($"shuffled index: {currRelicPartIndex}");
         }
     }
 }
