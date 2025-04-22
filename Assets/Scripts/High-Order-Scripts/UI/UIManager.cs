@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject JoystickCanvas;
     [SerializeField] private GameObject TypingCanvas;
     [SerializeField] private GameObject GemCanvas;
+    [SerializeField] private GameObject MenuAnimationHandler;
     [SerializeField] private GameObject MenuCanvas;
     [SerializeField] private GameObject InventoryCanvas;
     [SerializeField] private TMPro.TextMeshProUGUI InventoryText;
@@ -68,9 +69,13 @@ public class UIManager : MonoBehaviour
         //pause game
         //deactivate control canvas
         //open menu to go back to main menu
+
         Time.timeScale = 0;
-        MenuCanvas.SetActive(true);
         JoystickCanvas.SetActive(false);
+        MenuAnimationHandler.SetActive(true);
+        // Menu Canvas set active handled by UIAnimator
+
+
     }
 
     public void exitMenu()
@@ -79,6 +84,8 @@ public class UIManager : MonoBehaviour
         //activate control canvas
         //close menu
         Time.timeScale = 1;
+
+        MenuAnimationHandler.SetActive(false);
         MenuCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
     }
