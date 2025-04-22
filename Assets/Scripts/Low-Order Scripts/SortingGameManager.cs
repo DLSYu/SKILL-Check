@@ -70,6 +70,26 @@ public class SortingGameManager : MonoBehaviour
         }
     }
 
+    public void QuickSortCheckCompletion()
+    {
+        bool allCorrect = slots.All(s => s.IsCorrect);
+
+        if (allCorrect && !isGameCompleted)
+        {
+            isGameCompleted = true;
+            CalculateStars();
+            StartCoroutine(LoadEndSceneAfterDelay(1f));
+
+            PlayerPrefs.SetFloat("ElapsedTime", timer);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("Sequence_End");
+
+            Destroy(QuickSortSortingGameManager.Instance.gameObject);
+            Destroy(this.gameObject);
+        }
+    }
+
     private void CalculateStars()
     {
         int stars = 1; // Default: 1 star

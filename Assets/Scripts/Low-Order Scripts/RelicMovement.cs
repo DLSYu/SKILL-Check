@@ -10,6 +10,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 {
     [SerializeField] private bool useWorldSpace = false;
     public bool isMovable = true;
+    [SerializeField] private bool isQuickSort = false;
     private bool dragging = false;
     private bool isAttemptingDrag = false; // New flag to track drag attempt
 
@@ -120,8 +121,16 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             }
 
             originalParent = newParent ?? originalParent;
-            SortingGameManager.Instance.CheckCompletion();
-            dragging = false;
+            if (!isQuickSort)
+            {
+                SortingGameManager.Instance.CheckCompletion();
+            }
+            else
+            {
+                SortingGameManager.Instance.QuickSortCheckCompletion();
+            }
+
+                dragging = false;
         }
     }
 

@@ -45,22 +45,6 @@ public class QuickSortSortingGameManager : MonoBehaviour
         
     }
 
-    //public void Initialize()
-    //{
-    //    for (int i = 0; i < transform.GetChild(0).childCount; i++)
-    //    {
-    //        relicParts.Add(transform.GetChild(0).GetChild(i).gameObject);
-    //    }
-
-    //    shuffledRelicParts = relicParts;
-    //    shuffledRelicParts = Shuffle<GameObject>(shuffledRelicParts);
-
-    //    if (pivotRandIndex.IsUnityNull())
-    //    {
-    //        pivotRandIndex = Random.Range(2, 4);
-    //    }
-    //}
-
     public GameObject GetPivot()
     {
         if(pivotRandIndex == -1) ChoosePivot();

@@ -10,6 +10,7 @@ public class PivotSceneManager : MonoBehaviour
     private static List<GameObject> shuffledRelicParts;
     private static GameObject pivot;
     private static int currRelicPartIndex = 0;
+    private static int relicsChecked = 0;
 
     private static bool rightOrder = true;
 
@@ -40,6 +41,8 @@ public class PivotSceneManager : MonoBehaviour
         }
 
         QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+        relicsChecked++;
+
         QuickSortSortingGameManager.Instance.PutRelicPart(pivotSlot, pivot);
 
         Debug.Log($"shuffled index: {currRelicPartIndex}");
@@ -56,13 +59,6 @@ public class PivotSceneManager : MonoBehaviour
         bool result = QuickSortSortingGameManager.Instance.IsQuickSortCorrect(shuffledRelicParts[currRelicPartIndex], true);
         rightOrder = result && rightOrder;
 
-        //currRelicPartIndex++;
-        //if (pivot.GetComponent<StorySegment>().order == 
-        //    shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
-        //{
-        //    currRelicPartIndex++;
-        //}
-
         ResetScene();
     }
 
@@ -71,23 +67,17 @@ public class PivotSceneManager : MonoBehaviour
         bool result = QuickSortSortingGameManager.Instance.IsQuickSortCorrect(shuffledRelicParts[currRelicPartIndex], false);
         rightOrder = result && rightOrder;
 
-        //currRelicPartIndex++;
-        //if (pivot.GetComponent<StorySegment>().order ==
-        //    shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
-        //{
-        //    currRelicPartIndex++;
-        //}
-
         ResetScene();
     }
 
     private void ResetScene()
     {
-        if(currRelicPartIndex >= shuffledRelicParts.Count - 1)
+        if(relicsChecked >= shuffledRelicParts.Count - 1)
         {
             if (rightOrder)
             {
                 Debug.Log($"shuffled index: {currRelicPartIndex}");
+                SortingGameManager.Instance.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
                 SceneManager.LoadScene("QuickSort_SortingScene");
             }
             else
@@ -95,9 +85,17 @@ public class PivotSceneManager : MonoBehaviour
                 Debug.Log("WRONG ORDER. TRY AGAIN.");
 
                 currRelicPartIndex = 0;
+                relicsChecked = 0;
                 rightOrder = true;
 
+                if (pivot.GetComponent<StorySegment>().order ==
+                shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
+                {
+                    currRelicPartIndex++;
+                }
+
                 QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+                relicsChecked++;
                 Debug.Log($"shuffled index: {currRelicPartIndex}");
             }
         }
@@ -109,10 +107,21 @@ public class PivotSceneManager : MonoBehaviour
             if (pivot.GetComponent<StorySegment>().order ==
                 shuffledRelicParts[currRelicPartIndex].GetComponent<StorySegment>().order)
             {
+                //if (currRelicPartIndex >= shuffledRelicParts.Count - 1)
+                //{
+                //    currRelicPartIndex = 0;
+                //}
+                //else
+                //{
+                //    currRelicPartIndex++;
+                //}
+
                 currRelicPartIndex++;
+
             }
 
             QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+            relicsChecked++;
             Debug.Log($"shuffled index: {currRelicPartIndex}");
         }
     }

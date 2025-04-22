@@ -2317,7 +2317,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1857304483}
   - component: {fileID: 1857304484}
-  - component: {fileID: 1857304485}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2364,22 +2363,6 @@ MonoBehaviour:
   leftButton: {fileID: 1809590503}
   rightButton: {fileID: 927882782}
   cameraMoveDuration: 1
---- !u!114 &1857304485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857304482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a6472b9b8b4ba4497e1d26f2e3f00b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forceCompletion: 0
-  fullDragon: {fileID: 0}
-  slots: []
-  allRelics: []
 --- !u!1 &1941821840
 GameObject:
   m_ObjectHideFlags: 0
