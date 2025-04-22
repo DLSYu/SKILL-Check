@@ -57,7 +57,6 @@ public class PartOfSpeechGen : MonoBehaviour
                 {
                     string spacyPythonPath = "/Users/hanzpatrickyu/anaconda3/envs/spacy/bin/python";
                     sw.WriteLine($"{spacyPythonPath} \"{scriptPath}\" \"{text}\"");
-
                 }
 
             }
@@ -91,7 +90,9 @@ public class PartOfSpeechGen : MonoBehaviour
                 lines.Add(result);
             }
         }
-        File.WriteAllLines(workingDirectory + $"/{text}.txt", lines);
+        string title = GetTitle(text);
+        UnityEngine.Debug.Log(title);
+        File.WriteAllLines(workingDirectory + $"/{title}.txt", lines);
         process.WaitForExit();
     }
 
@@ -99,4 +100,37 @@ public class PartOfSpeechGen : MonoBehaviour
     {
         return SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows;
     }
+
+    private string GetTitle(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        // Convert escaped newlines ("\n" as text) into actual newlines
+        input = input.Replace("\\n", "\n");
+
+        // Normalize newlines
+        input = input.Replace("\r\n", "\n");
+
+        // Find the first occurrence of a double newline
+        int index = input.IndexOf("\n\n");
+
+        string title = index != -1 ? input.Substring(0, index) : input;
+
+        // Remove invalid filename characters
+        char[] invalidChars = Path.GetInvalidFileNameChars();
+        title = new string(title.Where(c => !invalidChars.Contains(c)).ToArray());
+
+        // Truncate title length
+        const int maxLength = 50;
+        if (title.Length > maxLength)
+        {
+            title = title.Substring(0, maxLength);
+        }
+
+        return title.Trim();
+    }
+
+
+
 }

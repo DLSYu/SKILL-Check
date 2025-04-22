@@ -34,6 +34,8 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     [SerializeField]
     private GameObject contentHolder;
+    [SerializeField]
+    private TextMeshInputHelper textInputHelper;
 
     private List<int> currentAppliedLines = new List<int>();
     private int currentSentence = 1;
@@ -45,8 +47,12 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     void Start()
     {
-        //this sets the story based on the static class
-        fullText = StoryData.GetStoryString();
+        // if story data not null, get the story string
+        if (!string.IsNullOrEmpty(StoryData.GetStoryString()))
+        {
+            fullText = StoryData.GetStoryString();
+        }
+
         storyText.text = fullText;
         storyText.ForceMeshUpdate();
 
@@ -194,6 +200,7 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
+            textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
             UpdateEnabledButtons();
             HighlightFirstLineOfNextPage();
@@ -211,6 +218,7 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
+            textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
             UpdateEnabledButtons();
             HighlightLastLineOfPreviousPage();

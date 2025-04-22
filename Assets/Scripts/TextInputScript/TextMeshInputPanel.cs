@@ -84,4 +84,9 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
     {
         this.wordIndex = wordIndex;
     }
+
+    public int GetWordIndex()
+    {
+        return wordIndex;
+    }
 }
