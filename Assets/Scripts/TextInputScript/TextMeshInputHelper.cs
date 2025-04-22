@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Linq;
+using System.IO;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class TextMeshInputHelper : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class TextMeshInputHelper : MonoBehaviour
     public Camera _camera;
     public GameObject inputPanelPrefab;
     public string[] posList;
+    private bool runOnce = false;
 
     public void Awake()
     {
@@ -27,17 +30,46 @@ public class TextMeshInputHelper : MonoBehaviour
 
     public void Start()
     {
-        _tmp.ForceMeshUpdate();
 
-
-        TextAsset ta = Resources.Load<TextAsset>($"PartsOfSpeech/{_tmp.text}");
-        string text = ta.text.ToString().Trim();
-
-        posList = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        _tmp.ForceMeshUpdate();
-        AttachButtonsToWords();
     }
+
+    public void Update()
+    {
+
+        if (!runOnce && IsTextLoaded())
+        {
+            _tmp.ForceMeshUpdate();
+
+            TextAsset ta;
+
+
+            string _title = GetTitle(_tmp.text);
+            ta = Resources.Load<TextAsset>($"PartsOfSpeech/{_title}");
+
+            string text = ta.text.ToString().Trim();
+
+            posList = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            _tmp.ForceMeshUpdate();
+            AttachButtonsToWords();
+            ActivateButtonsOnPage(1);
+
+            runOnce = true;
+        }
+
+    }
+
+    private bool IsTextLoaded()
+    {
+        if (string.IsNullOrEmpty(_tmp.text))
+        {
+            Debug.Log("TMP empty");
+            return false;
+        }
+        Debug.Log(_tmp.text);
+        return true;
+    }
+
 
     public void AttachButtonsToWords()
     {
@@ -49,13 +81,19 @@ public class TextMeshInputHelper : MonoBehaviour
             TMP_CharacterInfo firstCharacter = textInfo.characterInfo[wordInfo.firstCharacterIndex];
             TMP_CharacterInfo lastCharacter = textInfo.characterInfo[wordInfo.lastCharacterIndex];
 
-            Vector3 bottomLeft = firstCharacter.bottomLeft;
-            Vector3 topRight = lastCharacter.topRight;
+            // Convert character positions to world space
+            Vector3 bottomLeftWorld = _tmp.transform.TransformPoint(firstCharacter.bottomLeft);
+            Vector3 topRightWorld = _tmp.transform.TransformPoint(lastCharacter.topRight);
 
-            float posX = (bottomLeft.x + topRight.x) / 2;
-            float posY = (bottomLeft.y + topRight.y) / 2;
-            float width = Mathf.Abs(topRight.x - bottomLeft.x);
-            float height = Mathf.Abs(topRight.y - bottomLeft.y);
+            // Convert world space to local space of the parent panel
+            Vector3 bottomLeftLocal = rectTransform.InverseTransformPoint(bottomLeftWorld);
+            Vector3 topRightLocal = rectTransform.InverseTransformPoint(topRightWorld);
+
+            Vector3 scale = rectTransform.lossyScale;
+            float posX = (bottomLeftLocal.x + topRightLocal.x) / 2;
+            float posY = (bottomLeftLocal.y + topRightLocal.y) / 2;
+            float width = Mathf.Abs(topRightLocal.x - bottomLeftLocal.x);
+            float height = Mathf.Abs(topRightLocal.y - bottomLeftLocal.y);
 
             GameObject panel = Instantiate(inputPanelPrefab, this.transform);
             TextMeshInputPanel ip = panel.GetComponent<TextMeshInputPanel>();
@@ -86,5 +124,59 @@ public class TextMeshInputHelper : MonoBehaviour
                 Destroy(ip.gameObject);
             }
         }
+    }
+
+    public void ActivateButtonsOnPage(int page)
+    {
+        // This method is called when the page is changed
+        // Activate the buttons on the current page
+        TMP_TextInfo textInfo = _tmp.textInfo;
+
+        // Get all attached input panels
+        TextMeshInputPanel[] inputPanels = GetComponentsInChildren<TextMeshInputPanel>(true);
+
+        foreach (TextMeshInputPanel panel in inputPanels)
+        {
+            int wordIndex = panel.GetWordIndex(); // assuming this returns the correct word index
+            if (wordIndex < 0 || wordIndex >= textInfo.wordCount) continue;
+
+            TMP_WordInfo wordInfo = textInfo.wordInfo[wordIndex];
+            int charIndex = wordInfo.firstCharacterIndex;
+            int charPage = textInfo.characterInfo[charIndex].pageNumber + 1;
+
+            // Enable if it's on the current page
+            bool isOnPage = (charPage == page);
+            panel.gameObject.SetActive(isOnPage);
+        }
+    }
+
+    private string GetTitle(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        // Convert escaped newlines ("\n" as text) into actual newlines
+        input = input.Replace("\\n", "\n");
+
+        // Normalize newlines
+        input = input.Replace("\r\n", "\n");
+
+        // Find the first occurrence of a double newline
+        int index = input.IndexOf("\n\n");
+
+        string title = index != -1 ? input.Substring(0, index) : input;
+
+        // Remove invalid filename characters
+        char[] invalidChars = Path.GetInvalidFileNameChars();
+        title = new string(title.Where(c => !invalidChars.Contains(c)).ToArray());
+
+        // Truncate title length
+        const int maxLength = 50;
+        if (title.Length > maxLength)
+        {
+            title = title.Substring(0, maxLength);
+        }
+
+        return title.Trim();
     }
 }

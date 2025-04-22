@@ -22,58 +22,63 @@ public class UIAnimator : MonoBehaviour
     [Header("Adjust Parameters in Animation")]
 
     [SerializeField]
-	private int framesPerSprite = 4;
-     [SerializeField]
-	private bool loop = false;
-     [SerializeField]
-	private bool destroyOnEnd = false;
+    private int framesPerSprite = 4;
+    [SerializeField]
+    private bool loop = false;
+    [SerializeField]
+    private bool destroyOnEnd = false;
 
-     [SerializeField]
-	private int index = 0;
+    [SerializeField]
+    private int index = 0;
 
     [Header("Image to animate")]
 
     [SerializeField]
-	private Image image;
-	private int frame = 0;
+    private Image image;
 
-    void Awake()
+    private Coroutine animCoroutine;
+
+    void OnEnable()
     {
-        if (this.gameObject.activeSelf)
-        {
-            this.gameObject.GetComponent<Canvas>().sortingOrder = 0;
-            for (int i = 0; i < objectsToRemoveFromView.Length; i++)
-            {
-                objectsToRemoveFromView[i].SetActive(false);
-            }
-        }
+        if (animCoroutine != null)
+            StopCoroutine(animCoroutine);
+
+        animCoroutine = StartCoroutine(PlayAnimationUnscaled());
     }
-    void FixedUpdate () {
-        if (this.gameObject.activeSelf)
+
+    IEnumerator PlayAnimationUnscaled()
+    {
+        index = 0;
+
+        foreach (GameObject obj in objectsToRemoveFromView)
+            obj.SetActive(false);
+
+        float frameDuration = framesPerSprite / 60f; // adjust if needed
+        float timer = 0f;
+
+        while (loop || index < sprites.Length)
         {
-    
-            if (!loop && index == sprites.Length) return;
-            frame++;
+            image.sprite = sprites[index];
 
-            if (frame < framesPerSprite) return;
+            timer = 0f;
+            while (timer < frameDuration)
+            {
+                timer += Time.unscaledDeltaTime;
+                yield return null;
+            }
 
-            image.sprite = sprites [index];
-
-            frame = 0;
             index++;
-
-            if (index >= sprites.Length) {
+            if (index >= sprites.Length)
+            {
                 if (loop) index = 0;
-                else
-                    {
-                        foreach (GameObject obj in objectsToSetActiveAfterRunningAnimation)
-                        {
-                            obj.SetActive(true);
-                        }
-                    }
-                if (destroyOnEnd) Destroy (gameObject);
+                else break;
             }
         }
-	}
-    
+
+        foreach (GameObject obj in objectsToSetActiveAfterRunningAnimation)
+            obj.SetActive(true);
+
+        if (destroyOnEnd)
+            Destroy(gameObject);
+    }
 }

@@ -1487,6 +1487,7 @@ MonoBehaviour:
   lineSelector: {fileID: 1936567843}
   pagePrefab: {fileID: 826325564007529028, guid: 7304cd270aad13b468048613be84d55b, type: 3}
   contentHolder: {fileID: 1740454097}
+  textInputHelper: {fileID: 1245696831}
 --- !u!1 &932281042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +1981,7 @@ GameObject:
   - component: {fileID: 1245696829}
   - component: {fileID: 1245696828}
   - component: {fileID: 1245696830}
+  - component: {fileID: 1245696831}
   m_Layer: 5
   m_Name: StoryText
   m_TagString: Untagged
@@ -2115,16 +2117,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fd7550ad6c5d746915faa5f97d1162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowCharacters: 0
-  ShowWords: 0
+  ShowCharacters: 1
+  ShowWords: 1
   ShowLinks: 0
-  ShowLines: 1
+  ShowLines: 0
   ShowMeshBounds: 1
-  ShowTextBounds: 1
+  ShowTextBounds: 0
   ObjectStats: 'Characters: 0   Words: 0   Spaces: 0   Sprites: 0   Links: 0
 
     Lines:
     0   Pages: 0'
+--- !u!114 &1245696831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245696826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ca863ddfc191b468c472e5bba2bc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tmp: {fileID: 1245696828}
+  _canvas: {fileID: 323266630}
+  _camera: {fileID: 1364400962}
+  inputPanelPrefab: {fileID: 6649772367064517457, guid: c5699a90e4ec4c94499260f28e84093f, type: 3}
+  posList: []
 --- !u!1 &1352129612
 GameObject:
   m_ObjectHideFlags: 0
