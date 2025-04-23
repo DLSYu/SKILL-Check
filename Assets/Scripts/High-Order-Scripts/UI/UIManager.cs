@@ -1,18 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     [SerializeField] private GameObject JoystickCanvas;
     [SerializeField] private GameObject TypingCanvas;
     [SerializeField] private GameObject GemCanvas;
     [SerializeField] private GameObject MenuAnimationHandler;
     [SerializeField] private GameObject MenuCanvas;
     [SerializeField] private GameObject InventoryCanvas;
-    [SerializeField] private TMPro.TextMeshProUGUI InventoryText;
+    [SerializeField] private TMPro.TextMeshProUGUI InventoryGemDescriptionText;
+    [SerializeField] private TMPro.TextMeshProUGUI InventoryGemDescriptionType;
     [SerializeField] private TMPro.TextMeshProUGUI gemTMProDescription, gemTMProName;
+    [SerializeField] private GameObject gemScrollViewContent;
+    [SerializeField] private GameObject gemInventoryPrefab;
     [SerializeField] private TMPro.TextMeshProUGUI keywordText;
     [SerializeField] private DoorManager doorManager;
     [SerializeField] private InventoryManager inventoryManager;
@@ -21,6 +26,10 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton pattern
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
         Screen.SetResolution(2000, 1200, true);
     }
 
@@ -90,6 +99,12 @@ public class UIManager : MonoBehaviour
         JoystickCanvas.SetActive(true);
     }
 
+    public void updateInventoryGemSelectedText(string type, string description)
+    {
+        InventoryGemDescriptionType.text = type;
+        InventoryGemDescriptionText.text = description;
+    }
+
     public void openInventory()
     {
         //open inventory
@@ -100,16 +115,33 @@ public class UIManager : MonoBehaviour
         // get inventory canvas's scroll view
         // put panel and text for each gem in the inventory
         List<Gem> gemList = inventoryManager.getGems();
-        string tempText = "";
+
+        foreach (Transform child in gemScrollViewContent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
 
         foreach (Gem gem in gemList)
         {
             // get gemData
             string[] currentGemData = gem.getGemData();
-            tempText += currentGemData[0] + " - " + currentGemData[1] + "\n\n";
-        }
+            GameObject newGemPrefab = Instantiate(gemInventoryPrefab, gemScrollViewContent.transform);
+            newGemPrefab.GetComponent<GemInventoryPrefab>().setType(currentGemData[0]);
+            newGemPrefab.GetComponent<GemInventoryPrefab>().setDescription(currentGemData[1]);
 
-        InventoryText.text = tempText;
+            newGemPrefab.SetActive(true);
+        }
+        if (gemList.Count == 0)
+        {
+            InventoryGemDescriptionType.text = "";
+            InventoryGemDescriptionText.text = "No gem collected yet!";
+        }
+        else
+        {
+            InventoryGemDescriptionType.text = gemList[0].getGemData()[0];
+            InventoryGemDescriptionText.text = gemList[0].getGemData()[1];
+        }
     }
 
     public void exitInventory()
