@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private LoadingScreen loadingScreen;
     public bool isScorePanelCleanable = false;
 
+    private List<GameObject> gemInventoryGameObjectList = new List<GameObject>();
+
     private void Awake()
     {
         // Singleton pattern
@@ -105,6 +107,17 @@ public class UIManager : MonoBehaviour
         InventoryGemDescriptionText.text = description;
     }
 
+    public void inventoryGemHighlight(int id)
+    {
+        for (int i = 0; i < gemInventoryGameObjectList.Count; i++)
+        {
+            if (gemInventoryGameObjectList[i].GetComponent<GemInventoryPrefab>().getId() == id)
+                gemInventoryGameObjectList[i].GetComponent<GemInventoryPrefab>().setHighlight(true);
+            else
+                gemInventoryGameObjectList[i].GetComponent<GemInventoryPrefab>().setHighlight(false);
+        }
+    }
+
     public void openInventory()
     {
         //open inventory
@@ -116,12 +129,14 @@ public class UIManager : MonoBehaviour
         // put panel and text for each gem in the inventory
         List<Gem> gemList = inventoryManager.getGems();
 
+
         foreach (Transform child in gemScrollViewContent.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
+        gemInventoryGameObjectList.Clear();
 
-
+        int id = 0;
         foreach (Gem gem in gemList)
         {
             // get gemData
@@ -129,8 +144,10 @@ public class UIManager : MonoBehaviour
             GameObject newGemPrefab = Instantiate(gemInventoryPrefab, gemScrollViewContent.transform);
             newGemPrefab.GetComponent<GemInventoryPrefab>().setType(currentGemData[0]);
             newGemPrefab.GetComponent<GemInventoryPrefab>().setDescription(currentGemData[1]);
-
+            newGemPrefab.GetComponent<GemInventoryPrefab>().setId(id);
+            gemInventoryGameObjectList.Add(newGemPrefab);
             newGemPrefab.SetActive(true);
+            id++;
         }
         if (gemList.Count == 0)
         {
@@ -141,6 +158,7 @@ public class UIManager : MonoBehaviour
         {
             InventoryGemDescriptionType.text = gemList[0].getGemData()[0];
             InventoryGemDescriptionText.text = gemList[0].getGemData()[1];
+            inventoryGemHighlight(0);
         }
     }
 
