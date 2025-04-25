@@ -13,12 +13,36 @@ public class TypingPanel : MonoBehaviour
     [SerializeField]
     private GameObject freeFormPanel, swbstPanel;
     [SerializeField]
-    private GameObject storyPanel, gemsPanel, storyAndGemsPanel;
-    [SerializeField]
     private InventoryManager inventoryManager;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI storyText, gemsText;
+
     private writingStyle currentWritingStyle;
+
+
+    [Header("Story and Inventory Panel")]
+    [SerializeField]
+    private GameObject storyAndInventoryPanelHolder;
+
+    [SerializeField]
+    private GameObject storyTextContentHolder;
+
+    [SerializeField]
+    private GameObject storyTextObjectHolder;
+
+    [SerializeField]
+    private GameObject gemPrefab;
+    [SerializeField]
+    private GameObject gemScrollviewContentHolder;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI storyAndInventoryTitleText;
+    [SerializeField]
+    private GameObject gemScrollview;
+    [SerializeField]
+    private GameObject inventoryButton;
+    [SerializeField]
+    private GameObject storyButton;
+
+
+    private bool isCurrentlyShowingStory = true;
 
     public void ToggleWriting()
     {
@@ -43,30 +67,59 @@ public class TypingPanel : MonoBehaviour
 
     public void showStoryAndGems()
     {
-        storyPanel.SetActive(true);
-        gemsPanel.SetActive(true);
-        storyAndGemsPanel.SetActive(true);
         // storyText.text = inventoryManager.GetStory();
         // gemsText.text = inventoryManager.GetGems();
-        storyText.text = StoryData.GetStoryString();
+        storyTextContentHolder.GetComponent<TMPro.TextMeshProUGUI>().text = StoryData.GetStoryString();
         List<Gem> gemList = inventoryManager.getGems();
-        string tempText = "";
 
         foreach (Gem gem in gemList)
         {
             // get gemData
             string[] currentGemData = gem.getGemData();
-            tempText += currentGemData[0] + " - " + currentGemData[1] + "\n\n";
+            GameObject newGemPrefab = Instantiate(gemPrefab, gemScrollviewContentHolder.transform);
+            newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemType(currentGemData[0]);
+            newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemDescription(currentGemData[1]);
+            newGemPrefab.SetActive(true);
+
         }
 
-        gemsText.text = tempText;
+        storyAndInventoryPanelHolder.SetActive(true);
+
+
+
+    }
+
+    public void swapStoryAndInventory()
+    {
+        if (isCurrentlyShowingStory)
+        {
+            storyButton.SetActive(true);
+            storyTextObjectHolder.SetActive(false);
+            inventoryButton.SetActive(false);
+            gemScrollview.SetActive(true);
+            isCurrentlyShowingStory = false;
+            storyAndInventoryTitleText.text = "Inventory";
+        }
+        else
+        {
+            storyButton.SetActive(false);
+            storyTextObjectHolder.SetActive(true);
+            inventoryButton.SetActive(true);
+            gemScrollview.SetActive(false);
+            isCurrentlyShowingStory = true;
+            storyAndInventoryTitleText.text = "Story";
+        }
+
     }
 
     public void hideStoryAndGems()
     {
-        storyPanel.SetActive(false);
-        gemsPanel.SetActive(false);
-        storyAndGemsPanel.SetActive(false);
+
+        foreach (Transform child in gemScrollviewContentHolder.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        storyAndInventoryPanelHolder.SetActive(false);
 
     }
 }
