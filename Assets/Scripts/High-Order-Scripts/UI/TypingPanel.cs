@@ -17,6 +17,8 @@ public class TypingPanel : MonoBehaviour
 
     private writingStyle currentWritingStyle;
 
+    [SerializeField] private TMPro.TextMeshProUGUI freeformOrSWBSTTitleText;
+
 
     [Header("Story and Inventory Panel")]
     [SerializeField]
@@ -42,6 +44,8 @@ public class TypingPanel : MonoBehaviour
     private GameObject storyButton;
 
 
+
+
     private bool isCurrentlyShowingStory = true;
 
     public void ToggleWriting()
@@ -51,12 +55,14 @@ public class TypingPanel : MonoBehaviour
             currentWritingStyle = writingStyle.swbst;
             swbstPanel.SetActive(true);
             freeFormPanel.SetActive(false);
+            freeformOrSWBSTTitleText.text = "SWBST";
         }
         else
         {
             currentWritingStyle = writingStyle.freeform;
             freeFormPanel.SetActive(true);
             swbstPanel.SetActive(false);
+            freeformOrSWBSTTitleText.text = "Freeform";
         }
     }
 

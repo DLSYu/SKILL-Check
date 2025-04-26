@@ -17,11 +17,11 @@ using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class TotemSubmit : MonoBehaviour, IDropHandler
+public class GateSubmit : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private GameObject percentage;
+    private TextMeshProUGUI percentage;
     [SerializeField]
     // will change to serialized list later
     private DoorManager doorObserver;
@@ -31,6 +31,15 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
     private TMP_InputField somebodyField, wantedField, butField, soField, thenField;
     [SerializeField]
     private TypingPanel typingPanelData; // To get writing style
+
+    [Header("Results Panel")]
+    [SerializeField]
+    private TextMeshProUGUI resultsScoreText;
+    [SerializeField]
+    private TextMeshProUGUI resultsResultsText;
+    [SerializeField]
+    private GameObject resultsPanelHolder;
+
 
     private AndroidJavaClass bertScoreEval;
 
@@ -54,18 +63,9 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
 
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnSubmitButton()
     {
         if (!submitable) return;
-
-        // Check if the object being dragged has the DraggableRelic component
-        DraggableRelic draggable = eventData.pointerDrag?.GetComponent<DraggableRelic>();
-        if (draggable == null)
-        {
-            // If the object is not a valid draggable object, ignore the drop
-            return;
-        }
-
         //percentage.SetActive(true);
         float score = EvaluateScore();
 
@@ -74,20 +74,27 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
             Application.platform == RuntimePlatform.OSXEditor ||
             Application.platform == RuntimePlatform.WindowsEditor)
         {
-            percentage.GetComponent<TextMeshProUGUI>().text = score.ToString();
-            percentage.SetActive(true);
+            percentage.text = "Score: " + score.ToString();
+            resultsScoreText.text = "Score: " + score.ToString();
 
             if (score >= 0.5f)
             {
-                this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+                resultsResultsText.text = "Cleared!";
+                //this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
                 doorObserver.GetCurrentDoor().unlockDoor();
                 doorObserver.SetNextDoor();
             }
             else
             {
-                this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                resultsResultsText.text = "Try again!";
+                //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
+            resultsPanelHolder.SetActive(true);
         }
+    }
+    public void DismissResultsScreen()
+    {
+        resultsPanelHolder.SetActive(false);
     }
 
     private float EvaluateScore()
@@ -124,7 +131,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
         Debug.Log("Written: " + completeText + "\n" +
                 "Reference: " + referenceText);
 
-        if(Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android)
         {
             List<string> candidatesText = Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>();
             List<string> referencesText = Regex.Split(referenceText, @"(?<=[\.!\?])\s+").ToList<string>();
@@ -135,7 +142,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
             referencesText.Clear();
         }
 
-            return score;
+        return score;
     }
 
     private void CallBertScoreEval(List<string> candidates, List<string> references, float currScore)
@@ -152,7 +159,6 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
             javaReferences.Call<bool>("add", reference);
         }
 
-        percentage.SetActive(true);
         bertScoreEval.CallStatic("evaluate", javaCandidates, javaReferences, new BertCallback(percentage, currScore, (value) => { submitable = value; }, (score, toAdd) => { ShowScore(score, toAdd); }));
     }
 
@@ -161,29 +167,40 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
         Debug.Log($"score = {score}; toAdd = {toAdd}");
 
         //percentage.SetActive(true);
-        percentage.GetComponent<TextMeshProUGUI>().text = $"{score + toAdd}";
+        percentage.text = "Score: " + $"{score + toAdd}";
+        resultsScoreText.text = "Score: " + $"{score + toAdd}";
 
         if (score + toAdd >= 0.5f)
         {
-            this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+            // this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
         }
         else
         {
-            this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+            // this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
         }
 
     }
 
+    public void clearAllfields()
+    {
+        freeformField.text = "";
+        somebodyField.text = "";
+        wantedField.text = "";
+        butField.text = "";
+        soField.text = "";
+        thenField.text = "";
+    }
+
     public class BertCallback : AndroidJavaProxy
     {
-        private GameObject percentage;
+        private TextMeshProUGUI percentage;
         private float score;
         private Action<bool> setSubmitable;
         private Action<float, float> showScore;
 
-        public BertCallback(GameObject percentage, float score, Action<bool> setSubmitable, Action<float, float> showScore) : base("com.skillcheck.bertscore_aar.BertScoreEval$BertCallback")
+        public BertCallback(TextMeshProUGUI percentage, float score, Action<bool> setSubmitable, Action<float, float> showScore) : base("com.skillcheck.bertscore_aar.BertScoreEval$BertCallback")
         {
             //this.precision = precision;
             //this.recall = recall;
@@ -209,7 +226,7 @@ public class TotemSubmit : MonoBehaviour, IDropHandler
             float f1 = float.Parse(scores[2], CultureInfo.InvariantCulture.NumberFormat);
             //percentage.GetComponent<TextMeshProUGUI>().text = $"{score + f1}";
 
-            showScore(score, f1/2);
+            showScore(score, f1 / 2);
 
             setSubmitable(true);
         }

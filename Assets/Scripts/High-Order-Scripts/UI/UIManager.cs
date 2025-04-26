@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private DoorManager doorManager;
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private LoadingScreen loadingScreen;
+    [SerializeField] private GateSubmit gateSubmit;
     public bool isScorePanelCleanable = false;
 
     private List<GameObject> gemInventoryGameObjectList = new List<GameObject>();
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
 
     public void openTypingScreen()
     {
+        Time.timeScale = 0;
         JoystickCanvas.SetActive(false);
         TypingCanvas.SetActive(true);
 
@@ -55,14 +57,18 @@ public class UIManager : MonoBehaviour
         TypingCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
 
+
         if (isScorePanelCleanable)
         {
             doorManager.clearScorePanel();
+            gateSubmit.clearAllfields();
         }
+        Time.timeScale = 1;
     }
 
     public void openGemCanvas(String gemDescription, String gemName)
     {
+        Time.timeScale = 0;
         this.gemTMProDescription.text = gemDescription;
         this.gemTMProName.text = gemName;
         GemCanvas.SetActive(true);
@@ -73,6 +79,7 @@ public class UIManager : MonoBehaviour
     {
         GemCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
+        Time.timeScale = 1;
     }
 
     public void openMenu()
@@ -120,6 +127,7 @@ public class UIManager : MonoBehaviour
 
     public void openInventory()
     {
+        Time.timeScale = 0;
         //open inventory
         //deactivate control canvas
         JoystickCanvas.SetActive(false);
@@ -164,6 +172,7 @@ public class UIManager : MonoBehaviour
 
     public void exitInventory()
     {
+        Time.timeScale = 1;
         //close inventory
         //activate control canvas
         InventoryCanvas.SetActive(false);

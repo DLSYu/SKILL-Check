@@ -12,7 +12,8 @@ public class DoorManager : MonoBehaviour
     private Door[] doorList;
     private int currentDoorIndex;
     [SerializeField]
-    private GameObject percentage, scorePanel;
+    private TMPro.TextMeshProUGUI percentage;
+
     [SerializeField]
     private UIManager uiManager;
 
@@ -42,7 +43,6 @@ public class DoorManager : MonoBehaviour
 
     public void clearScorePanel()
     {
-        percentage.SetActive(false);
-        scorePanel.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        percentage.text = "Score: ???";
     }
 }
