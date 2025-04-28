@@ -13,6 +13,7 @@ public class TextMeshInputHelper : MonoBehaviour
     public GameObject inputPanelPrefab;
     public string[] posList;
     private bool runOnce = false;
+    public bool isDictionaryActive = false;
 
     public void Awake()
     {
@@ -52,7 +53,6 @@ public class TextMeshInputHelper : MonoBehaviour
 
             _tmp.ForceMeshUpdate();
             AttachButtonsToWords();
-            ActivateButtonsOnPage(1);
 
             runOnce = true;
         }
@@ -123,11 +123,14 @@ public class TextMeshInputHelper : MonoBehaviour
             {
                 Destroy(ip.gameObject);
             }
+
+            panel.SetActive(false); // Initially deactivate the panel
         }
     }
 
     public void ActivateButtonsOnPage(int page)
     {
+        if (isDictionaryActive == false) return;
         // This method is called when the page is changed
         // Activate the buttons on the current page
         TMP_TextInfo textInfo = _tmp.textInfo;
@@ -147,6 +150,30 @@ public class TextMeshInputHelper : MonoBehaviour
             // Enable if it's on the current page
             bool isOnPage = (charPage == page);
             panel.gameObject.SetActive(isOnPage);
+        }
+    }
+
+    public void DeactivateButtonsOnPage(int page)
+    {
+        // This method is called when the page is changed
+        // Deactivate the buttons on the current page
+        TMP_TextInfo textInfo = _tmp.textInfo;
+
+        // Get all attached input panels
+        TextMeshInputPanel[] inputPanels = GetComponentsInChildren<TextMeshInputPanel>(true);
+
+        foreach (TextMeshInputPanel panel in inputPanels)
+        {
+            int wordIndex = panel.GetWordIndex(); // assuming this returns the correct word index
+            if (wordIndex < 0 || wordIndex >= textInfo.wordCount) continue;
+
+            TMP_WordInfo wordInfo = textInfo.wordInfo[wordIndex];
+            int charIndex = wordInfo.firstCharacterIndex;
+            int charPage = textInfo.characterInfo[charIndex].pageNumber + 1;
+
+            // Disable if it's on the current page
+            if (charPage == page)
+                panel.gameObject.SetActive(false);
         }
     }
 

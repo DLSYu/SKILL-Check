@@ -39,11 +39,7 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     private List<int> currentAppliedLines = new List<int>();
     private int currentSentence = 1;
-
-
     private List<GameObject> pagePrefabList = new List<GameObject>();
-
-
 
     void Start()
     {
@@ -337,7 +333,26 @@ public class ReadingMechanicPanel : MonoBehaviour
         return false;
     }
 
+    public void toggleDictionaryMode()
+    {
+        // if (isDictionaryMode == false)
+        // textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
+        // else
+        // deactivate all buttons in textInputHelper
 
+        bool isDictionaryMode = textInputHelper.isDictionaryActive;
+
+        if (isDictionaryMode == false)
+        {
+            textInputHelper.isDictionaryActive = true;
+            textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
+        }
+        else
+        {
+            textInputHelper.isDictionaryActive = false;
+            textInputHelper.DeactivateButtonsOnPage(storyText.pageToDisplay);
+        }
+    }
 
 
 
