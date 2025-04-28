@@ -15,6 +15,8 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
     public string POS;
     public InTextDefinition dictionaryDefinition;
     private int wordIndex;
+    public GameObject DictionaryPanel;
+    public TextMeshProUGUI definitionText;
     void Awake()
     {
         rt = GetComponent<RectTransform>();
@@ -35,7 +37,7 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
             }
         }
 #else
-        if (Input.GetMouseButton((int)MouseButton.Left))
+        if (Input.GetMouseButtonDown((int)MouseButton.Left))
         {
             if (IsInsidePanel(Input.mousePosition))
             {

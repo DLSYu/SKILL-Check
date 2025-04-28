@@ -31,14 +31,9 @@ public class TextMeshInputHelper : MonoBehaviour
 
     public void Start()
     {
-
-    }
-
-    public void Update()
-    {
-
-        if (!runOnce && IsTextLoaded())
+        if (IsTextLoaded())
         {
+
             _tmp.ForceMeshUpdate();
 
             TextAsset ta;
@@ -53,9 +48,13 @@ public class TextMeshInputHelper : MonoBehaviour
 
             _tmp.ForceMeshUpdate();
             AttachButtonsToWords();
-
-            runOnce = true;
         }
+    }
+
+    public void Update()
+    {
+
+
 
     }
 
