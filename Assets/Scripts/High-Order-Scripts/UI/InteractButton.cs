@@ -7,16 +7,19 @@ public class InteractButton : MonoBehaviour
     // TO IMPLEMENT: GET LIST OF ALL INTERACTABLES CHECK IN UPDATES THE CLOSEST OBJECT TO INTERACT WITH
     GameObject currentInteractable;
     [SerializeField] private GameObject questionMark;
+    [SerializeField] private GameObject interactButton;
 
     void Update()
     {
         if (currentInteractable != null)
         {
             questionMark.SetActive(true);
+            interactButton.SetActive(true);
         }
         else
         {
             questionMark.SetActive(false);
+            interactButton.SetActive(false);
         }
     }
 
@@ -37,7 +40,8 @@ public class InteractButton : MonoBehaviour
             currentInteractable = null;
         }
     }
-    public void ClickInteractButton(){
+    public void ClickInteractButton()
+    {
         if (currentInteractable != null)
         {
             currentInteractable.GetComponent<IInteractable>().Interact();
