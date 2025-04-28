@@ -40,6 +40,9 @@ public class GateSubmit : MonoBehaviour
     [SerializeField]
     private GameObject resultsPanelHolder;
 
+    [SerializeField]
+    private GameObject loadingEvaluatingScreen;
+
 
     private AndroidJavaClass bertScoreEval;
 
@@ -66,6 +69,7 @@ public class GateSubmit : MonoBehaviour
     public void OnSubmitButton()
     {
         if (!submitable) return;
+        loadingEvaluatingScreen.SetActive(true);
         //percentage.SetActive(true);
         float score = EvaluateScore();
 
@@ -89,6 +93,7 @@ public class GateSubmit : MonoBehaviour
                 resultsResultsText.text = "Try again!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
+            loadingEvaluatingScreen.SetActive(false);
             resultsPanelHolder.SetActive(true);
         }
     }
