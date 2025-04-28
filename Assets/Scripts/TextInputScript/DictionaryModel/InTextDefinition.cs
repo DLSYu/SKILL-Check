@@ -14,6 +14,6 @@ public class InTextDefinition
 
     public override string ToString()
     {
-        return $"Definition: {definition}\nExample: {example}";
+        return $"Definition: {definition}\n\nExample: {example}";
     }
 }

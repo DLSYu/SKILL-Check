@@ -337,7 +337,7 @@ public class ReadingMechanicPanel : MonoBehaviour
         return false;
     }
 
-    public void toggleDictionaryMode()
+    public void ToggleDictionaryMode()
     {
         // if (isDictionaryMode == false)
         // textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
@@ -357,8 +357,6 @@ public class ReadingMechanicPanel : MonoBehaviour
             textInputHelper.DeactivateButtonsOnPage(storyText.pageToDisplay);
         }
     }
-
-
 
 
 }

@@ -53,6 +53,8 @@ MonoBehaviour:
   _tmp: {fileID: 0}
   rt: {fileID: 0}
   POS: 
+  dictionaryPanel: {fileID: 7870638757080275026, guid: 9458faa126cce054c8979031ac7ab240, type: 3}
+  dictionaryText: {fileID: 0}
 --- !u!222 &-5201992468389235973
 CanvasRenderer:
   m_ObjectHideFlags: 0

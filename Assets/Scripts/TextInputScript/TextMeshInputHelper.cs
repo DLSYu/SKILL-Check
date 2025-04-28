@@ -101,6 +101,7 @@ public class TextMeshInputHelper : MonoBehaviour
             ip.rt.anchoredPosition = new Vector3(posX, posY, ip.rt.position.z);
             ip.rt.sizeDelta = new Vector2(width, height);
             ip._tmp = _tmp;
+            ip.text = wordInfo.GetWord();
             ip.SetWordIndex(i);
 
             // Find the POS

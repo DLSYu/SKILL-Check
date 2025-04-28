@@ -9,17 +9,20 @@ using UnityEngine.UI;
 public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
 {
     public TextMeshProUGUI _tmp;
+    public string text;
     public RectTransform rt;
     public delegate void OnClick(TextMeshProUGUI _tmp);
     public event OnClick onClick;
     public string POS;
     public InTextDefinition dictionaryDefinition;
     private int wordIndex;
-    public GameObject DictionaryPanel;
-    public TextMeshProUGUI definitionText;
+
+    public DictionaryManager dictionaryManager;
+
     void Awake()
     {
         rt = GetComponent<RectTransform>();
+        dictionaryManager = FindObjectOfType<DictionaryManager>();
     }
 
     void FixedUpdate()
@@ -79,6 +82,7 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
         }
 
         Debug.Log(dictionaryDefinition);
+        dictionaryManager.ShowDictionaryPanel(text, dictionaryDefinition);
         onClick?.Invoke(_tmp);
     }
 
