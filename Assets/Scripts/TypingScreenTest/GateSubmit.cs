@@ -73,10 +73,10 @@ public class GateSubmit : MonoBehaviour
         //percentage.SetActive(true);
         float score = EvaluateScore();
 
-
         if (Application.platform == RuntimePlatform.LinuxEditor ||
             Application.platform == RuntimePlatform.OSXEditor ||
-            Application.platform == RuntimePlatform.WindowsEditor)
+            Application.platform == RuntimePlatform.WindowsEditor ||
+            Application.platform == RuntimePlatform.Android)
         {
             percentage.text = "Score: " + score.ToString();
             resultsScoreText.text = "Score: " + score.ToString();
