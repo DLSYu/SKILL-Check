@@ -13,6 +13,7 @@ public class TextMeshInputHelper : MonoBehaviour
     public GameObject inputPanelPrefab;
     public string[] posList;
     private bool runOnce = false;
+    public bool isDictionaryActive = false;
 
     public void Awake()
     {
@@ -30,14 +31,9 @@ public class TextMeshInputHelper : MonoBehaviour
 
     public void Start()
     {
-
-    }
-
-    public void Update()
-    {
-
-        if (!runOnce && IsTextLoaded())
+        if (IsTextLoaded())
         {
+
             _tmp.ForceMeshUpdate();
 
             TextAsset ta;
@@ -52,10 +48,13 @@ public class TextMeshInputHelper : MonoBehaviour
 
             _tmp.ForceMeshUpdate();
             AttachButtonsToWords();
-            ActivateButtonsOnPage(1);
-
-            runOnce = true;
         }
+    }
+
+    public void Update()
+    {
+
+
 
     }
 
@@ -102,6 +101,7 @@ public class TextMeshInputHelper : MonoBehaviour
             ip.rt.anchoredPosition = new Vector3(posX, posY, ip.rt.position.z);
             ip.rt.sizeDelta = new Vector2(width, height);
             ip._tmp = _tmp;
+            ip.text = wordInfo.GetWord();
             ip.SetWordIndex(i);
 
             // Find the POS
@@ -123,11 +123,14 @@ public class TextMeshInputHelper : MonoBehaviour
             {
                 Destroy(ip.gameObject);
             }
+
+            panel.SetActive(false); // Initially deactivate the panel
         }
     }
 
     public void ActivateButtonsOnPage(int page)
     {
+        if (isDictionaryActive == false) return;
         // This method is called when the page is changed
         // Activate the buttons on the current page
         TMP_TextInfo textInfo = _tmp.textInfo;
@@ -147,6 +150,30 @@ public class TextMeshInputHelper : MonoBehaviour
             // Enable if it's on the current page
             bool isOnPage = (charPage == page);
             panel.gameObject.SetActive(isOnPage);
+        }
+    }
+
+    public void DeactivateButtonsOnPage(int page)
+    {
+        // This method is called when the page is changed
+        // Deactivate the buttons on the current page
+        TMP_TextInfo textInfo = _tmp.textInfo;
+
+        // Get all attached input panels
+        TextMeshInputPanel[] inputPanels = GetComponentsInChildren<TextMeshInputPanel>(true);
+
+        foreach (TextMeshInputPanel panel in inputPanels)
+        {
+            int wordIndex = panel.GetWordIndex(); // assuming this returns the correct word index
+            if (wordIndex < 0 || wordIndex >= textInfo.wordCount) continue;
+
+            TMP_WordInfo wordInfo = textInfo.wordInfo[wordIndex];
+            int charIndex = wordInfo.firstCharacterIndex;
+            int charPage = textInfo.characterInfo[charIndex].pageNumber + 1;
+
+            // Disable if it's on the current page
+            if (charPage == page)
+                panel.gameObject.SetActive(false);
         }
     }
 
