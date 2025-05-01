@@ -82,10 +82,23 @@ public class Door : MonoBehaviour, IInteractable
 
     private void checkIfUnlockKeyword()
     {
-        if (activeGemCount == 0)
+        if (countActiveGems() == 0)
         {
             isKeyWordUnlocked = true;
         }
+    }
+
+    private int countActiveGems()
+    {
+        activeGemCount = 0;
+        foreach (GameObject gem in gems)
+        {
+            if (gem.activeSelf)
+            {
+                activeGemCount++;
+            }
+        }
+        return activeGemCount;
     }
 
     // public functions
@@ -99,11 +112,7 @@ public class Door : MonoBehaviour, IInteractable
         isDoorUnlocked = true;
     }
 
-    public void collectGem()
-    {
-        activeGemCount--;
-        Debug.Log("Gem collected. Remaining: " + activeGemCount);
-    }
+
     public bool checkIfKeywordUnlocked()
     {
         return isKeyWordUnlocked;

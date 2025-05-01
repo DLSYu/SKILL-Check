@@ -47,4 +47,6 @@ public class InteractButton : MonoBehaviour
             currentInteractable.GetComponent<IInteractable>().Interact();
         }
     }
+
+
 }
