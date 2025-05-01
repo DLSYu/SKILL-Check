@@ -12,7 +12,7 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
         if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_1)
             loadingScreen.LoadScene("PlatformerScene");
         else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_2)
-            loadingScreen.LoadScene("PlatformerScene2");
+            loadingScreen.LoadScene("PlatformerSceneLate");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_1)
             loadingScreen.LoadScene("SortingScene");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_2)
