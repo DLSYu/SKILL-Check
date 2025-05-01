@@ -2008,6 +2008,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131111453}
   m_CullTransparentMesh: 1
+--- !u!1 &133130753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4349941427882404180, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+  m_PrefabInstance: {fileID: 1506647602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &136656278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,7 +3838,7 @@ PrefabInstance:
       objectReference: {fileID: 1994386855}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemName
-      value: Attempt
+      value: Problem
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: uiManager
@@ -3844,8 +3849,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 569592121}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: mappedSWBST
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemDescription
-      value: He wanted to wait for the guava fruit to fall
+      value: He was too lazy to reach for the fruit.
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: inventoryManager
@@ -5288,6 +5297,7 @@ Transform:
   - {fileID: 2039552844}
   - {fileID: 687306219}
   - {fileID: 1036909321}
+  - {fileID: 1506647603}
   - {fileID: 1994386857}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8633,7 +8643,7 @@ PrefabInstance:
       objectReference: {fileID: 1994386855}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemName
-      value: Consequence
+      value: Plan
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: uiManager
@@ -8644,8 +8654,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 569592121}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: mappedSWBST
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemDescription
-      value: A big bird stole the guava fruit
+      value: He slept under the tree and waited for the fruit to fall.
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: inventoryManager
@@ -9161,8 +9175,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 569592121}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: mappedSWBST
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemDescription
-      value: He saw a guava fruit
+      value: He saw a guava fruit.
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: inventoryManager
@@ -9918,7 +9936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5351393932076827235, guid: e3aec2d16b7c6441da5e95d773e996f7, type: 3}
       propertyPath: gems.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5351393932076827235, guid: e3aec2d16b7c6441da5e95d773e996f7, type: 3}
       propertyPath: gems.Array.data[0]
@@ -9936,6 +9954,10 @@ PrefabInstance:
       propertyPath: gems.Array.data[3]
       value: 
       objectReference: {fileID: 1036909315}
+    - target: {fileID: 5351393932076827235, guid: e3aec2d16b7c6441da5e95d773e996f7, type: 3}
+      propertyPath: gems.Array.data[4]
+      value: 
+      objectReference: {fileID: 133130753}
     - target: {fileID: 5603930859278377540, guid: e3aec2d16b7c6441da5e95d773e996f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.525593
@@ -10023,7 +10045,7 @@ PrefabInstance:
       objectReference: {fileID: 569592121}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: gemDescription
-      value: Juan Tamad is the main character
+      value: Juan Tamad is the main character.
       objectReference: {fileID: 0}
     - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
       propertyPath: inventoryManager
@@ -14498,6 +14520,96 @@ Transform:
   - {fileID: 1811444764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1506647602
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 578473324}
+    m_Modifications:
+    - target: {fileID: 4349941427882404180, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_Name
+      value: Gem 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 1994386855}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: gemName
+      value: Consequence
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 1636012905}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 569592121}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: mappedSWBST
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: gemDescription
+      value: A big bird stole the fruit away from him.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423056844672145323, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 5936011}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.798315
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+--- !u!4 &1506647603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8831971531491286422, guid: 9d5443634befd4a85b8575519750a95d, type: 3}
+  m_PrefabInstance: {fileID: 1506647602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1520065639
 GameObject:
   m_ObjectHideFlags: 0

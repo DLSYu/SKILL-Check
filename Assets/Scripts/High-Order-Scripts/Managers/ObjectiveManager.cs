@@ -16,12 +16,6 @@ public class ObjectiveManager : MonoBehaviour
     // [SerializeField] private TMPro.TextMeshProUGUI objectiveText;
     private Vector3 playerPosition;
     private bool isPathFinding = false;
-
-
-    void Update()
-    {
-
-    }
     public void findDoor()
     {
         if (isPathFinding) { return; }

@@ -5,14 +5,30 @@ using UnityEngine;
 
 public class Gem : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Door door;
     [SerializeField] private AudioClip gemSound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private GemType mappedSWBST;
     [SerializeField] private String gemName;
+    /*** 
+    * Allowed Gem Names and corresponding SWBST Mapping:
+        * Somebody = Character
+        * Wanted   = Problem, Initiating Event
+        * But      = Problem, Initiating Event
+        * So       = Internal Response, Plan, Attempt / Action
+        * Then     = Consequence, Resolution / Resolution
+    ***/
     [SerializeField] private String gemDescription;
 
+    private enum GemType
+    {
+        Somebody,
+        Wanted,
+        But,
+        So,
+        Then,
+    }
     public void Interact()
     {
         audioSource.PlayOneShot(gemSound);
