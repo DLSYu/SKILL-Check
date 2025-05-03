@@ -93,9 +93,10 @@ public class GateSubmit : MonoBehaviour
                 resultsResultsText.text = "Try again!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
-            loadingEvaluatingScreen.SetActive(false);
-            resultsPanelHolder.SetActive(true);
+
         }
+        loadingEvaluatingScreen.SetActive(false);
+        resultsPanelHolder.SetActive(true);
     }
     public void DismissResultsScreen()
     {
