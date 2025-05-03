@@ -30,4 +30,36 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
         loadingScreen.LoadScene("ReadingMechanicNew");
 
     }
+
+    public void setLoadingScreen(LoadingScreen loadingScreen)
+    {
+        this.loadingScreen = loadingScreen;
+    }
+
+    public void SetCurrentStage(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                currentStage = bookStage.LO_1;
+                break;
+            case 2:
+                currentStage = bookStage.LO_2;
+                break;
+            case 3:
+                currentStage = bookStage.LO_3;
+                break;
+            case 4:
+                currentStage = bookStage.LO_4;
+                break;
+            case 5:
+                currentStage = bookStage.LO_5;
+                break;
+            default:
+                currentStage = bookStage.Not_Book_Stage;
+                break;
+
+        }
+
+    }
 }

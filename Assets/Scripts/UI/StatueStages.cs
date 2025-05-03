@@ -29,5 +29,37 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
         loadingScreen.LoadScene("ReadingMechanicNew");
     }
 
+    public void SetLoadingScreen(LoadingScreen loadingScreen)
+    {
+        this.loadingScreen = loadingScreen;
+    }
+
+    public void SetCurrentStage(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                currentStage = statueStage.HO_1;
+                break;
+            case 2:
+                currentStage = statueStage.HO_2;
+                break;
+            case 3:
+                currentStage = statueStage.HO_3;
+                break;
+            case 4:
+                currentStage = statueStage.HO_4;
+                break;
+            case 5:
+                currentStage = statueStage.HO_5;
+                break;
+            default:
+                currentStage = statueStage.Not_Statue_Stage;
+                break;
+
+        }
+
+    }
+
 
 }
