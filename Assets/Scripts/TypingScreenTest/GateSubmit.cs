@@ -83,18 +83,19 @@ public class GateSubmit : MonoBehaviour
 
             if (score >= 0.5f)
             {
-                resultsResultsText.text = "Cleared!";
+                // resultsResultsText.text = "Cleared!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
                 doorObserver.GetCurrentDoor().unlockDoor();
                 doorObserver.SetNextDoor();
             }
             else
             {
-                resultsResultsText.text = "Try again!";
+                // resultsResultsText.text = "Try again!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
 
         }
+
         loadingEvaluatingScreen.SetActive(false);
         resultsPanelHolder.SetActive(true);
     }
@@ -179,11 +180,13 @@ public class GateSubmit : MonoBehaviour
         if (score + toAdd >= 0.5f)
         {
             // this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+            resultsResultsText.text = "Cleared!";
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
         }
         else
         {
+            resultsResultsText.text = "Try again!";
             // this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
         }
 

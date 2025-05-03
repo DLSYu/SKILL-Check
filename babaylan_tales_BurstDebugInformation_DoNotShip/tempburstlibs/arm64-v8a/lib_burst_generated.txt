@@ -35,6 +35,7 @@ Library: D:\SKILL-Check\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_gener
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
 --assembly-defines=Unity.TextMeshPro;
+--assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\SKILL-Check\Temp\Burst
@@ -79,6 +80,7 @@ Library: D:\SKILL-Check\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_gener
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
 --assembly-defines=Unity.TextMeshPro;
+--assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\SKILL-Check\Temp\Burst
