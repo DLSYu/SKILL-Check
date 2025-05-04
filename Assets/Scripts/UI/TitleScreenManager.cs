@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class TitleScreenManager : MonoBehaviour
 {
+    [SerializeField] private LoadingScreen loadingScreen;
+    public void StartButton()
+    {
+        DataPersistenceManager.instance.LoadGame();
+        DataPersistenceManager.instance.SaveGame();
+        loadingScreen.LoadScene("Lobby");
+    }
 
     public void SettingsButton()
     {

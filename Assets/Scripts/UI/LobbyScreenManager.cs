@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LobbyScreenManager : MonoBehaviour
-{   
+public class LobbyScreenManager : MonoBehaviour, IDataPersistence
+{
     [SerializeField] Camera camera;
     [SerializeField] GameObject leftButton;
     [SerializeField] GameObject rightButton;
@@ -32,20 +33,23 @@ public class LobbyScreenManager : MonoBehaviour
     //private bool buttonsEnabled = true;
     [SerializeField] private float disableButtonDuration = 1f;
 
-    private void Start(){
+    private void Start()
+    {
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         targetPosition = camera.transform.position;
+
     }
 
-    private void Update(){
+    private void Update()
+    {
         checkCharacterPosition();
 
         //GetMovemmentAmount of character when moving
-        Debug.Log(MovementAmount.magnitude);
+        //Debug.Log(MovementAmount.magnitude);
 
         UIAnimator.SetFloat("Speed", MovementAmount.magnitude);
-        
+
         if (MovementAmount.x < 0)
         {
             mainCharacter.GetComponent<SpriteRenderer>().flipX = true;
@@ -104,21 +108,26 @@ public class LobbyScreenManager : MonoBehaviour
         currentScreenIndex++;
     }
 
-    private void showActiveButton(){
-        
-        if (currentScreenIndex == -1){
+
+    private void showActiveButton()
+    {
+
+        if (currentScreenIndex == -1)
+        {
             leftButton.SetActive(false);
             rightButton.SetActive(true);
             otherMusic.mute = false;
             libraryMusic.mute = true;
         }
-        else if (currentScreenIndex == 1){
+        else if (currentScreenIndex == 1)
+        {
             rightButton.SetActive(false);
             leftButton.SetActive(true);
             otherMusic.mute = false;
             libraryMusic.mute = true;
         }
-        else if (currentScreenIndex == 0){
+        else if (currentScreenIndex == 0)
+        {
             leftButton.SetActive(true);
             rightButton.SetActive(true);
             libraryMusic.mute = false;
@@ -144,4 +153,21 @@ public class LobbyScreenManager : MonoBehaviour
             characterPosition = libraryPosition;
         }
     }
+
+    public void LoadData(GameData data)
+    {
+        // TO DO: not sure what you need to load here for now
+        foreach (object key in data.stageCompletionDictionary)
+        {
+            Debug.Log(key.ToString());
+
+        }
+
+
+    }
+    public void SaveData(GameData data)
+    {
+        // nothing
+    }
+
 }
