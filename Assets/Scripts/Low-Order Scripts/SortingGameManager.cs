@@ -11,6 +11,17 @@ public class SortingGameManager : MonoBehaviour
 
     [SerializeField] private bool forceCompletion = false;
 
+    [Header("Dragon Parts")]
+    public GameObject splitHead;      // Reference to Split-Head GameObject
+    public GameObject splitTail;      // Reference to Split-Tail GameObject
+    public GameObject fullDragon;     // Completed dragon
+
+    [Header("Slots")]
+    [SerializeField] public List<RelicCheckedSlot> slots = new List<RelicCheckedSlot>();
+
+    [Header("Relics")]
+    [SerializeField] public List<GameObject> allRelics;
+
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
@@ -27,11 +38,6 @@ public class SortingGameManager : MonoBehaviour
         }
     }
 
-    // Dragon stuff
-    public GameObject fullDragon;
-    public List<RelicCheckedSlot> slots = new List<RelicCheckedSlot>();
-    public List<GameObject> allRelics;
-
     private void Update()
     {
         if (!isGameCompleted) 
@@ -44,29 +50,25 @@ public class SortingGameManager : MonoBehaviour
     {
         bool allCorrect = slots.All(s => s.IsCorrect);
 
-        if (allCorrect) Debug.Log("ALL CORRECT!");
-
-        // Toggle final dragon
+        // Toggle full dragon visibility
         fullDragon.SetActive(allCorrect);
 
-        // Hide ALL dragon parts when completed
         if (allCorrect)
         {
-            foreach (var slot in slots)
-            {
-                if (slot.originalPart != null) slot.originalPart.SetActive(false);
-                if (slot.hiddenPart != null) slot.hiddenPart.SetActive(false);
-            }
+            // Hide Split-Head, Split-Tail, and all Slots
+            if (splitHead != null) splitHead.SetActive(false);
+            if (splitTail != null) splitTail.SetActive(false);
+            foreach (var slot in slots) slot.gameObject.SetActive(false);
 
-            // Hide relics
+            // Hide all relics
             foreach (var relic in allRelics) relic.SetActive(false);
-        }
 
-        if (allCorrect && !isGameCompleted)
-        {
-            isGameCompleted = true;
-            CalculateStars();
-            StartCoroutine(LoadEndSceneAfterDelay(1f));
+            if (!isGameCompleted)
+            {
+                isGameCompleted = true;
+                CalculateStars();
+                StartCoroutine(LoadEndSceneAfterDelay(1f));
+            }
         }
     }
 
