@@ -39,6 +39,9 @@ public class ReadingMechanicPanel : MonoBehaviour
     [SerializeField]
     private GameObject DictionaryPanel;
 
+    [SerializeField]
+    private GameObject helpPanel;
+
     private List<int> currentAppliedLines = new List<int>();
     private int currentSentence = 1;
     private List<GameObject> pagePrefabList = new List<GameObject>();
@@ -67,13 +70,33 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     }
 
+    void RemoveHelpPanel()
+    {
+        if (helpPanel.activeInHierarchy)
+            helpPanel.SetActive(false);
+    }
+
+    public void ToggleHelpPanel()
+    {
+        if (helpPanel.activeInHierarchy)
+        {
+            helpPanel.SetActive(false);
+        }
+        else
+        {
+            helpPanel.SetActive(true);
+        }
+    }
+
     public void PreviousLine()
     {
+        RemoveHelpPanel();
         if (lineSelector.SetSliderToNthSentence(currentSentence - 1) == 0)
             currentSentence -= 1;
     }
     public void NextLine()
     {
+        RemoveHelpPanel();
         if (lineSelector.SetSliderToNthSentence(currentSentence + 1) == 0)
             currentSentence += 1;
 
@@ -196,6 +219,7 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void NextPage()
     {
+        RemoveHelpPanel();
         if (storyText.pageToDisplay < storyText.textInfo.pageCount)
         {
             storyText.ForceMeshUpdate();
@@ -214,6 +238,7 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void PreviousPage()
     {
+        RemoveHelpPanel();
         if (storyText.pageToDisplay - 1 > 0)
         {
             storyText.ForceMeshUpdate();
@@ -290,7 +315,7 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void ApplyColorLine()
     {
-
+        RemoveHelpPanel();
         if (currentAppliedLines.Count == 0) // nothing highlighted yet
         {
             for (int i = 0; i < lineSelector.nearestIndexes.Count; i++)
@@ -339,6 +364,7 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     public void ToggleDictionaryMode()
     {
+        RemoveHelpPanel();
         // if (isDictionaryMode == false)
         // textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
         // else
