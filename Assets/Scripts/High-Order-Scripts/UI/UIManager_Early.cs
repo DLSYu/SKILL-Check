@@ -60,11 +60,11 @@ public class UIManager_Early : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void openGemCanvas(String gemDescription, String gemType)
+    public void openGemCanvas(String gemDescription, String gemType, String gemName)
     {
         Time.timeScale = 0;
+        this.gemTMProName.text = gemName;
         this.gemTMProDescription.text = gemDescription;
-        this.gemTMProName.text = "";
         //Set Gem type
         GemCanvas.SetActive(true);
         JoystickCanvas.SetActive(false);

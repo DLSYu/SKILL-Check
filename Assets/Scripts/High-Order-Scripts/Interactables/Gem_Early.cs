@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gem_Early : MonoBehaviour, IInteractable
 {
     [Header("Gem Details")]
+    [SerializeField] private string gemName;
     [SerializeField] private Sprite gemImage;
     [SerializeField] private GemType gemType;
     [SerializeField] private string gemDescription;
@@ -20,16 +21,19 @@ public class Gem_Early : MonoBehaviour, IInteractable
     public Sprite GemImage => gemImage;
     public GemType Type => gemType;
     public string GemDescription => gemDescription;
-
-    public Gem_Early(GemType type, string description)
-    {
-        gemType = type;
-        gemDescription = description;
-    }
+    public string GemName => gemName;
+    /*** 
+    * Allowed Gem Names and corresponding SWBST Mapping:
+        * Somebody = Character
+        * Wanted   = Problem, Initiating Event
+        * But      = Problem, Initiating Event
+        * So       = Internal Response, Plan, Attempt / Action
+        * Then     = Consequence, Resolution / Resolution
+    ***/
     public void Interact()
     {
         audioSource.PlayOneShot(gemSound);
-        uiManager.openGemCanvas(gemDescription, gemType.ToString());
+        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName);
 
         if (transform.parent == null || transform.parent.GetComponent<SWBSTSlot>() == null)
         {

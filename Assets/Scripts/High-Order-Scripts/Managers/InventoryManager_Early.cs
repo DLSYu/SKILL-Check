@@ -30,38 +30,38 @@ public class InventoryManager_Early : MonoBehaviour
         }
     }
 
-    public void MoveToSWBST(Gem_Early gem)
-    {
-        var type = (SWBSTSlot.SlotType)System.Enum.Parse(typeof(SWBSTSlot.SlotType), gem.Type.ToString());
-        swbstGems[type] = gem;
-        gems.Remove(gem);
-        Debug.Log($"Moved {gem.Type} to SWBST line");
-    }
+    // public void MoveToSWBST(Gem_Early gem)
+    // {
+    //     var type = (SWBSTSlot.SlotType)System.Enum.Parse(typeof(SWBSTSlot.SlotType), gem.Type.ToString());
+    //     swbstGems[type] = gem;
+    //     gems.Remove(gem);
+    //     Debug.Log($"Moved {gem.Type} to SWBST line");
+    // }
 
-    public void ReturnFromSWBST(Gem_Early gem)
-    {
-        var type = (SWBSTSlot.SlotType)System.Enum.Parse(typeof(SWBSTSlot.SlotType), gem.Type.ToString());
-        swbstGems.Remove(type);
-        gems.Add(gem);
-        Debug.Log($"Returned {gem.Type} to inventory");
-    }
+    // public void ReturnFromSWBST(Gem_Early gem)
+    // {
+    //     var type = (SWBSTSlot.SlotType)System.Enum.Parse(typeof(SWBSTSlot.SlotType), gem.Type.ToString());
+    //     swbstGems.Remove(type);
+    //     gems.Add(gem);
+    //     Debug.Log($"Returned {gem.Type} to inventory");
+    // }
 
-    public bool IsSWBSTComplete()
-    {
-        var requiredTypes = new List<SWBSTSlot.SlotType> {
-            SWBSTSlot.SlotType.Somebody,
-            SWBSTSlot.SlotType.Wanted,
-            SWBSTSlot.SlotType.But,
-            SWBSTSlot.SlotType.So,
-            SWBSTSlot.SlotType.Then
-        };
+    // public bool IsSWBSTComplete()
+    // {
+    //     var requiredTypes = new List<SWBSTSlot.SlotType> {
+    //         SWBSTSlot.SlotType.Somebody,
+    //         SWBSTSlot.SlotType.Wanted,
+    //         SWBSTSlot.SlotType.But,
+    //         SWBSTSlot.SlotType.So,
+    //         SWBSTSlot.SlotType.Then
+    //     };
 
-        foreach (var type in requiredTypes)
-        {
-            if (!swbstGems.ContainsKey(type)) return false;
-        }
-        return true;
-    }
+    //     foreach (var type in requiredTypes)
+    //     {
+    //         if (!swbstGems.ContainsKey(type)) return false;
+    //     }
+    //     return true;
+    // }
 
 
     public List<Gem_Early> getGems()

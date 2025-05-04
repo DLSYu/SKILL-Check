@@ -89,7 +89,7 @@ public class SWBSTSlot : MonoBehaviour
         }
 
         currentGem = gem;
-        InventoryManager_Early.Instance.MoveToSWBST(gem);
+        // InventoryManager_Early.Instance.MoveToSWBST(gem);
         Debug.Log($"Placed {gem.Type} in {slotType} slot");
         return true;
     }
@@ -113,7 +113,7 @@ public class SWBSTSlot : MonoBehaviour
         displayText.ForceMeshUpdate();
         placeholderText.ForceMeshUpdate();
 
-        InventoryManager_Early.Instance.ReturnFromSWBST(currentGem);
+        // InventoryManager_Early.Instance.ReturnFromSWBST(currentGem);
         currentGem = null;
     }
 
