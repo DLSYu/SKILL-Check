@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum writingStyle
@@ -14,11 +15,13 @@ public class TypingPanel : MonoBehaviour
     private GameObject freeFormPanel, swbstPanel;
     [SerializeField]
     private InventoryManager inventoryManager;
+    [SerializeField]
+    private InventoryManager_Early inventoryManagerEarly;
 
     private writingStyle currentWritingStyle;
 
     [SerializeField] private TMPro.TextMeshProUGUI freeformOrSWBSTTitleText;
-
+    [SerializeField] List<Gem_Early> displayedGems = new List<Gem_Early>();
 
     [Header("Story and Inventory Panel")]
     [SerializeField]
@@ -43,10 +46,42 @@ public class TypingPanel : MonoBehaviour
     [SerializeField]
     private GameObject storyButton;
 
-
-
-
     private bool isCurrentlyShowingStory = true;
+    void Start()
+    {
+        // foreach (Gem_Early gem in displayedGems)
+        // {
+        //     gem.gameObject.SetActive(false);
+        // }
+        // Gem_Early Somebody = new Gem_Early(Gem_Early.GemType.Somebody, "");
+        // Gem_Early Wanted = new Gem_Early(Gem_Early.GemType.Wanted, "");
+        // Gem_Early But = new Gem_Early(Gem_Early.GemType.But, "");
+        // Gem_Early So = new Gem_Early(Gem_Early.GemType.So, "");
+        // Gem_Early Then = new Gem_Early(Gem_Early.GemType.Then, "");
+    }
+    public void LoadCollectedGems()
+    {
+        List<Gem_Early> collectedGems = inventoryManagerEarly.getGems();
+        foreach (Gem_Early gem in displayedGems)
+        {
+            if (gem.checkIfGemTypeInList(collectedGems))
+            {
+                Gem_Early correspondingCollectedGem = gem.getGemFromGemType(collectedGems);
+
+                gem.copyGemData(correspondingCollectedGem);
+                // Don't show gem if slotted in SWBST already
+                GameObject parent = gem.gameObject.transform.parent.gameObject;
+                if (parent.gameObject.GetComponent<RelicInventorySlot>() != null)
+                {
+                    gem.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                gem.gameObject.SetActive(false);
+            }
+        }
+    }
 
     public void ToggleWriting()
     {
@@ -76,17 +111,36 @@ public class TypingPanel : MonoBehaviour
         // storyText.text = inventoryManager.GetStory();
         // gemsText.text = inventoryManager.GetGems();
         storyTextContentHolder.GetComponent<TMPro.TextMeshProUGUI>().text = StoryData.GetStoryString();
-        List<Gem> gemList = inventoryManager.getGems();
 
-        foreach (Gem gem in gemList)
+        if (inventoryManager != null)
         {
-            // get gemData
-            string[] currentGemData = gem.getGemData();
-            GameObject newGemPrefab = Instantiate(gemPrefab, gemScrollviewContentHolder.transform);
-            newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemType(currentGemData[0]);
-            newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemDescription(currentGemData[1]);
-            newGemPrefab.SetActive(true);
+            List<Gem> gemList = inventoryManager.getGems();
 
+            foreach (Gem gem in gemList)
+            {
+                // get gemData
+                string[] currentGemData = gem.getGemData();
+                GameObject newGemPrefab = Instantiate(gemPrefab, gemScrollviewContentHolder.transform);
+                newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemType(currentGemData[0]);
+                newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemDescription(currentGemData[1]);
+                newGemPrefab.SetActive(true);
+
+            }
+        }
+        else if (inventoryManagerEarly != null)
+        {
+            List<Gem_Early> gemList = inventoryManagerEarly.getGems();
+
+            foreach (Gem_Early gem in gemList)
+            {
+                // get gemData
+                string[] currentGemData = gem.getGemData();
+                GameObject newGemPrefab = Instantiate(gemPrefab, gemScrollviewContentHolder.transform);
+                newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemType(currentGemData[0]);
+                newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemDescription(currentGemData[1]);
+                newGemPrefab.SetActive(true);
+
+            }
         }
 
         storyAndInventoryPanelHolder.SetActive(true);

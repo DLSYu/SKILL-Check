@@ -8,7 +8,6 @@ public class InventoryManager_Early : MonoBehaviour
 
     [Header("Gem Tracking")]
     [SerializeField] private List<Gem_Early> gems = new List<Gem_Early>();
-    [SerializeField] private int requiredGems = 3;
 
     [Header("SWBST Tracking")]
     private Dictionary<SWBSTSlot.SlotType, Gem_Early> swbstGems = new Dictionary<SWBSTSlot.SlotType, Gem_Early>();
@@ -27,7 +26,6 @@ public class InventoryManager_Early : MonoBehaviour
         if (!gems.Contains(gem))
         {
             gems.Add(gem);
-            CheckDoorUnlock();
             Debug.Log($"Added {gem.Type} gem to inventory");
         }
     }
@@ -65,12 +63,9 @@ public class InventoryManager_Early : MonoBehaviour
         return true;
     }
 
-    private void CheckDoorUnlock()
+
+    public List<Gem_Early> getGems()
     {
-        if (gems.Count >= requiredGems)
-        {
-            Door_Early door = FindObjectOfType<Door_Early>();
-            if (door != null) door.EnableDoorInteraction();
-        }
+        return gems;
     }
 }

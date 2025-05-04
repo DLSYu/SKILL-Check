@@ -112,7 +112,6 @@ public class Door : MonoBehaviour, IInteractable
         isDoorUnlocked = true;
     }
 
-
     public bool checkIfKeywordUnlocked()
     {
         return isKeyWordUnlocked;

@@ -16,6 +16,7 @@ public class SWBSTSlot : MonoBehaviour
 
     [Header("Gem Tracking")]
     private Transform originalParent;
+    [SerializeField]
     private Gem_Early currentGem;
     private Vector3 originalGemPosition;
 
@@ -34,7 +35,7 @@ public class SWBSTSlot : MonoBehaviour
     void Update()
     {
         //Debug.Log($"Collected Gems: {gems.Count}");
-        Debug.Log($"Slot {slotType} has gem: {currentGem != null}");
+        //Debug.Log($"Slot {slotType} has gem: {currentGem != null}");
         Debug.Log($"Slot {slotType} status: {(currentGem != null ? "Occupied" : "Empty")}");
     }
 
@@ -119,5 +120,18 @@ public class SWBSTSlot : MonoBehaviour
     private void UpdatePlaceholderVisibility()
     {
         placeholderText.gameObject.SetActive(currentGem == null);
+    }
+
+    public bool compareGemTypeToSlotType()
+    {
+        if (currentGem == null) { return false; }
+
+        // Compare the gem type with the slot type
+        if (currentGem.Type.ToString().ToLower() == slotType.ToString().ToLower())
+        {
+            Debug.Log($"Gem type {currentGem.Type} matches slot type {slotType}");
+            return true;
+        }
+        return false;
     }
 }

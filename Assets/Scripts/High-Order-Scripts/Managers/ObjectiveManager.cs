@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
+//RIGHT NOW BAND AID FIX HARDCODE DOORMANAGER SWITCHING
 public class ObjectiveManager : MonoBehaviour
 {
     [SerializeField] private DoorManager doorManager;
+    [SerializeField] private DoorManager_Early doorManagerEarly;
+    // [SerializeField] private DoorManager_Mid doorManagerMid;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject objectivePanel;
@@ -21,7 +24,12 @@ public class ObjectiveManager : MonoBehaviour
         if (isPathFinding) { return; }
         // get locations
         playerPosition = player.transform.position;
-        Vector3 doorPosition = doorManager.GetCurrentDoor().getDoorLocation();
+
+        Vector3 doorPosition = Vector3.zero;
+        if (doorManager != null)
+            doorPosition = doorManager.GetCurrentDoor().getDoorLocation();
+        else if (doorManagerEarly != null)
+            doorPosition = doorManagerEarly.GetCurrentDoor().getDoorLocation();
         // set arrow active and put on player location
         StartCoroutine(startArrowPathfinding(doorPosition));
 
@@ -32,7 +40,11 @@ public class ObjectiveManager : MonoBehaviour
         if (isPathFinding) { return; }
         // get closest gem location to player
         playerPosition = player.transform.position;
-        List<Vector3> gemLocations = doorManager.GetCurrentDoor().getActiveGemsLocations();
+        List<Vector3> gemLocations = new List<Vector3>();
+        if (doorManager != null)
+            gemLocations = doorManager.GetCurrentDoor().getActiveGemsLocations();
+        else if (doorManagerEarly != null)
+            gemLocations = doorManagerEarly.GetCurrentDoor().getActiveGemsLocations();
 
         if (gemLocations.Count == 0)
         {

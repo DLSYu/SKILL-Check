@@ -32,6 +32,7 @@ public class GemDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log($"Dragging: {eventData.pointerCurrentRaycast.gameObject?.name}");
         transform.position = eventData.position;
     }
 

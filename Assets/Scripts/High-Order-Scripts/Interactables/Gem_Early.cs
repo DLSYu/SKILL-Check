@@ -21,16 +21,71 @@ public class Gem_Early : MonoBehaviour, IInteractable
     public GemType Type => gemType;
     public string GemDescription => gemDescription;
 
+    public Gem_Early(GemType type, string description)
+    {
+        gemType = type;
+        gemDescription = description;
+    }
     public void Interact()
     {
         audioSource.PlayOneShot(gemSound);
-        uiManager.ShowGemDetails(this);
+        uiManager.openGemCanvas(gemDescription, gemType.ToString());
 
         if (transform.parent == null || transform.parent.GetComponent<SWBSTSlot>() == null)
         {
             gameObject.SetActive(false);
-            door.CollectGem();
+            // door.CollectGem();
             inventoryManager.AddGemToInventory(this);
         }
+    }
+
+    public string[] getGemData()
+    {
+        string[] gemData = { gemType.ToString(), gemDescription };
+        return gemData;
+    }
+
+    //--------------- METHODS FOR EARLY LEVEL GEM MATCHING MECHANIC ------------------//
+
+    public bool compareGemType(Gem_Early otherGem)
+    {
+        if (otherGem.gemType == this.gemType)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool checkIfGemTypeInList(List<Gem_Early> gemList)
+    {
+        foreach (Gem_Early gem in gemList)
+        {
+            if (compareGemType(gem))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Gem_Early getGemFromGemType(List<Gem_Early> gemList)
+    {
+        foreach (Gem_Early gem in gemList)
+        {
+            if (compareGemType(gem))
+            {
+                return gem;
+            }
+        }
+        return null;
+    }
+
+    public void copyGemData(Gem_Early otherGem)
+    {
+        this.gemType = otherGem.gemType;
+        this.gemDescription = otherGem.gemDescription;
     }
 }

@@ -11,6 +11,7 @@ public class RelicPopupHandler : MonoBehaviour
     public string passage; // The passage to display
 
     private bool isPopupActive = false;
+    [SerializeField] private Gem_Early gem; // Reference to the gem object
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class RelicPopupHandler : MonoBehaviour
         {
             // Show the pop-up and set the passage text
             relicPopupPanel.SetActive(true);
-            relicText.text = passage;
+            relicText.text = gem.GemDescription; // Set the text to the gem's description
             isPopupActive = true;
         }
     }

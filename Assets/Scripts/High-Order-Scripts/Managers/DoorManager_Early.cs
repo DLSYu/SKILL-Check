@@ -9,8 +9,7 @@ using UnityEngine;
 public class DoorManager_Early : MonoBehaviour
 {
     [SerializeField] private Door_Early[] doorList;
-    [SerializeField] private GameObject percentage;
-    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private TMPro.TextMeshProUGUI scorePanel;
     [SerializeField] private UIManager_Early uiManager;
 
     private int currentDoorIndex;
@@ -37,11 +36,5 @@ public class DoorManager_Early : MonoBehaviour
         {
             Debug.Log("All doors unlocked");
         }
-    }
-
-    public void ClearScorePanel()
-    {
-        percentage.SetActive(false);
-        scorePanel.GetComponent<UnityEngine.UI.Image>().color = Color.white;
     }
 }

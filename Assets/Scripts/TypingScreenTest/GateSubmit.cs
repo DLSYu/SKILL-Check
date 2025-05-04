@@ -42,7 +42,14 @@ public class GateSubmit : MonoBehaviour
 
     [SerializeField]
     private GameObject loadingEvaluatingScreen;
+    [Header("For Early level submission")]
 
+    [SerializeField]
+    // will change to serialized list later
+    private DoorManager_Early doorObserver_early;
+
+    [SerializeField]
+    private SWBSTSlot somebodySlot, wantedSlot, butSlot, soSlot, thenSlot;
 
     private AndroidJavaClass bertScoreEval;
 
@@ -244,6 +251,18 @@ public class GateSubmit : MonoBehaviour
             Debug.Log($"ERROR IN UNITY: {error}");
         }
 
+    }
+
+    public void OnSubmitEarlyLevelButton()
+    {
+        //check if all SWBST slots
+        if (somebodySlot.compareGemTypeToSlotType() && wantedSlot.compareGemTypeToSlotType() &&
+            butSlot.compareGemTypeToSlotType() && soSlot.compareGemTypeToSlotType() &&
+            thenSlot.compareGemTypeToSlotType())
+        {
+            doorObserver_early.GetCurrentDoor().unlockDoor();
+            doorObserver_early.SetNextDoor();
+        }
     }
 }
 
