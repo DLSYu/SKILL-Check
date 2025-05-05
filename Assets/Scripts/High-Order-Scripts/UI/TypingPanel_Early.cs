@@ -9,7 +9,7 @@ public class TypingPanel_Early : MonoBehaviour
 {
     [SerializeField] private GameObject freeFormPanel, swbstPanel;
     [SerializeField] private GameObject storyPanel, gemsPanel, storyAndGemsPanel;
-    [SerializeField] private InventoryManager_Early inventoryManager;
+    [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private TextMeshProUGUI storyText, gemsText;
 
     private writingStyle currentWritingStyle;
@@ -33,7 +33,7 @@ public class TypingPanel_Early : MonoBehaviour
         storyText.text = StoryData.GetStoryString();
 
         string tempText = "";
-        foreach (Gem_Early gem in inventoryManager.GetGems())
+        foreach (Gem_Early gem in inventoryManager.getGems())
         {
             tempText += $"{gem.GemDescription}\n\n";
         }

@@ -21,7 +21,7 @@ public class UIManager_Early : MonoBehaviour
     [SerializeField] private GameObject gemInventoryPrefab;
     [SerializeField] private TextMeshProUGUI keywordText;
     [SerializeField] private DoorManager_Early doorManager;
-    [SerializeField] private InventoryManager_Early inventoryManager;
+    [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private LoadingScreen loadingScreen;
     [SerializeField] private GateSubmit gateSubmit;
     public bool isScorePanelCleanable = false;
@@ -120,7 +120,7 @@ public class UIManager_Early : MonoBehaviour
 
         // get inventory canvas's scroll view
         // put panel and text for each gem in the inventory
-        List<Gem_Early> gemList = inventoryManager.getGems();
+        List<GemInterface> gemList = inventoryManager.getGems();
 
 
         foreach (Transform child in gemScrollViewContent.transform)

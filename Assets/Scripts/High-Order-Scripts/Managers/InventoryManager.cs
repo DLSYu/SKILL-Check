@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private List<Gem> gems;
+    [SerializeField] private List<GemInterface> gems;
 
-    public void addGemToInventory(Gem gem)
+    public void addGemToInventory(GemInterface gem)
     {
         Debug.Log("Adding gem to inventory");
         gems.Add(gem);
     }
 
-    public List<Gem> getGems()
+    public List<GemInterface> getGems()
     {
         return gems;
     }

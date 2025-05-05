@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
 
         // get inventory canvas's scroll view
         // put panel and text for each gem in the inventory
-        List<Gem> gemList = inventoryManager.getGems();
+        List<GemInterface> gemList = inventoryManager.getGems();
 
 
         foreach (Transform child in gemScrollViewContent.transform)
