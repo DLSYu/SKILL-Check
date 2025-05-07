@@ -19,6 +19,7 @@ public class DoorInterface : MonoBehaviour, IInteractable
     [SerializeField] protected AudioClip doorSound;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected GameObject[] gems;
+    [SerializeField] protected UIManagerTemplate uiManager;
     protected int activeGemCount;
     protected bool isKeyWordUnlocked = false;
     protected bool isDoorUnlocked = false;

@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Door_Early : DoorInterface
 {
-    [Header("Specific References")]
-    [SerializeField] private UIManager_Early uiManagerEarly;
-
-    protected override void Start()
-    {
-        startPosition = door.transform.position;
-        movedPosition = new Vector3(startPosition.x, startPosition.y + 5f, startPosition.z);
-        activeGemCount = gems.Length;
-    }
 
     protected override void Update()
     {
@@ -28,7 +19,7 @@ public class Door_Early : DoorInterface
 
     public override void Interact()
     {
-        uiManagerEarly.openTypingScreen();
+        uiManager.openTypingScreen();
     }
 
 

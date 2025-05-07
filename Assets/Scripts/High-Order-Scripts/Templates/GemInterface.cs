@@ -43,7 +43,7 @@ public class GemInterface : MonoBehaviour, IInteractable
 
     public virtual string[] getGemData()
     {
-        string[] gemData = { gemName, gemDescription };
+        string[] gemData = { gemName, gemDescription, gemType.ToString() };
         return gemData;
     }
 }

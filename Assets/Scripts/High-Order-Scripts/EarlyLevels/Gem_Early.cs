@@ -22,7 +22,7 @@ public class Gem_Early : GemInterface
 
     public override string[] getGemData()
     {
-        string[] gemData = { gemType.ToString(), gemDescription };
+        string[] gemData = { gemName, gemDescription, gemType.ToString() };
         return gemData;
     }
 
