@@ -13,7 +13,7 @@ public class Gem : GemInterface
     {
         audioSource.PlayOneShot(gemSound);
         gameObject.SetActive(false);
-        uiManager.openGemCanvas(gemDescription, gemName);
+        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName);
         inventoryManager.addGemToInventory(this);
     }
 

@@ -44,65 +44,8 @@ public class TypingPanel : MonoBehaviour
     private GameObject storyButton;
 
     private bool isCurrentlyShowingStory = true;
-    void Start()
-    {
-        // foreach (Gem_Early gem in displayedGems)
-        // {
-        //     gem.gameObject.SetActive(false);
-        // }
-        // Gem_Early Somebody = new Gem_Early(Gem_Early.GemType.Somebody, "");
-        // Gem_Early Wanted = new Gem_Early(Gem_Early.GemType.Wanted, "");
-        // Gem_Early But = new Gem_Early(Gem_Early.GemType.But, "");
-        // Gem_Early So = new Gem_Early(Gem_Early.GemType.So, "");
-        // Gem_Early Then = new Gem_Early(Gem_Early.GemType.Then, "");
-    }
-    public void LoadCollectedGems()
-    {
-        List<GemInterface> collectedGems = inventoryManager.getGems();
-        foreach (Gem_Early gem in displayedGems)
-        {
-            if (gem.checkIfGemTypeInList(collectedGems))
-            {
-                Gem_Early correspondingCollectedGem = gem.getGemFromGemType(collectedGems);
 
-                gem.copyGemData(correspondingCollectedGem);
-                // Don't show gem if slotted in SWBST already
-                GameObject parent = gem.gameObject.transform.parent.gameObject;
-                if (parent.gameObject.GetComponent<RelicInventorySlot>() != null)
-                {
-                    gem.gameObject.SetActive(true);
-                }
-            }
-            else
-            {
-                gem.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    public void ToggleWriting()
-    {
-        if (currentWritingStyle == writingStyle.freeform)
-        {
-            currentWritingStyle = writingStyle.swbst;
-            swbstPanel.SetActive(true);
-            freeFormPanel.SetActive(false);
-            freeformOrSWBSTTitleText.text = "SWBST";
-        }
-        else
-        {
-            currentWritingStyle = writingStyle.freeform;
-            freeFormPanel.SetActive(true);
-            swbstPanel.SetActive(false);
-            freeformOrSWBSTTitleText.text = "Freeform";
-        }
-    }
-
-    public writingStyle GetCurrentWritingStyle()
-    {
-        return currentWritingStyle;
-    }
-
+    // General Functions
     public void showStoryAndGems()
     {
         // storyText.text = inventoryManager.GetStory();
@@ -159,4 +102,55 @@ public class TypingPanel : MonoBehaviour
         storyAndInventoryPanelHolder.SetActive(false);
 
     }
+
+    // For Early level Typing Screen
+    public void LoadCollectedGems()
+    {
+        List<GemInterface> collectedGems = inventoryManager.getGems();
+        foreach (Gem_Early gem in displayedGems)
+        {
+            if (gem.checkIfGemTypeInList(collectedGems))
+            {
+                Gem_Early correspondingCollectedGem = gem.getGemFromGemType(collectedGems);
+
+                gem.copyGemData(correspondingCollectedGem);
+                // Don't show gem if slotted in SWBST already
+                GameObject parent = gem.gameObject.transform.parent.gameObject;
+                if (parent.gameObject.GetComponent<RelicInventorySlot>() != null)
+                {
+                    gem.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                gem.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // For Late level Typing Screen
+    public void ToggleWriting()
+    {
+        if (currentWritingStyle == writingStyle.freeform)
+        {
+            currentWritingStyle = writingStyle.swbst;
+            swbstPanel.SetActive(true);
+            freeFormPanel.SetActive(false);
+            freeformOrSWBSTTitleText.text = "SWBST";
+        }
+        else
+        {
+            currentWritingStyle = writingStyle.freeform;
+            freeFormPanel.SetActive(true);
+            swbstPanel.SetActive(false);
+            freeformOrSWBSTTitleText.text = "Freeform";
+        }
+    }
+
+    public writingStyle GetCurrentWritingStyle()
+    {
+        return currentWritingStyle;
+    }
+
+
 }

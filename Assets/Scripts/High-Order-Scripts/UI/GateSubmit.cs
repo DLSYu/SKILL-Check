@@ -45,10 +45,6 @@ public class GateSubmit : MonoBehaviour
     [Header("For Early level submission")]
 
     [SerializeField]
-    // will change to serialized list later
-    private DoorManager_Early doorObserver_early;
-
-    [SerializeField]
     private SWBSTSlot somebodySlot, wantedSlot, butSlot, soSlot, thenSlot;
 
     private AndroidJavaClass bertScoreEval;
@@ -260,8 +256,8 @@ public class GateSubmit : MonoBehaviour
             butSlot.compareGemTypeToSlotType() && soSlot.compareGemTypeToSlotType() &&
             thenSlot.compareGemTypeToSlotType())
         {
-            doorObserver_early.GetCurrentDoor().unlockDoor();
-            doorObserver_early.SetNextDoor();
+            doorObserver.GetCurrentDoor().unlockDoor();
+            doorObserver.SetNextDoor();
         }
     }
 }
