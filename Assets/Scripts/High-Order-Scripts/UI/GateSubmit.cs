@@ -128,8 +128,9 @@ public class GateSubmit : MonoBehaviour
                             butField.text + " " + soField.text + " " + thenField.text;
         }
 
-        string referenceText = doorObserver.GetCurrentDoor().referenceText;
-        keyWord = doorObserver.GetCurrentDoor().keyWord;
+        Door_Late currentDoor = (Door_Late)doorObserver.GetCurrentDoor();
+        string referenceText = currentDoor.referenceText;
+        keyWord = currentDoor.keyWord;
 
         // String logic here
         if (completeText.Contains(keyWord))

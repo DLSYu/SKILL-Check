@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door_Early : DoorInterface
 {
-
+    // not needed?
     protected override void Update()
     {
         if (isDoorUnlocked)
@@ -16,11 +16,5 @@ public class Door_Early : DoorInterface
 
         triggerDoorSound();
     }
-
-    public override void Interact()
-    {
-        uiManager.openTypingScreen();
-    }
-
 
 }

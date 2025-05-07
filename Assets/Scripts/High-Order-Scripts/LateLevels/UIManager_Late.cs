@@ -6,18 +6,20 @@ using TMPro;
 using UnityEngine;
 
 // Late Level UI needs text input handlng
-public class UIManager : UIManagerTemplate
+public class UIManager_Late : UIManagerTemplate
 {
-
+    // Downcasted from doorInterface from doorManager to door_Early
     public override void openTypingScreen()
     {
         Time.timeScale = 0;
         JoystickCanvas.SetActive(false);
         TypingCanvas.SetActive(true);
 
-        if (doorManager.GetCurrentDoor().checkIfKeywordUnlocked())
+        Door_Late currentDoor = (Door_Late)doorManager.GetCurrentDoor();
+
+        if (currentDoor.checkIfKeywordUnlocked())
         {
-            keywordText.text = "Keyword: " + doorManager.GetCurrentDoor().keyWord;
+            keywordText.text = "Keyword: " + currentDoor.keyWord;
         }
         else
         {

@@ -8,10 +8,6 @@ using UnityEngine;
 public class DoorInterface : MonoBehaviour, IInteractable
 {
     [Header("Story Data")]
-    [TextArea(3, 10)]
-    public String referenceText;
-    [SerializeField]
-    public String keyWord;
 
     [Header("Door Data")]
     [SerializeField] protected GameObject door;
@@ -21,7 +17,6 @@ public class DoorInterface : MonoBehaviour, IInteractable
     [SerializeField] protected GameObject[] gems;
     [SerializeField] protected UIManagerTemplate uiManager;
     protected int activeGemCount;
-    protected bool isKeyWordUnlocked = false;
     protected bool isDoorUnlocked = false;
     protected Vector3 startPosition;
     protected Vector3 movedPosition;
@@ -45,30 +40,13 @@ public class DoorInterface : MonoBehaviour, IInteractable
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
         }
 
-        checkIfUnlockKeyword();
-
         triggerDoorSound();
     }
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Player")
-    //     {
-    //         isPlayerNear = true;
-    //     }
-    // }
-
-    // void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Player")
-    //     {
-    //         isPlayerNear = false;
-    //     }
-    // }
 
 
     public virtual void Interact()
     {
-        // uiManager.openTypingScreen();
+        uiManager.openTypingScreen();
     }
 
     protected void triggerDoorSound()
@@ -77,14 +55,6 @@ public class DoorInterface : MonoBehaviour, IInteractable
         {
             audioSource.PlayOneShot(doorSound);
             triggerOpenOnce = true;
-        }
-    }
-
-    private void checkIfUnlockKeyword()
-    {
-        if (countActiveGems() == 0)
-        {
-            isKeyWordUnlocked = true;
         }
     }
 
@@ -110,11 +80,6 @@ public class DoorInterface : MonoBehaviour, IInteractable
     public void unlockDoor()
     {
         isDoorUnlocked = true;
-    }
-
-    public bool checkIfKeywordUnlocked()
-    {
-        return isKeyWordUnlocked;
     }
 
     public Vector3 getDoorLocation()

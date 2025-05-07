@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Has comparing methods for early leveld rag and drop
 public class Gem_Early : GemInterface
 {
-    [Header("Specific References")]
-    [SerializeField] private Door_Early door;
-    [SerializeField] private UIManager_Early uiManager;
 
     public override void Interact()
     {
@@ -18,12 +16,6 @@ public class Gem_Early : GemInterface
             gameObject.SetActive(false);
             inventoryManager.addGemToInventory(this);
         }
-    }
-
-    public override string[] getGemData()
-    {
-        string[] gemData = { gemName, gemDescription, gemType.ToString() };
-        return gemData;
     }
 
     //--------------- METHODS FOR EARLY LEVEL GEM MATCHING MECHANIC ------------------//

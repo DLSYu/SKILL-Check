@@ -63,10 +63,10 @@ public class GemInventoryPrefab : MonoBehaviour
     public void OnItemClicked()
     {
         // Call a central method to update the UI
-        if (UIManager.Instance != null)
+        if (UIManagerTemplate.Instance != null)
         {
-            UIManager.Instance.updateInventoryGemSelectedText(this.type, this.description);
-            UIManager.Instance.inventoryGemHighlight(this.id);
+            UIManagerTemplate.Instance.updateInventoryGemSelectedText(this.type, this.description);
+            UIManagerTemplate.Instance.inventoryGemHighlight(this.id);
         }
         else if (UIManager_Early.Instance != null)
         {
