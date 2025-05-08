@@ -5,38 +5,33 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable
+public class DoorInterface : MonoBehaviour, IInteractable
 {
     [Header("Story Data")]
-    [TextArea(3, 10)]
-    public String referenceText;
-    [SerializeField]
-    public String keyWord;
 
     [Header("Door Data")]
-    [SerializeField] private GameObject door;
-    [SerializeField] private float duration = 5f;
-    [SerializeField] private AudioClip doorSound;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private GameObject[] gems;
-    private int activeGemCount;
-    private bool isKeyWordUnlocked = false;
-    private bool isDoorUnlocked = false;
-    private Vector3 startPosition;
-    private Vector3 movedPosition;
-    private float openElapsedTime = 0;
-    private bool triggerOpenOnce = false;
+    [SerializeField] protected GameObject door;
+    [SerializeField] protected float duration = 5f;
+    [SerializeField] protected AudioClip doorSound;
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected GameObject[] gems;
+    [SerializeField] protected UIManagerTemplate uiManager;
+    protected int activeGemCount;
+    protected bool isDoorUnlocked = false;
+    protected Vector3 startPosition;
+    protected Vector3 movedPosition;
+    protected float openElapsedTime = 0;
+    protected bool triggerOpenOnce = false;
 
     // Start is called before the first frame update
 
-    void Start()
+    protected virtual void Start()
     {
         startPosition = door.transform.position;
         movedPosition = new Vector3(startPosition.x, startPosition.y + 5f, startPosition.z);
         activeGemCount = gems.Length;
     }
-    void Update()
+    protected virtual void Update()
     {
         if (isDoorUnlocked)
         {
@@ -45,46 +40,21 @@ public class Door : MonoBehaviour, IInteractable
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
         }
 
-        checkIfUnlockKeyword();
-
         triggerDoorSound();
     }
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Player")
-    //     {
-    //         isPlayerNear = true;
-    //     }
-    // }
-
-    // void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "Player")
-    //     {
-    //         isPlayerNear = false;
-    //     }
-    // }
 
 
-    public void Interact()
+    public virtual void Interact()
     {
         uiManager.openTypingScreen();
     }
 
-    private void triggerDoorSound()
+    protected void triggerDoorSound()
     {
         if (isDoorUnlocked && !triggerOpenOnce)
         {
             audioSource.PlayOneShot(doorSound);
             triggerOpenOnce = true;
-        }
-    }
-
-    private void checkIfUnlockKeyword()
-    {
-        if (countActiveGems() == 0)
-        {
-            isKeyWordUnlocked = true;
         }
     }
 
@@ -110,11 +80,6 @@ public class Door : MonoBehaviour, IInteractable
     public void unlockDoor()
     {
         isDoorUnlocked = true;
-    }
-
-    public bool checkIfKeywordUnlocked()
-    {
-        return isKeyWordUnlocked;
     }
 
     public Vector3 getDoorLocation()

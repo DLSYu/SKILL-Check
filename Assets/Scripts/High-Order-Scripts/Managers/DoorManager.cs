@@ -9,20 +9,20 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
     [SerializeField]
-    private Door[] doorList;
+    private DoorInterface[] doorList;
     private int currentDoorIndex;
     [SerializeField]
     private TMPro.TextMeshProUGUI percentage;
 
     [SerializeField]
-    private UIManager uiManager;
+    private UIManagerTemplate uiManager;
 
     void Start()
     {
         currentDoorIndex = 0;
     }
 
-    public Door GetCurrentDoor()
+    public DoorInterface GetCurrentDoor()
     {
         return doorList[currentDoorIndex];
     }

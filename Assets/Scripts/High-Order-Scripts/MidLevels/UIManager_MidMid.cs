@@ -33,14 +33,14 @@ public class UIManager_MidMid : MonoBehaviour
         JoystickCanvas.SetActive(false);
         TypingCanvas.SetActive(true);
 
-        if (doorManager.GetCurrentDoor().checkIfKeywordUnlocked())
-        {
-            keywordText.text = "Keyword: " + doorManager.GetCurrentDoor().keyWord;
-        }
-        else
-        {
-            keywordText.text = "Keyword: ???";
-        }
+        // if (doorManager.GetCurrentDoor().checkIfKeywordUnlocked())
+        // {
+        //     keywordText.text = "Keyword: " + doorManager.GetCurrentDoor().keyWord;
+        // }
+        // else
+        // {
+        //     keywordText.text = "Keyword: ???";
+        // }
     }
 
     public void exitTypingScreen()

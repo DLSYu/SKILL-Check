@@ -13,7 +13,7 @@ public class GemInterface : MonoBehaviour, IInteractable
     [SerializeField] protected AudioClip gemSound;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected InventoryManager inventoryManager;
-
+    [SerializeField] protected UIManagerTemplate uiManager;
     /*** 
     * Allowed Gem Names and corresponding SWBST Mapping:
         * Somebody = Character
@@ -43,7 +43,7 @@ public class GemInterface : MonoBehaviour, IInteractable
 
     public virtual string[] getGemData()
     {
-        string[] gemData = { gemName, gemDescription };
+        string[] gemData = { gemName, gemDescription, gemType.ToString() };
         return gemData;
     }
 }
