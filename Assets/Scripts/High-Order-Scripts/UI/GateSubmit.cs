@@ -43,10 +43,16 @@ public class GateSubmit : MonoBehaviour
     [SerializeField]
     private GameObject loadingEvaluatingScreen;
     [Header("For Early level submission")]
-
     [SerializeField]
-    private SWBSTSlot somebodySlot, wantedSlot, butSlot, soSlot, thenSlot;
-
+    private SWBSTSlot somebodySlot;
+    [SerializeField]
+    private SWBSTSlot wantedSlot;
+    [SerializeField]
+    private SWBSTSlot butSlot;
+    [SerializeField]
+    private SWBSTSlot soSlot;
+    [SerializeField]
+    private SWBSTSlot thenSlot;
     private AndroidJavaClass bertScoreEval;
 
     private bool submitable = true;
@@ -61,12 +67,6 @@ public class GateSubmit : MonoBehaviour
     void Start()
     {
         bertScoreEval = new AndroidJavaClass("com.skillcheck.bertscore_aar.BertScoreEval");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OnSubmitButton()
@@ -128,9 +128,13 @@ public class GateSubmit : MonoBehaviour
                             butField.text + " " + soField.text + " " + thenField.text;
         }
 
-        Door_Late currentDoor = (Door_Late)doorObserver.GetCurrentDoor();
-        string referenceText = currentDoor.referenceText;
-        keyWord = currentDoor.keyWord;
+        String[] doorData = doorObserver.GetCurrentDoor().getDoorData();
+
+        string referenceText = doorData[0];
+        keyWord = doorData[1];
+
+        Debug.Log("Reference Text: " + referenceText);
+        Debug.Log("Keyword: " + keyWord);
 
         // String logic here
         if (completeText.Contains(keyWord))
@@ -260,6 +264,15 @@ public class GateSubmit : MonoBehaviour
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
         }
+    }
+
+    public void OnSubmitMidLevelButton()
+    {
+        // validation logic here
+
+
+
+        OnSubmitButton();
     }
 }
 

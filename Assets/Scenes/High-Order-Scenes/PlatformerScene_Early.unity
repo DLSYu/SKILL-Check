@@ -19237,7 +19237,10 @@ MonoBehaviour:
   doorSound: {fileID: 8300000, guid: c1bd0e3a7101449b892425dd94c2ca43, type: 3}
   audioSource: {fileID: 1805917959788670726}
   uiManager: {fileID: 1636012906}
-  gems: []
+  gems:
+  - {fileID: 916927240}
+  - {fileID: 1105901128}
+  - {fileID: 2039552838}
   inventoryManager: {fileID: 5936013}
   requiredGems: 3
 --- !u!222 &2036372941477065006
@@ -19804,7 +19807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &5289499244571268950
 CanvasRenderer:
   m_ObjectHideFlags: 0

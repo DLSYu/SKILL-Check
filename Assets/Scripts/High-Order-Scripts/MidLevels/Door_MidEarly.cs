@@ -1,19 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
-public class Door_Late : DoorInterface
+public class Door_MidEarly : DoorInterface
 {
-    [Header("Late Level Data")]
+    [Header("Mid Level Data")]
     [TextArea(3, 10)]
-    public String referenceText;
+    public string referenceText;
     [SerializeField]
-    public String keyWord;
+    public string keyWord;
     private bool isKeyWordUnlocked = false;
-    // Start is called before the first frame update
     protected override void Update()
     {
         if (isDoorUnlocked)
@@ -24,10 +20,8 @@ public class Door_Late : DoorInterface
         }
 
         checkIfUnlockKeyword();
-
         triggerDoorSound();
     }
-
 
     private void checkIfUnlockKeyword()
     {
@@ -37,20 +31,17 @@ public class Door_Late : DoorInterface
         }
     }
 
-    // public functions
-
 
     public bool checkIfKeywordUnlocked()
     {
         return isKeyWordUnlocked;
     }
 
-    public override String[] getDoorData()
+    public override string[] getDoorData()
     {
-        String[] doorData = new String[2];
+        string[] doorData = new string[2];
         doorData[0] = referenceText;
         doorData[1] = keyWord;
         return doorData;
     }
-
 }

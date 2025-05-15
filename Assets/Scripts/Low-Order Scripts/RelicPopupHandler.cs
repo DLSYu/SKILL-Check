@@ -11,7 +11,7 @@ public class RelicPopupHandler : MonoBehaviour
     public string passage; // The passage to display
 
     private bool isPopupActive = false;
-    [SerializeField] private Gem_Early gem; // Reference to the gem object
+    [SerializeField] private GemInterface gem; // Reference to the gem object
 
     void Start()
     {
