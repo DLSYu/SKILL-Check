@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class DoorInterface : MonoBehaviour, IInteractable
 {
-    [Header("Story Data")]
-
     [Header("Door Data")]
     [SerializeField] protected GameObject door;
     [SerializeField] protected float duration = 5f;
@@ -58,7 +56,7 @@ public class DoorInterface : MonoBehaviour, IInteractable
         }
     }
 
-    private int countActiveGems()
+    protected int countActiveGems()
     {
         activeGemCount = 0;
         foreach (GameObject gem in gems)
@@ -98,5 +96,11 @@ public class DoorInterface : MonoBehaviour, IInteractable
             }
         }
         return activeGems;
+    }
+
+    public virtual String[] getDoorData()
+    {
+        String[] doorData = { "referenceTextHere", "keyWord" };
+        return doorData;
     }
 }

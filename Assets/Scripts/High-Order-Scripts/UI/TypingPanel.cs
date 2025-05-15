@@ -18,7 +18,7 @@ public class TypingPanel : MonoBehaviour
     private writingStyle currentWritingStyle;
 
     [SerializeField] private TMPro.TextMeshProUGUI freeformOrSWBSTTitleText;
-    [SerializeField] List<Gem_Early> displayedGems = new List<Gem_Early>();
+    [SerializeField] List<GemInterface> displayedGems = new List<GemInterface>();
 
     [Header("Story and Inventory Panel")]
     [SerializeField]
@@ -42,6 +42,13 @@ public class TypingPanel : MonoBehaviour
     private GameObject inventoryButton;
     [SerializeField]
     private GameObject storyButton;
+
+    [Header("Mid level input fields")]
+    [SerializeField] private TMPro.TMP_InputField somebodyField;
+    [SerializeField] private TMPro.TMP_InputField wantedField;
+    [SerializeField] private TMPro.TMP_InputField butField;
+    [SerializeField] private TMPro.TMP_InputField soField;
+    [SerializeField] private TMPro.TMP_InputField thenField;
 
     private bool isCurrentlyShowingStory = true;
 
@@ -103,15 +110,15 @@ public class TypingPanel : MonoBehaviour
 
     }
 
-    // For Early level Typing Screen
+    // For Early & Mid level Typing Screen
     public void LoadCollectedGems()
     {
         List<GemInterface> collectedGems = inventoryManager.getGems();
-        foreach (Gem_Early gem in displayedGems)
+        foreach (GemInterface gem in displayedGems)
         {
             if (gem.checkIfGemTypeInList(collectedGems))
             {
-                Gem_Early correspondingCollectedGem = gem.getGemFromGemType(collectedGems);
+                GemInterface correspondingCollectedGem = gem.getGemFromGemType(collectedGems);
 
                 gem.copyGemData(correspondingCollectedGem);
                 // Don't show gem if slotted in SWBST already
@@ -124,6 +131,35 @@ public class TypingPanel : MonoBehaviour
             else
             {
                 gem.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // For Mid level Typing Screen
+    public void LoadTypingPanels()
+    {
+        List<GemInterface> collectedGems = inventoryManager.getGems();
+        foreach (GemInterface gem in collectedGems)
+        {
+            if (gem.Type == GemInterface.GemType.Somebody)
+            {
+                somebodyField.interactable = true;
+            }
+            else if (gem.Type == GemInterface.GemType.Wanted)
+            {
+                wantedField.interactable = true;
+            }
+            else if (gem.Type == GemInterface.GemType.But)
+            {
+                butField.interactable = true;
+            }
+            else if (gem.Type == GemInterface.GemType.So)
+            {
+                soField.interactable = true;
+            }
+            else if (gem.Type == GemInterface.GemType.Then)
+            {
+                thenField.interactable = true;
             }
         }
     }
@@ -147,9 +183,15 @@ public class TypingPanel : MonoBehaviour
         }
     }
 
+    // if a panel is null, return the opposite panel
     public writingStyle GetCurrentWritingStyle()
     {
-        return currentWritingStyle;
+        if (freeFormPanel == null)
+            return writingStyle.swbst;
+        else if (swbstPanel == null)
+            return writingStyle.freeform;
+        else
+            return currentWritingStyle;
     }
 
 
