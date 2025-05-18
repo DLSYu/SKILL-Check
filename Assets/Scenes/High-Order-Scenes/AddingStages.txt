@@ -1,0 +1,18 @@
+Starting
+1. Copy Base Scene (PlatformerSceneEarly/PlatformerSceneLate/PlatformerSceneMid)
+2. Paste Rename (HO1_Early HO2_Early, HO3_Mid so on)
+
+Changing the platforms
+1. Find Level Game object in scene. Under it, click stage 
+2. Add tile palette from windows > 2d > tile palette.
+3. Make sure you are editing Stage in Tile Palette, and make sure outside_ruins_art is selected
+4. Design stage as necessary
+
+Adding sections
+1. Each section is group into a prefab that has a door and 5 gem.
+2. Go to prefabs and find the EarlyLevelSection or MidLevelSection prefab and drag to scene 
+
+Editing Sections:
+1. Gems the usual SWBST name and description
+2. Early doors no need change
+3. Mid doors need change to the key word and reference text.
