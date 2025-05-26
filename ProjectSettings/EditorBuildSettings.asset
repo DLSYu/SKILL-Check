@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/High-Order-Scenes/PlatformerSceneEarly.unity
     guid: 3e5f70312c427d4478d0b448658db6f9
+  - enabled: 1
+    path: Assets/Scenes/Tests/BakunawaReadingMechanic.unity
+    guid: d85717a93e9be47ae86163640286cdbd
   m_configObjects: {}

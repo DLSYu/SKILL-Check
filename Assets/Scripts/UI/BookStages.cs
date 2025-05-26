@@ -27,7 +27,7 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
         StoryData.SetCurrentLowOrderStage(currentStage);
-        loadingScreen.LoadScene("ReadingMechanicNew");
+        loadingScreen.LoadScene("BakunawaReadingMechanic");
 
     }
 

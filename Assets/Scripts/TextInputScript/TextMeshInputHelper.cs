@@ -31,24 +31,11 @@ public class TextMeshInputHelper : MonoBehaviour
 
     public void Start()
     {
-        if (IsTextLoaded())
-        {
-
-            _tmp.ForceMeshUpdate();
-
-            TextAsset ta;
-
-
-            string _title = GetTitle(_tmp.text);
-            ta = Resources.Load<TextAsset>($"PartsOfSpeech/{_title}");
-
-            string text = ta.text.ToString().Trim();
-
-            posList = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            _tmp.ForceMeshUpdate();
-            AttachButtonsToWords();
-        }
+        // if (IsTextLoaded())
+        // {
+        //     AttachButtonsToWords();
+        //     runOnce = true;
+        // }
     }
 
     public void Update()
@@ -69,6 +56,26 @@ public class TextMeshInputHelper : MonoBehaviour
         return true;
     }
 
+    [ContextMenu("SetupReadingScene")]
+    public void SetupReadingScene()
+    {
+        // Load file
+        _tmp.ForceMeshUpdate();
+
+        TextAsset ta;
+
+
+        string _title = GetTitle(_tmp.text);
+        ta = Resources.Load<TextAsset>($"PartsOfSpeech/{_title}");
+
+        string text = ta.text.ToString().Trim();
+
+        posList = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        _tmp.ForceMeshUpdate();
+
+        AttachButtonsToWords();
+    }
 
     public void AttachButtonsToWords()
     {

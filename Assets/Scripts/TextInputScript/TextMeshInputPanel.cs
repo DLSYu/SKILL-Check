@@ -15,14 +15,18 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
     public event OnClick onClick;
     public string POS;
     public InTextDefinition dictionaryDefinition;
-    private int wordIndex;
-
+    public int wordIndex;
     public DictionaryManager dictionaryManager;
 
     void Awake()
     {
         rt = GetComponent<RectTransform>();
         dictionaryManager = FindObjectOfType<DictionaryManager>();
+    }
+
+    void Start()
+    {
+
     }
 
     void FixedUpdate()
@@ -76,12 +80,23 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
             Debug.LogError("TextInputPanel has no _TMP reference!");
         }
 
+        // Get dictionary if missing
+        if (dictionaryDefinition == null)
+        {
+            // Reinitialize the dictionaryDefinition
+            dictionaryDefinition = DictionaryReader.ReadDictionary(text.ToLower(), Enum.Parse<POS>(POS));
+            if (dictionaryDefinition == null)
+            {
+                dictionaryDefinition = new InTextDefinition("No definition found.", "No example available.", false);
+            }
+        }
+
         if (!dictionaryDefinition.exists)
         {
             Destroy(this.gameObject);
         }
-
         Debug.Log(dictionaryDefinition);
+
         dictionaryManager.ShowDictionaryPanel(text, dictionaryDefinition);
         onClick?.Invoke(_tmp);
     }
