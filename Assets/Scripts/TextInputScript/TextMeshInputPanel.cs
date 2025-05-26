@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
+public class TextMeshInputPanel : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI _tmp;
     public string text;
@@ -24,38 +24,7 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerDownHandler
         dictionaryManager = FindObjectOfType<DictionaryManager>();
     }
 
-    void Start()
-    {
-
-    }
-
-    void FixedUpdate()
-    {
-#if UNITY_ANDROID
-        foreach (Touch touch in Input.touches)
-        {
-            // for the first finger on the screen
-            if (touch.fingerId == 0)
-            {
-                if (IsInsidePanel(touch.position))
-                {
-                    TryInvokeClick();
-                }
-            }
-        }
-#else
-        if (Input.GetMouseButtonDown((int)MouseButton.Left))
-        {
-            if (IsInsidePanel(Input.mousePosition))
-            {
-                TryInvokeClick();
-            }
-        }
-#endif
-
-
-    }
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         TryInvokeClick();
     }
