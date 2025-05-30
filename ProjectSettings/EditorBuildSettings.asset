@@ -62,4 +62,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tests/BakunawaReadingMechanic.unity
     guid: d85717a93e9be47ae86163640286cdbd
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/H01_Early.unity
+    guid: 2bda25ecc3e7ddb41b0ecb4e92e2a87e
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/H02_Early.unity
+    guid: daddbeb50fc91174f9ac55972a80f410
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/H03_Mid.unity
+    guid: f41a981d85b89724b95a3a834f507b6b
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/H04_Mid.unity
+    guid: 3a85d29ea5801b74380176ddff43b008
+  - enabled: 1
+    path: Assets/Scenes/High-Order-Scenes/H05_Mid.unity
+    guid: 649c8ae9770b79644899b93d80287dc7
   m_configObjects: {}
