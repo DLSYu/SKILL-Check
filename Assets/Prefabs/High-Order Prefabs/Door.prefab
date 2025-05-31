@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   - {x: 0.374897, y: -1.8677285, z: 0}
   m_ShapePathHash: -1651283747
   m_Mesh: {fileID: 0}
-  m_InstanceId: 30618
+  m_InstanceId: 86846
   m_LocalBounds:
     m_Center: {x: -0.0307827, y: -0.059313178, z: 0}
     m_Extent: {x: 0.49381065, y: 1.8084153, z: 0}
@@ -362,16 +362,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239a892c6f8d8457193c89564fe92a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  referenceText: Juan Tamad wanted to eat a guava fruit, but he was too lazy to reach
-    it, so he sat waited under the tree for the fruit to fall, then he woke up to
-    a big bird eating the fruit.
-  keyWord: waited
-  unlocked: 0
   door: {fileID: 1699030748575133245}
   duration: 5
   doorSound: {fileID: 8300000, guid: c1bd0e3a7101449b892425dd94c2ca43, type: 3}
   audioSource: {fileID: 2727801176820097987}
+  gems: []
   uiManager: {fileID: 0}
+  referenceText: Juan Tamad wanted to eat a guava fruit, but he was too lazy to reach
+    it, so he sat waited under the tree for the fruit to fall, then he woke up to
+    a big bird eating the fruit.
+  keyWord: waited
 --- !u!82 &2727801176820097987
 AudioSource:
   m_ObjectHideFlags: 0

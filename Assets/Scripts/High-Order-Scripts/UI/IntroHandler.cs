@@ -6,6 +6,10 @@ using Unity.VisualScripting;
 
 public class IntroHandler : MonoBehaviour
 {
+
+    [Header("Disable Player Movement")]
+    [SerializeField] private GameObject player;
+
     [Header("Editable Objectives")]
     [SerializeField] private string objective;
     [SerializeField] private int gemAmount;
@@ -17,6 +21,10 @@ public class IntroHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if (player != null)
+            player.GetComponent<PlayerMovement>().enabled = false;
+
         if (objective == "")
         {
             objective = "Get through the door!";
@@ -36,6 +44,9 @@ public class IntroHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         this.gameObject.SetActive(false);
+
+        if (player != null)
+            player.GetComponent<PlayerMovement>().enabled = true;
         Destroy(this.gameObject);
     }
 }

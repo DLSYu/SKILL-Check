@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
 {
+
+    [Header("Disable Controls")]
+    [SerializeField]
+    private GameObject player;
+
     [Header("Animation Sprites")]
     [SerializeField]
     private List<Sprite> sprites;
@@ -51,6 +56,10 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
 
     void OnEnable()
     {
+        Time.timeScale = 0;
+        // disable controls
+        player.GetComponent<PlayerMovement>().enabled = false;
+
         if (animCoroutine != null)
             StopCoroutine(animCoroutine);
 
@@ -110,6 +119,10 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
 
         }
 
+        // enable controls
+        player.GetComponent<PlayerMovement>().enabled = true;
+
+        Time.timeScale = 1;
         Destroy(gameObject);
     }
 
@@ -174,4 +187,6 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
             }
         }
     }
+
+
 }

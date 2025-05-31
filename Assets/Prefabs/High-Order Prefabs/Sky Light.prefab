@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6627129431572217755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3633813218666964052}
+  - component: {fileID: 538817891708824151}
+  m_Layer: 0
+  m_Name: Sky Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3633813218666964052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627129431572217755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.32, y: 15.81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538817891708824151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627129431572217755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0, g: 1, b: 0.81576157, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: -0.031700134, y: 3.8386, z: 0}
+    m_Extent: {x: 52.3103, y: 3.4205, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -51.741364, y: 3.398549, z: 0}
+  - {x: -50.095592, y: 3.3389387, z: 0}
+  - {x: -50.104713, y: 1.098319, z: 0}
+  - {x: -47.71952, y: 1.6442671, z: 0}
+  - {x: -46.272285, y: 1.82059, z: 0}
+  - {x: -45.090622, y: 2.061101, z: 0}
+  - {x: -43.954403, y: 1.8536844, z: 0}
+  - {x: -42.613117, y: 1.4544344, z: 0}
+  - {x: -41.84039, y: 1.341918, z: 0}
+  - {x: -40.06464, y: 2.1180887, z: 0}
+  - {x: -37.37459, y: 3.1086855, z: 0}
+  - {x: -35.2864, y: 3.386218, z: 0}
+  - {x: -32.976498, y: 3.5153036, z: 0}
+  - {x: -31.13349, y: 3.337966, z: 0}
+  - {x: -29.418983, y: 2.4552736, z: 0}
+  - {x: -28.081886, y: 2.465972, z: 0}
+  - {x: -27.044537, y: 2.0692568, z: 0}
+  - {x: -26.075779, y: 2.1087465, z: 0}
+  - {x: -25.042305, y: 2.3067904, z: 0}
+  - {x: -23.603703, y: 2.6322794, z: 0}
+  - {x: -22.240189, y: 2.7959986, z: 0}
+  - {x: -20.535065, y: 2.8563128, z: 0}
+  - {x: -18.129894, y: 2.9320574, z: 0}
+  - {x: -16.333345, y: 2.800519, z: 0}
+  - {x: -14.049047, y: 2.3880854, z: 0}
+  - {x: -12.59589, y: 1.4880209, z: 0}
+  - {x: -11.389599, y: 1.386384, z: 0}
+  - {x: -9.767019, y: 1.835702, z: 0}
+  - {x: -8.396866, y: 2.3449373, z: 0}
+  - {x: -6.4173737, y: 2.7519789, z: 0}
+  - {x: -4.379509, y: 2.7731981, z: 0}
+  - {x: -2.0527878, y: 2.4957132, z: 0}
+  - {x: 0.07373047, y: 1.906621, z: 0}
+  - {x: 1.6329346, y: 0.9183302, z: 0}
+  - {x: 4.404335, y: 1.2973986, z: 0}
+  - {x: 6.1556854, y: 1.6376543, z: 0}
+  - {x: 8.699394, y: 1.5982199, z: 0}
+  - {x: 9.98246, y: 1.1603556, z: 0}
+  - {x: 13.206169, y: 2.400815, z: 0}
+  - {x: 16.499111, y: 3.3369722, z: 0}
+  - {x: 18.912735, y: 3.4241362, z: 0}
+  - {x: 20.996971, y: 3.032672, z: 0}
+  - {x: 23.489159, y: 2.3325987, z: 0}
+  - {x: 25.110527, y: 2.2238226, z: 0}
+  - {x: 27.454811, y: 2.5711412, z: 0}
+  - {x: 30.01278, y: 2.8149118, z: 0}
+  - {x: 31.86747, y: 3.0002031, z: 0}
+  - {x: 33.364395, y: 3.0022516, z: 0}
+  - {x: 34.790253, y: 2.973981, z: 0}
+  - {x: 36.319344, y: 2.799243, z: 0}
+  - {x: 37.773567, y: 2.3576937, z: 0}
+  - {x: 39.508934, y: 1.8558149, z: 0}
+  - {x: 40.89508, y: 1.7292738, z: 0}
+  - {x: 43.12932, y: 2.358262, z: 0}
+  - {x: 44.915962, y: 2.659276, z: 0}
+  - {x: 47.24215, y: 2.8620253, z: 0}
+  - {x: 50.077995, y: 2.483407, z: 0}
+  - {x: 51.77787, y: 2.3161974, z: 0}
+  - {x: 51.692047, y: 6.7590933, z: 0}
+  - {x: -51.841797, y: 6.6685133, z: 0}
