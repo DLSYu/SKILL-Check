@@ -182,6 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b526effd20ae8c4a8bd8522dfd6b09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gemImage: {fileID: 7934951379187046757}
+  gemRedImage: {fileID: 21300000, guid: 276a82a820bf6412fa1f30341479cc98, type: 3}
+  gemOrangeImage: {fileID: 21300000, guid: 43f17042fe7330f4caf0a8fc7190e964, type: 3}
+  gemGreenImage: {fileID: 21300000, guid: 5cd6a080e125d484d807b725b487718a, type: 3}
+  gemBlueImage: {fileID: 21300000, guid: 279c82f7dbf9e0940967bb025b51d0f5, type: 3}
+  gemPurpleImage: {fileID: 0}
   gemHighlight: {fileID: 1824132619943037401}
 --- !u!1 &7934951379187046757
 GameObject:

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UIElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManagerTemplate : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class UIManagerTemplate : MonoBehaviour
     [SerializeField] private TextMeshProUGUI InventoryGemDescriptionText;
     [SerializeField] private TextMeshProUGUI InventoryGemDescriptionType;
     [SerializeField] protected TextMeshProUGUI gemTMProDescription, gemTMProName;
+    [SerializeField] private Sprite gemGetRedImage, gemGetOrangeImage, gemGetGreenImage, gemGetBlueImage, gemGetPurpleImage;
+    [SerializeField] private Sprite gemInventoryRedSelectedImage, gemInventoryOrangeSelectedImage, gemInventoryGreenSelectedImage, gemInventoryBlueSelectedImage, gemInventoryPurpleSelectedImage;
+    [SerializeField] private GameObject currentGemGetImage;
+    [SerializeField] private GameObject currentInventoryGemImage;
     [SerializeField] private GameObject gemScrollViewContent;
     [SerializeField] private GameObject gemInventoryPrefab;
     [SerializeField] protected TextMeshProUGUI keywordText;
@@ -26,6 +31,8 @@ public class UIManagerTemplate : MonoBehaviour
     [SerializeField] protected GateSubmit gateSubmit;
     public bool isScorePanelCleanable = false;
     private List<GameObject> gemInventoryGameObjectList = new List<GameObject>();
+
+
 
     private void Awake()
     {
@@ -53,6 +60,30 @@ public class UIManagerTemplate : MonoBehaviour
     public void openGemCanvas(String gemDescription, String gemType, String gemName)
     {
         Time.timeScale = 0;
+        switch (gemType)
+        {
+            case "Somebody":
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetBlueImage;
+                break;
+            case "Wanted":
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetGreenImage;
+                break;
+            case "But":
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetOrangeImage;
+                break;
+            case "So":
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetPurpleImage;
+                break;
+            case "Then":
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetRedImage;
+                break;
+            default:
+                currentGemGetImage.GetComponent<UnityEngine.UI.Image>().sprite = gemGetRedImage;
+                break;
+
+        }
+
+
         this.gemTMProDescription.text = gemDescription;
         this.gemTMProName.text = gemName;
         GemCanvas.SetActive(true);
@@ -92,10 +123,37 @@ public class UIManagerTemplate : MonoBehaviour
         JoystickCanvas.SetActive(true);
     }
 
-    public void updateInventoryGemSelectedText(string type, string description)
+    public void updateInventoryGemSelectedText(string name, string type, string description)
     {
-        InventoryGemDescriptionType.text = type;
+        ChangeInventorySelectedImage(type);
+        InventoryGemDescriptionType.text = name;
         InventoryGemDescriptionText.text = description;
+    }
+
+    private void ChangeInventorySelectedImage(string type)
+    {
+        switch (type)
+        {
+            case "Somebody":
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryBlueSelectedImage;
+                break;
+            case "Wanted":
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryGreenSelectedImage;
+                break;
+            case "But":
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryOrangeSelectedImage;
+                break;
+            case "So":
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryPurpleSelectedImage;
+                break;
+            case "Then":
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryRedSelectedImage;
+                break;
+            default:
+                currentInventoryGemImage.GetComponent<UnityEngine.UI.Image>().sprite = gemInventoryRedSelectedImage;
+                break;
+
+        }
     }
 
     public void inventoryGemHighlight(int id)
@@ -134,8 +192,9 @@ public class UIManagerTemplate : MonoBehaviour
             // get gemData
             string[] currentGemData = gem.getGemData();
             GameObject newGemPrefab = Instantiate(gemInventoryPrefab, gemScrollViewContent.transform);
-            newGemPrefab.GetComponent<GemInventoryPrefab>().setType(currentGemData[0]);
+            newGemPrefab.GetComponent<GemInventoryPrefab>().setName(currentGemData[0]);
             newGemPrefab.GetComponent<GemInventoryPrefab>().setDescription(currentGemData[1]);
+            newGemPrefab.GetComponent<GemInventoryPrefab>().setType(currentGemData[2]);
             newGemPrefab.GetComponent<GemInventoryPrefab>().setId(id);
             gemInventoryGameObjectList.Add(newGemPrefab);
             newGemPrefab.SetActive(true);
@@ -150,6 +209,7 @@ public class UIManagerTemplate : MonoBehaviour
         {
             InventoryGemDescriptionType.text = gemList[0].getGemData()[0];
             InventoryGemDescriptionText.text = gemList[0].getGemData()[1];
+            ChangeInventorySelectedImage(gemList[0].getGemData()[2]);
             inventoryGemHighlight(0);
         }
     }
