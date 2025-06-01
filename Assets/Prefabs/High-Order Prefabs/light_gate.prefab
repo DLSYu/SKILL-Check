@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3491456188429737785
+--- !u!1 &6511116400857251804
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8850265655050229312}
-  - component: {fileID: 7555217838361351405}
+  - component: {fileID: 5336015717329372011}
+  - component: {fileID: 4050987925948970698}
   m_Layer: 0
-  m_Name: lighting
+  m_Name: light_gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8850265655050229312
+--- !u!4 &5336015717329372011
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3491456188429737785}
+  m_GameObject: {fileID: 6511116400857251804}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.09770285, w: 0.99521565}
-  m_LocalPosition: {x: -14.94, y: 4.99, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.214}
---- !u!114 &7555217838361351405
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4050987925948970698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3491456188429737785}
+  m_GameObject: {fileID: 6511116400857251804}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.707
-  m_Color: {r: 0.9748427, g: 0.93657017, b: 0.35253727, a: 1}
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 0.87260795, b: 0.09019607, a: 1}
   m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -61,13 +61,13 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 1
+  m_ShadowIntensityEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -2.9341002, y: -7.198, z: 0}
-    m_Extent: {x: 4.7662, y: 6.6984997, z: 0}
+    m_Center: {x: -0.04550004, y: -0.13800001, z: 0}
+    m_Extent: {x: 2.4001, y: 3.7607, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -75,11 +75,17 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 1
+  m_ShapeLightFalloffSize: 2
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -6.7005177, y: -12.8966675, z: 0}
-  - {x: 0.8321881, y: -11.318917, z: 0}
-  - {x: -0.072534114, y: -1.7841936, z: 0}
-  - {x: -1.0208877, y: -1.7300016, z: -0.00000010430813}
-  - {x: -1.6586814, y: -1.4980866, z: 0}
+  - {x: -0.33702087, y: 1.1569631, z: 0}
+  - {x: -0.26755524, y: -1.310977, z: 0}
+  - {x: -0.43959045, y: -1.4105756, z: 0}
+  - {x: -0.40337372, y: -1.8361342, z: 0}
+  - {x: 0.3209839, y: -1.8995154, z: 0}
+  - {x: 0.29382324, y: -1.5011203, z: 0}
+  - {x: 0.18309784, y: -1.3601718, z: 0}
+  - {x: 0.15800476, y: 0.69005466, z: 0}
+  - {x: 0.3119278, y: 1.2423756, z: 0}
+  - {x: 0.3551407, y: 1.6227505, z: 0}
+  - {x: -0.44567108, y: 1.6227505, z: 0}
