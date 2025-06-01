@@ -1,0 +1,4 @@
+1. run ReadingMechanicNew scene with the story.
+ - Can manually add the story there, or can also run it through the lobby
+2. Find POSGenerator, click 3 vertical dots, GeneratePOS
+3. Find StoryText, TextMeshInputHelpr, click 3 vertical dots, SetupReadingScene

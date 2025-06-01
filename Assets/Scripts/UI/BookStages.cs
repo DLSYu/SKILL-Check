@@ -27,8 +27,7 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
         StoryData.SetCurrentLowOrderStage(currentStage);
-        loadingScreen.LoadScene("BakunawaReadingMechanic");
-
+        LoadReadingScene(currentStage);
     }
 
     public void setLoadingScreen(LoadingScreen loadingScreen)
@@ -57,6 +56,35 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
                 break;
             default:
                 currentStage = bookStage.Not_Book_Stage;
+                break;
+
+        }
+
+    }
+
+    private void LoadReadingScene(bookStage currentStage)
+    {
+        switch (currentStage)
+        {
+            case bookStage.LO_1:
+                loadingScreen.LoadScene("LO1_ReadingScene");
+                break;
+            case bookStage.LO_2:
+                loadingScreen.LoadScene("LO2_ReadingScene");
+                break;
+            case bookStage.LO_3:
+                loadingScreen.LoadScene("LO3_ReadingScene");
+                break;
+            case bookStage.LO_4:
+                // loadingScreen.LoadScene("LO4_ReadingScene");
+                loadingScreen.LoadScene("ReadingMechanicNew");
+                break;
+            case bookStage.LO_5:
+                // loadingScreen.LoadScene("LO5_ReadingScene");
+                loadingScreen.LoadScene("ReadingMechanicNew");
+                break;
+            default:
+                loadingScreen.LoadScene("ReadingMechanicNew");
                 break;
 
         }
