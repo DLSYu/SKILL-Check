@@ -187,7 +187,7 @@ MonoBehaviour:
   gemOrangeImage: {fileID: 21300000, guid: 43f17042fe7330f4caf0a8fc7190e964, type: 3}
   gemGreenImage: {fileID: 21300000, guid: 5cd6a080e125d484d807b725b487718a, type: 3}
   gemBlueImage: {fileID: 21300000, guid: 279c82f7dbf9e0940967bb025b51d0f5, type: 3}
-  gemPurpleImage: {fileID: 0}
+  gemPurpleImage: {fileID: 21300000, guid: 8e1defd74e2552c48a0d9ea7e923d55b, type: 3}
   gemHighlight: {fileID: 1824132619943037401}
 --- !u!1 &7934951379187046757
 GameObject:

@@ -26,7 +26,7 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
         //SceneManager.LoadScene(currentStage.ToString());
         //Temporary placeholder
         StoryData.SetCurrentHighOrderStage(currentStage);
-        loadingScreen.LoadScene("ReadingMechanicNew");
+        LoadReadingScene(currentStage);
     }
 
     public void SetLoadingScreen(LoadingScreen loadingScreen)
@@ -61,5 +61,31 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
 
     }
 
+    private void LoadReadingScene(statueStage currentStage)
+    {
+        switch (currentStage)
+        {
+            case statueStage.HO_1:
+                loadingScreen.LoadScene("HO1_ReadingScene");
+                break;
+            case statueStage.HO_2:
+                loadingScreen.LoadScene("HO2_ReadingScene");
+                break;
+            case statueStage.HO_3:
+                loadingScreen.LoadScene("HO3_ReadingScene");
+                break;
+            case statueStage.HO_4:
+                loadingScreen.LoadScene("HO4_ReadingScene");
+                break;
+            case statueStage.HO_5:
+                loadingScreen.LoadScene("HO5_ReadingScene");
+                break;
+            default:
+                loadingScreen.LoadScene("ReadingMechanicNew");
+                break;
+
+        }
+
+    }
 
 }

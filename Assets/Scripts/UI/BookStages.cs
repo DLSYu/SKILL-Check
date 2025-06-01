@@ -76,12 +76,10 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
                 loadingScreen.LoadScene("LO3_ReadingScene");
                 break;
             case bookStage.LO_4:
-                // loadingScreen.LoadScene("LO4_ReadingScene");
-                loadingScreen.LoadScene("ReadingMechanicNew");
+                loadingScreen.LoadScene("LO4_ReadingScene");
                 break;
             case bookStage.LO_5:
-                // loadingScreen.LoadScene("LO5_ReadingScene");
-                loadingScreen.LoadScene("ReadingMechanicNew");
+                loadingScreen.LoadScene("LO5_ReadingScene");
                 break;
             default:
                 loadingScreen.LoadScene("ReadingMechanicNew");

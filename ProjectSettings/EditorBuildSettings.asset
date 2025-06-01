@@ -54,6 +54,27 @@ EditorBuildSettings:
     path: Assets/Scenes/ReadingScenes/LO3_ReadingScene.unity
     guid: 39c617145d9d0864590fb1581044167e
   - enabled: 1
+    path: Assets/Scenes/ReadingScenes/LO4_ReadingScene.unity
+    guid: 65f47749974c9ae4b9d0917282199aee
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/LO5_ReadingScene.unity
+    guid: 12dbc23c85d809f45a98045195e2bf87
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/HO1_ReadingScene.unity
+    guid: df8f0a8fab9537f478113866f45dea5f
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/HO2_ReadingScene.unity
+    guid: 172eae5d4847d1f4cbeffb9254c2fe41
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/HO3_ReadingScene.unity
+    guid: ae403389582d28a4c974cb9c775681fc
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/HO4_ReadingScene.unity
+    guid: 065816c95e08b7e43882756de678a551
+  - enabled: 1
+    path: Assets/Scenes/ReadingScenes/HO5_ReadingScene.unity
+    guid: 82902805ae23c3e4fa55663f44c6716e
+  - enabled: 1
     path: Assets/Scenes/High-Order-Scenes/H01_Early.unity
     guid: 2bda25ecc3e7ddb41b0ecb4e92e2a87e
   - enabled: 1
