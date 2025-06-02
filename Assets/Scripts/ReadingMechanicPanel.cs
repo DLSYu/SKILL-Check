@@ -41,9 +41,16 @@ public class ReadingMechanicPanel : MonoBehaviour
 
     [SerializeField]
     private GameObject helpPanel;
+    [SerializeField]
+    private AudioSource voiceActing;
+    [SerializeField]
+    private VoiceManager voiceManager;
 
     private List<int> currentAppliedLines = new List<int>();
+    // This one is for the UI
     private int currentSentence = 1;
+    // This is for voice acting please dont confuse T_T
+    private int currentPagedTotalPrev = 0;
     private List<GameObject> pagePrefabList = new List<GameObject>();
 
     void Awake()
@@ -223,6 +230,8 @@ public class ReadingMechanicPanel : MonoBehaviour
         if (storyText.pageToDisplay < storyText.textInfo.pageCount)
         {
             storyText.ForceMeshUpdate();
+            currentPagedTotalPrev += lineSelector.ReturnSentenceCount();
+            Debug.Log(currentPagedTotalPrev);
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
@@ -231,6 +240,7 @@ public class ReadingMechanicPanel : MonoBehaviour
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
             currentSentence = 1;
+
         }
 
 
@@ -242,6 +252,8 @@ public class ReadingMechanicPanel : MonoBehaviour
         if (storyText.pageToDisplay - 1 > 0)
         {
             storyText.ForceMeshUpdate();
+            currentPagedTotalPrev -= lineSelector.ReturnSentenceCount();
+            Debug.Log(currentPagedTotalPrev);
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
@@ -382,6 +394,45 @@ public class ReadingMechanicPanel : MonoBehaviour
             textInputHelper.isDictionaryActive = false;
             textInputHelper.DeactivateButtonsOnPage(storyText.pageToDisplay);
         }
+    }
+
+    public void PlayVoiceLine()
+    {
+
+        if (!voiceActing.isPlaying)
+        {
+            // 1. Get the story's line detail
+            //      get line
+            //      get page
+            //      could also just get total line from the whole story(?)
+            // 2. play voiceline based on that
+            //      data structure: Static class to call, line # as index, 
+            //      return list startTime and endTime
+            TimeStamping currentIndex = voiceManager.GetTimeStamping(currentSentence + currentPagedTotalPrev);
+            StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
+            Debug.Log("should be playing");
+        }
+        else if (voiceActing.isPlaying)
+        {
+            voiceActing.Stop();
+            Debug.Log("should NOT be playing");
+        }
+
+    }
+
+    private IEnumerator PlayFromTo(float startTime, float endTime)
+    {
+
+        voiceActing.Stop();
+        voiceActing.time = startTime;
+        voiceActing.Play();
+
+        yield return null; // Wait one frame to ensure playback starts
+
+        float segmentDuration = endTime - startTime;
+        yield return new WaitForSeconds(segmentDuration);
+
+        voiceActing.Stop();
     }
 
 

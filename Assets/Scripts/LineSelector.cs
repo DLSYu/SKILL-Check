@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine.Animations;
 using System.Collections.Generic;
 
-public class LineSelector : MonoBehaviour, IEndDragHandler 
+public class LineSelector : MonoBehaviour, IEndDragHandler
 {
     private Scrollbar scrollbar;
     [SerializeField]
@@ -23,33 +23,31 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
     {
         scrollbar = this.gameObject.GetComponent<Scrollbar>();
         nearestIndexes.Add(0);
-        
-        
+
+
     }
     public void OnEndDrag(PointerEventData data)
     {
 
-        
-       
+
         UpdateNearestIndexes(data.position, data.enterEventCamera);
         UpdateScrollbarValue();
 
-       
-        
 
-        
+
     }
 
-void UpdateScrollbarValue(){
-    TMP_TextInfo storyTextInfo = storyText.textInfo;
-    TMP_CharacterInfo[] characterInfo = storyTextInfo.characterInfo;
+    void UpdateScrollbarValue()
+    {
+        TMP_TextInfo storyTextInfo = storyText.textInfo;
+        TMP_CharacterInfo[] characterInfo = storyTextInfo.characterInfo;
 
 
-    RectTransform rectTransform = storyText.rectTransform;
+        RectTransform rectTransform = storyText.rectTransform;
         // Get world corners of the RectTransform
-    UnityEngine.Vector3[] worldCorners = new UnityEngine.Vector3[4];
-    rectTransform.GetWorldCorners(worldCorners);
-    
+        UnityEngine.Vector3[] worldCorners = new UnityEngine.Vector3[4];
+        rectTransform.GetWorldCorners(worldCorners);
+
         UnityEngine.Vector3 worldBottomLeft = worldCorners[0];  // Bottom-left corner (world space)
         UnityEngine.Vector3 worldTopLeft = worldCorners[1];     // Top-left corner (world space)
         float sumOfAllMidpoints = 0;
@@ -64,12 +62,12 @@ void UpdateScrollbarValue(){
                 characterInfo[storyTextInfo.lineInfo[nearestIndexes[i]].firstCharacterIndex].bottomLeft
             ).y;
 
-            sumOfAllMidpoints += (worldNearestTopLeft + worldNearestBottomLeft)/2f;
+            sumOfAllMidpoints += (worldNearestTopLeft + worldNearestBottomLeft) / 2f;
 
         }
         // Convert character positions to world space
-       
-          // Calculate midpoint in world space
+
+        // Calculate midpoint in world space
         float midpointY = sumOfAllMidpoints / nearestIndexes.Count;
 
         scrollbar.value = Mathf.InverseLerp(
@@ -77,62 +75,62 @@ void UpdateScrollbarValue(){
             worldBottomLeft.y,
             midpointY
         );
-}
+    }
 
-public void ResetSliderToFirstLine()
-{
+    public void ResetSliderToFirstLine()
+    {
         nearestIndexes.Clear();
         SetSliderToNthSentence(1);
 
-}
+    }
 
-public int ReturnSentenceCount()
-{
+    public int ReturnSentenceCount()
+    {
         bool start = false;
         int currentSentence = 0;
 
         int currentTextLineCount = storyText.textInfo.lineCount;
-        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].firstCharacterIndex;
-        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].lastCharacterIndex;
+        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].firstCharacterIndex;
+        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].lastCharacterIndex;
 
-      for (int i = 0; i < currentTextLineCount; i++)
+        for (int i = 0; i < currentTextLineCount; i++)
+        {
+            TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
+
+            string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
+
+
+            // Ensure the line's first character is within the visible page range
+            // start of a sentence and within a page
+            if (lineInfo.firstCharacterIndex >= firstCharIndex && !start && lineInfo.lastCharacterIndex <= lastCharIndex && s.Length != 0)
             {
-                TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
-
-                string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
-
-
-                // Ensure the line's first character is within the visible page range
-                // start of a sentence and within a page
-                if (lineInfo.firstCharacterIndex >= firstCharIndex && !start && lineInfo.lastCharacterIndex <= lastCharIndex && s.Length != 0)
-                {
-                    start = true;
-                    currentSentence++;
-                }
-
-                if (lineInfo.lastCharacterIndex > lastCharIndex)
-                    break;
-
-                else if (start && s.Length == 0)
-                {
-                    
-                    start = false;
-                }  
-
+                start = true;
+                currentSentence++;
             }
-    return currentSentence;
-}
 
-public int SetSliderToNthSentence(int n)
-{
+            if (lineInfo.lastCharacterIndex > lastCharIndex)
+                break;
+
+            else if (start && s.Length == 0)
+            {
+
+                start = false;
+            }
+
+        }
+        return currentSentence;
+    }
+
+    public int SetSliderToNthSentence(int n)
+    {
         bool start = false;
         int currentSentence = 0;
         List<int> tempIndex = new List<int>();
-    
+
 
         int currentTextLineCount = storyText.textInfo.lineCount;
-        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].firstCharacterIndex;
-        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay-1].lastCharacterIndex;
+        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].firstCharacterIndex;
+        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].lastCharacterIndex;
 
         if (lastCharIndex == 0)
             lastCharIndex = storyText.textInfo.characterCount;
@@ -161,20 +159,20 @@ public int SetSliderToNthSentence(int n)
 
                 else if (start && s.Length == 0)
                 {
-                    
+
                     start = false;
                 }
-        
+
                 if (currentSentence == n && s.Length != 0 && start)
                 {
                     tempIndex.Add(i);
                 }
 
-                
+
 
             }
         }
-      
+
 
         if (tempIndex.Count != 0)
         {
@@ -184,97 +182,97 @@ public int SetSliderToNthSentence(int n)
             UpdateScrollbarValue();
             return 0;
         }
-        else 
+        else
             return -1;
-            
-        
-}
-
-private void UpdateNearestIndexes(UnityEngine.Vector2 screenPoint, Camera uiCamera)
-{
-    storyText.ForceMeshUpdate();
-
-    float leastDistance = float.MaxValue;
-    int counter = 0;
-    bool getIndex = false;
-
-    int currentTextLineCount = storyText.textInfo.lineCount;
-    float[] listOfDistances = new float[currentTextLineCount];
-
-    // Get the current page index (assuming you're using TMP pagination)
-    int currentPage = storyText.pageToDisplay - 1;
 
 
+    }
 
-    // Get the first and last visible character index of the current page
-    int firstCharIndex = storyText.textInfo.pageInfo[currentPage].firstCharacterIndex;
-    int lastCharIndex = storyText.textInfo.pageInfo[currentPage].lastCharacterIndex;
+    private void UpdateNearestIndexes(UnityEngine.Vector2 screenPoint, Camera uiCamera)
+    {
+        storyText.ForceMeshUpdate();
 
-     if (lastCharIndex == 0)
+        float leastDistance = float.MaxValue;
+        int counter = 0;
+        bool getIndex = false;
+
+        int currentTextLineCount = storyText.textInfo.lineCount;
+        float[] listOfDistances = new float[currentTextLineCount];
+
+        // Get the current page index (assuming you're using TMP pagination)
+        int currentPage = storyText.pageToDisplay - 1;
+
+
+
+        // Get the first and last visible character index of the current page
+        int firstCharIndex = storyText.textInfo.pageInfo[currentPage].firstCharacterIndex;
+        int lastCharIndex = storyText.textInfo.pageInfo[currentPage].lastCharacterIndex;
+
+        if (lastCharIndex == 0)
             lastCharIndex = storyText.textInfo.characterCount;
 
-    for (int i = 0; i < currentTextLineCount; i++)
-    {
-        TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
-
-        // Ensure the line's first character is within the visible page range
-        if (lineInfo.firstCharacterIndex < firstCharIndex || lineInfo.firstCharacterIndex > lastCharIndex)
+        for (int i = 0; i < currentTextLineCount; i++)
         {
-            listOfDistances[i] = -1; // Mark it as out of bounds (not visible)
-            continue;
-        }
+            TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
 
-        // Get trimmed string for the line
-        string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
-
-        if (s.Length > 0)
-        {
-            // Convert world character position to screen space
-            UnityEngine.Vector3 lineScreenPos = RectTransformUtility.WorldToScreenPoint(
-                uiCamera,
-                (storyText.transform.TransformPoint(storyText.textInfo.characterInfo[lineInfo.firstCharacterIndex].bottomLeft) +
-                 storyText.transform.TransformPoint(storyText.textInfo.characterInfo[lineInfo.firstCharacterIndex].topLeft)) / 2
-            );
-
-            float distance = UnityEngine.Vector2.Distance(screenPoint, lineScreenPos);
-            listOfDistances[i] = distance;
-        }
-        else
-        {
-            listOfDistances[i] = -1; // Mark empty lines
-        }
-    }
-
-    for (int i = 0; i < currentTextLineCount; i++)
-    {
-        float currentDistance = listOfDistances[i];
-
-        if (listOfDistances[i] != -1) // If it's a valid visible line
-        {
-            counter++;
-            if (currentDistance < leastDistance)
+            // Ensure the line's first character is within the visible page range
+            if (lineInfo.firstCharacterIndex < firstCharIndex || lineInfo.firstCharacterIndex > lastCharIndex)
             {
-                leastDistance = currentDistance;
-                getIndex = true;
+                listOfDistances[i] = -1; // Mark it as out of bounds (not visible)
+                continue;
+            }
+
+            // Get trimmed string for the line
+            string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
+
+            if (s.Length > 0)
+            {
+                // Convert world character position to screen space
+                UnityEngine.Vector3 lineScreenPos = RectTransformUtility.WorldToScreenPoint(
+                    uiCamera,
+                    (storyText.transform.TransformPoint(storyText.textInfo.characterInfo[lineInfo.firstCharacterIndex].bottomLeft) +
+                     storyText.transform.TransformPoint(storyText.textInfo.characterInfo[lineInfo.firstCharacterIndex].topLeft)) / 2
+                );
+
+                float distance = UnityEngine.Vector2.Distance(screenPoint, lineScreenPos);
+                listOfDistances[i] = distance;
+            }
+            else
+            {
+                listOfDistances[i] = -1; // Mark empty lines
             }
         }
 
-        if (listOfDistances[i] == -1 || i + 1 == currentTextLineCount) // Detect blank spaces or end of text
+        for (int i = 0; i < currentTextLineCount; i++)
         {
-            if (getIndex)
+            float currentDistance = listOfDistances[i];
+
+            if (listOfDistances[i] != -1) // If it's a valid visible line
             {
-                nearestIndexes.Clear();
-                for (int j = i - 1; j >= i - counter; j--)
+                counter++;
+                if (currentDistance < leastDistance)
                 {
-                    nearestIndexes.Add(j);
+                    leastDistance = currentDistance;
+                    getIndex = true;
                 }
             }
-            getIndex = false;
-            counter = 0;
+
+            if (listOfDistances[i] == -1 || i + 1 == currentTextLineCount) // Detect blank spaces or end of text
+            {
+                if (getIndex)
+                {
+                    nearestIndexes.Clear();
+                    for (int j = i - 1; j >= i - counter; j--)
+                    {
+                        nearestIndexes.Add(j);
+                    }
+                }
+                getIndex = false;
+                counter = 0;
+            }
         }
+
     }
 
-}
 
-    
 }
