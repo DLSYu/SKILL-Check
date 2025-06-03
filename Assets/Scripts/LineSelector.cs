@@ -16,6 +16,7 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
     private Scrollbar scrollbar;
     [SerializeField]
     private TextMeshProUGUI storyText;
+    public int currentSentenceIndex = 1;
 
     public List<int> nearestIndexes;
 
@@ -28,13 +29,13 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData data)
     {
-
-
         UpdateNearestIndexes(data.position, data.enterEventCamera);
         UpdateScrollbarValue();
+    }
 
-
-
+    public void Update()
+    {
+        Debug.Log("Current Sentence Index: " + GetCurrentSentence());
     }
 
     void UpdateScrollbarValue()
@@ -274,5 +275,40 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
 
     }
 
+    public int GetCurrentSentence()
+    {
+        if (nearestIndexes == null || nearestIndexes.Count == 0)
+            return -1;
+
+        int targetLine = nearestIndexes[0];
+
+        bool start = false;
+        int sentenceNum = 0;
+
+        int currentTextLineCount = storyText.textInfo.lineCount;
+        int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].firstCharacterIndex;
+        int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].lastCharacterIndex;
+
+        for (int i = 0; i < currentTextLineCount; i++)
+        {
+            TMP_LineInfo lineInfo = storyText.textInfo.lineInfo[i];
+            string s = storyText.text.Substring(lineInfo.firstCharacterIndex, lineInfo.characterCount).Trim((char)8203).Trim();
+
+            if (lineInfo.firstCharacterIndex >= firstCharIndex && !start && lineInfo.lastCharacterIndex <= lastCharIndex && s.Length != 0)
+            {
+                start = true;
+                sentenceNum++;
+            }
+
+            if (lineInfo.lastCharacterIndex > lastCharIndex)
+                break;
+            else if (start && s.Length == 0)
+                start = false;
+
+            if (i == targetLine)
+                return sentenceNum;
+        }
+        return -1;
+    }
 
 }

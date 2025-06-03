@@ -240,7 +240,6 @@ public class ReadingMechanicPanel : MonoBehaviour
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
             currentSentence = 1;
-
         }
 
 
@@ -408,7 +407,7 @@ public class ReadingMechanicPanel : MonoBehaviour
             // 2. play voiceline based on that
             //      data structure: Static class to call, line # as index, 
             //      return list startTime and endTime
-            TimeStamping currentIndex = voiceManager.GetTimeStamping(currentSentence + currentPagedTotalPrev);
+            TimeStamping currentIndex = voiceManager.GetTimeStamping(lineSelector.GetCurrentSentence() + currentPagedTotalPrev);
             StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
             Debug.Log("should be playing");
         }
