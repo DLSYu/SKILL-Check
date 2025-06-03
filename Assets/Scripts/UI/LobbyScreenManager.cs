@@ -1,5 +1,10 @@
 using System.Collections.Generic;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using System.Data.Common;
+using UnityEngine.Rendering.Universal;
+using System;
 
 public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 {
@@ -32,6 +37,25 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     //private bool buttonsEnabled = true;
     [SerializeField] private float disableButtonDuration = 1f;
+
+    [SerializeField] private List<GameObject> bookClickables;
+    [SerializeField] private List<GameObject> finishedBookClickables;
+    [SerializeField] private List<GameObject> bookGlows;
+    [SerializeField] private List<GameObject> statueClickables;
+    [SerializeField] private List<GameObject> statueGlows;
+
+
+    [SerializeField] private GameObject particleSystemObject;
+
+    private int ho_level_to_reveal = -1;
+    private bool ho_level_has_played_animation = false;
+    private int lo_level_to_reveal = -1;
+    private bool lo_level_has_played_animation = false;
+
+    private int hoTotalStages = 5;
+    private int loTotalStages = 5;
+
+    private float fadeDuration = 3.0f;
 
     private void Start()
     {
@@ -91,6 +115,24 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
         elapsedTime = 0;
         targetPosition = new Vector3(camera.transform.position.x - cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex--;
+
+        if (currentScreenIndex == -1)
+        {
+
+            if (ho_level_to_reveal != -1)
+            {
+                statueClickables[ho_level_to_reveal - 1].SetActive(true);
+                statueGlows[ho_level_to_reveal - 1].SetActive(true);
+                statueClickables[ho_level_to_reveal - 1].GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+                StartCoroutine(FadeInAndOut(statueClickables[ho_level_to_reveal - 1], true, fadeDuration));
+                StartCoroutine(FadeInAndOutLight(statueGlows[ho_level_to_reveal - 1], true, fadeDuration));
+                Instantiate(particleSystemObject, statueClickables[ho_level_to_reveal - 1].transform);
+
+                ho_level_has_played_animation = true;
+                DataPersistenceManager.instance.SaveGame();
+
+            }
+        }
     }
 
     public void clickRightButton()
@@ -106,8 +148,25 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
         elapsedTime = 0;
         targetPosition = new Vector3(camera.transform.position.x + cameraMoveDistance, camera.transform.position.y, camera.transform.position.z);
         currentScreenIndex++;
-    }
 
+
+        if (currentScreenIndex == 1)
+        {
+            if (lo_level_to_reveal != -1)
+            {
+
+                bookClickables[lo_level_to_reveal - 1].SetActive(true);
+                bookGlows[lo_level_to_reveal - 1].SetActive(true);
+                StartCoroutine(FadeInAndOut(bookClickables[lo_level_to_reveal - 1], true, fadeDuration));
+                StartCoroutine(FadeInAndOutLight(bookGlows[lo_level_to_reveal - 1], true, fadeDuration));
+                Instantiate(particleSystemObject, bookClickables[lo_level_to_reveal - 1].transform);
+                lo_level_has_played_animation = true;
+
+                DataPersistenceManager.instance.SaveGame();
+            }
+        }
+
+    }
 
     private void showActiveButton()
     {
@@ -156,18 +215,187 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        // TO DO: not sure what you need to load here for now
-        foreach (object key in data.stageCompletionDictionary)
+        bool hasSetAtLeastOneClickable_High = false;
+
+        bool hasSetAtLeastOneClickable_Low = false;
+        int lo_completed_stage_index = 0;
+        int ho_completed_stage_index = 0;
+
+
+        // save file checking
+        foreach (KeyValuePair<String, bool> key in data.stageCompletionDictionary)
         {
             Debug.Log(key.ToString());
 
+            if (key.Key[0] == 'H')
+            {
+                hasSetAtLeastOneClickable_High = true;
+
+                for (int i = 0; i < hoTotalStages; i++)
+                {
+                    if (key.Key == "HO_" + (i + 1).ToString())
+                    {
+                        statueClickables[i].SetActive(true);
+                        statueGlows[i].SetActive(true);
+
+                        if (ho_completed_stage_index < (i + 1))
+                            ho_completed_stage_index = i + 1;
+
+                        break;
+                    }
+                }
+
+            }
+            else if (key.Key[0] == 'L')
+            {
+                hasSetAtLeastOneClickable_Low = true;
+                for (int i = 0; i < loTotalStages; i++)
+                {
+                    if (key.Key == "LO_" + (i + 1).ToString())
+                    {
+                        finishedBookClickables[i].SetActive(true);
+                        bookGlows[i].SetActive(true);
+
+                        if (lo_completed_stage_index < (i + 1))
+                            lo_completed_stage_index = i + 1;
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        // brand new file, no save file yet
+        if (!hasSetAtLeastOneClickable_High)
+        {
+            ho_level_to_reveal = 1;
+        }
+
+        if (!hasSetAtLeastOneClickable_Low)
+        {
+            lo_level_to_reveal = 1;
+        }
+
+        // open next stage
+        if (ho_completed_stage_index < hoTotalStages)
+        {
+            string nextStage = "HO_" + (ho_completed_stage_index + 1).ToString();
+            bool hasAnimationPreviouslyBeenPlayed;
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue(nextStage.ToString(), out hasAnimationPreviouslyBeenPlayed);
+
+            if (!hasAnimationPreviouslyBeenPlayed)
+            {
+                ho_level_to_reveal = ho_completed_stage_index + 1;
+            }
+            else
+            {
+                statueClickables[ho_completed_stage_index].GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+                statueClickables[ho_completed_stage_index].SetActive(true);
+                statueGlows[ho_completed_stage_index].SetActive(true);
+            }
+        }
+
+        if (lo_completed_stage_index < loTotalStages)
+        {
+            string nextStage = "LO_" + (lo_completed_stage_index + 1).ToString();
+            bool hasAnimationPreviouslyBeenPlayed;
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue(nextStage.ToString(), out hasAnimationPreviouslyBeenPlayed);
+
+            if (!hasAnimationPreviouslyBeenPlayed)
+            {
+                lo_level_to_reveal = lo_completed_stage_index + 1;
+            }
+            else
+            {
+                bookClickables[ho_completed_stage_index].SetActive(true);
+                bookGlows[ho_completed_stage_index].SetActive(true);
+            }
         }
 
 
     }
     public void SaveData(GameData data)
     {
-        // nothing
+
+        if (lo_level_to_reveal != -1 && lo_level_has_played_animation)
+        {
+            bool temp;
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("LO_" + lo_level_to_reveal.ToString(), out temp);
+
+            if (!temp)
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("LO_" + lo_level_to_reveal.ToString(), true);
+        }
+
+        if (ho_level_to_reveal != -1 && ho_level_has_played_animation)
+        {
+            bool temp;
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("HO_" + ho_level_to_reveal.ToString(), out temp);
+            if (!temp)
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("HO_" + ho_level_to_reveal.ToString(), true);
+        }
     }
 
+    IEnumerator FadeInAndOut(GameObject gameObject, bool fadeIn, float duration)
+    {
+        float counter = 0f;
+
+        //Set Values depending on if fadeIn or fadeOut
+        float a, b;
+        if (fadeIn)
+        {
+            a = 0;
+            b = 1;
+        }
+        else
+        {
+            a = 1;
+            b = 0;
+        }
+
+
+        Color current = gameObject.GetComponent<SpriteRenderer>().color;
+
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(a, b, counter / duration);
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(current.r, current.g, current.b, alpha);
+
+            yield return null;
+        }
+
+    }
+    IEnumerator FadeInAndOutLight(GameObject gameObject, bool fadeIn, float duration)
+    {
+        float counter = 0f;
+
+        //Set Values depending on if fadeIn or fadeOut
+        float a, b;
+        if (fadeIn)
+        {
+            a = 0;
+            b = 1;
+        }
+        else
+        {
+            a = 1;
+            b = 0;
+        }
+
+
+        Color current = gameObject.GetComponent<Light2D>().color;
+
+
+
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(a, b, counter / duration);
+            gameObject.GetComponent<Light2D>().color = new Color(current.r, current.g, current.b, alpha);
+
+            yield return null;
+        }
+
+    }
 }
