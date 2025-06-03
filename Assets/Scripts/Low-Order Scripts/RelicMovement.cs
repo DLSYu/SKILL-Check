@@ -30,6 +30,8 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public RelicPopupHandler popupHandler; // Reference to RelicPopupHandler
     private StorySegment storySegment;
 
+    private Coroutine sizeDownCoroutine;
+
     // Method for RelicSlot to check if the relic is being dragged
     public bool IsDragging()
     {
@@ -84,6 +86,12 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public void OnPointerUp(PointerEventData eventData)
     {
         CancelInvoke("StartDragging");
+        if (!sizeDownCoroutine.IsUnityNull())
+        {
+            StopCoroutine(sizeDownCoroutine);
+            sizeDownCoroutine = null;
+        }
+        transform.localScale = initLocalScale;
 
         // Handle tap if we released before hold duration
         //if (isAttemptingDrag && popupHandler != null)
@@ -100,7 +108,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
         if (dragging)
         {
-            transform.localScale = initLocalScale;
+            //transform.localScale = initLocalScale;
             RelicSlot previousParent = originalParent;
 
             if (newParent != null)
@@ -130,7 +138,9 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
                 SortingGameManager.Instance.QuickSortCheckCompletion();
             }
 
-                dragging = false;
+            newParent = null;
+            dragging = false;
+            
         }
     }
 
@@ -148,7 +158,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             }
         }
 
-        StartCoroutine(SizeDown());
+        sizeDownCoroutine = StartCoroutine(SizeDown());
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         dragging = true;
@@ -158,7 +168,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private void OnTriggerStay2D(Collider2D collision)
     {
         RelicSlot slot = collision.GetComponent<RelicSlot>();
-        if (slot != null && slot != originalParent)
+        if (slot != null && slot != originalParent && newParent != originalParent)
         {
             newParent = slot;
         }
