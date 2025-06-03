@@ -50,7 +50,7 @@ public class EndSceneManager : MonoBehaviour
         for (int i = 0; i < starCount; i++)
         {
             stars[i].SetActive(true);
-            stars[i].GetComponent<Animator>().Play("StarAppear");
+            // stars[i].GetComponent<Animator>().Play("StarAppear");
             yield return new WaitForSeconds(starAnimationDelay);
         }
     }

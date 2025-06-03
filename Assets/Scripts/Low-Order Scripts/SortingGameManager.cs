@@ -8,13 +8,13 @@ using System.Linq;
 public class SortingGameManager : MonoBehaviour
 {
     public static SortingGameManager Instance;
+    [SerializeField] private GameObject uiAnimatorDragon;
 
     [SerializeField] private bool forceCompletion = false;
 
     [Header("Dragon Parts")]
     public GameObject splitHead;      // Reference to Split-Head GameObject
     public GameObject splitTail;      // Reference to Split-Tail GameObject
-    public GameObject fullDragon;     // Completed dragon
 
     [Header("Slots")]
     [SerializeField] public List<RelicCheckedSlot> slots = new List<RelicCheckedSlot>();
@@ -40,7 +40,7 @@ public class SortingGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isGameCompleted) 
+        if (!isGameCompleted)
         {
             timer += Time.deltaTime;
         }
@@ -50,11 +50,10 @@ public class SortingGameManager : MonoBehaviour
     {
         bool allCorrect = slots.All(s => s.IsCorrect);
 
-        // Toggle full dragon visibility
-        fullDragon.SetActive(allCorrect);
 
         if (allCorrect)
         {
+            uiAnimatorDragon.SetActive(true);
             // Hide Split-Head, Split-Tail, and all Slots
             if (splitHead != null) splitHead.SetActive(false);
             if (splitTail != null) splitTail.SetActive(false);
@@ -107,10 +106,10 @@ public class SortingGameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Show dragon for 2 seconds before transition
-        if (fullDragon != null)
+        if (uiAnimatorDragon != null)
         {
-            fullDragon.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2f);
+            uiAnimatorDragon.gameObject.SetActive(true);
+            yield return new WaitForSeconds(3f);
         }
 
         PlayerPrefs.SetFloat("ElapsedTime", timer);

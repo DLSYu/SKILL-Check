@@ -8,6 +8,8 @@ public class WinZone : MonoBehaviour, IDataPersistence
     [SerializeField]
     private GameObject uIAnimator;
     [SerializeField]
+    private Sprite statueSprite;
+    [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip winSound;
@@ -28,11 +30,13 @@ public class WinZone : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         bool value;
-        data.stageCompletionDictionary.TryGetValue("HO_1", out value);
-        // TO DO: pass the stage id 
+        string stageName = DetermineStage(statueSprite.name);
+        data.stageCompletionDictionary.TryGetValue(stageName, out value);
+
         if (!value)
         {
-            data.stageCompletionDictionary.Add("HO_1", true);
+
+            data.stageCompletionDictionary.Add(stageName, true);
         }
 
 
@@ -41,6 +45,22 @@ public class WinZone : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         // do nothing
+    }
+
+    private string DetermineStage(string spriteName)
+    {
+        if (spriteName == "statue_carabao")
+            return "HO_1";
+        else if (spriteName == "statue_tarsier")
+            return "HO_2";
+        else if (spriteName == "statue_adarna")
+            return "HO_3";
+        else if (spriteName == "statue_agila")
+            return "HO_4";
+        else if (spriteName == "statue_bakunawa")
+            return "HO_5";
+        else
+            return "";
     }
 
 
