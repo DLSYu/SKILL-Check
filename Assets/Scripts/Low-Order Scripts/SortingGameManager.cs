@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class SortingGameManager : MonoBehaviour
+public class SortingGameManager : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private string stageID = "";
     public static SortingGameManager Instance;
     [SerializeField] private GameObject uiAnimatorDragon;
 
@@ -54,6 +55,7 @@ public class SortingGameManager : MonoBehaviour
         if (allCorrect)
         {
             uiAnimatorDragon.SetActive(true);
+            DataPersistenceManager.instance.SaveGame();
             // Hide Split-Head, Split-Tail, and all Slots
             if (splitHead != null) splitHead.SetActive(false);
             if (splitTail != null) splitTail.SetActive(false);
@@ -78,6 +80,8 @@ public class SortingGameManager : MonoBehaviour
         if (allCorrect && !isGameCompleted)
         {
             isGameCompleted = true;
+
+
             CalculateStars();
             StartCoroutine(LoadEndSceneAfterDelay(1f));
 
@@ -99,6 +103,20 @@ public class SortingGameManager : MonoBehaviour
 
         PlayerPrefs.SetInt("StarCount", stars);
         PlayerPrefs.Save();
+    }
+
+    public void LoadData(GameData data)
+    {
+        // nothing
+    }
+
+    public void SaveData(GameData data)
+    {
+        bool value;
+        data.stageCompletionDictionary.TryGetValue(stageID, out value);
+
+        if (!value)
+            data.stageCompletionDictionary.Add(stageID, true);
     }
 
     IEnumerator LoadEndSceneAfterDelay(float delay)

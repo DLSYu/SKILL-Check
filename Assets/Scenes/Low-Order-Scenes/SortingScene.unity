@@ -1832,7 +1832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &563671796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7326,6 +7326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a6472b9b8b4ba4497e1d26f2e3f00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: LO_1
   uiAnimatorDragon: {fileID: 1081726764}
   forceCompletion: 1
   splitHead: {fileID: 150622681}

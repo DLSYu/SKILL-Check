@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WinZone : MonoBehaviour, IDataPersistence
 {
     [SerializeField]
     private GameObject uIAnimator;
-    [SerializeField]
-    private Sprite statueSprite;
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
@@ -30,7 +29,8 @@ public class WinZone : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         bool value;
-        string stageName = DetermineStage(statueSprite.name);
+        Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
+        string stageName = DetermineStage(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
         data.stageCompletionDictionary.TryGetValue(stageName, out value);
 
         if (!value)

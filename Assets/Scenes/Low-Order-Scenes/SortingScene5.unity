@@ -7586,6 +7586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a6472b9b8b4ba4497e1d26f2e3f00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: LO_5
   uiAnimatorDragon: {fileID: 223181978}
   forceCompletion: 0
   splitHead: {fileID: 150622681}

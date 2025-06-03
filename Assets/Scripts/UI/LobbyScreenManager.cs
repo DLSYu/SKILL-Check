@@ -308,8 +308,8 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
             }
             else
             {
-                bookClickables[ho_completed_stage_index].SetActive(true);
-                bookGlows[ho_completed_stage_index].SetActive(true);
+                bookClickables[lo_completed_stage_index].SetActive(true);
+                bookGlows[lo_completed_stage_index].SetActive(true);
             }
         }
 
