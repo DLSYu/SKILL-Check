@@ -10738,6 +10738,16 @@ MonoBehaviour:
     end: 42
   - start: 42
     end: 50
+  - start: 50
+    end: 53
+  - start: 53
+    end: 64
+  - start: 64
+    end: 81
+  - start: 81
+    end: 90
+  - start: 90
+    end: 95
 --- !u!82 &680132011
 AudioSource:
   m_ObjectHideFlags: 0
