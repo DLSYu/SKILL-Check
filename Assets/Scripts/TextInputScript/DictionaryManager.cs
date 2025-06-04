@@ -14,11 +14,15 @@ public class DictionaryManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI definitionText;
 
+    [SerializeField]
+    private GameObject blackBackground;
+
 
 
     public void ShowDictionaryPanel(string text, InTextDefinition definition)
     {
         dictionaryPanel.SetActive(true);
+        blackBackground.SetActive(true);
         this.clickedWord.text = text.FirstCharacterToUpper();
         definitionText.text = definition.ToString();
     }
@@ -26,5 +30,6 @@ public class DictionaryManager : MonoBehaviour
     public void HideDictionaryPanel()
     {
         dictionaryPanel.SetActive(false);
+        blackBackground.SetActive(false);
     }
 }
