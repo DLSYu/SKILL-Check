@@ -47,11 +47,10 @@ public class ReadingMechanicPanel : MonoBehaviour
     private VoiceManager voiceManager;
 
     private List<int> currentAppliedLines = new List<int>();
-    // This one is for the UI
-    private int currentSentence = 1;
     // This is for voice acting please dont confuse T_T
     private int currentPagedTotalPrev = 0;
     private List<GameObject> pagePrefabList = new List<GameObject>();
+    private bool isVoicePlaying = false;
 
     void Awake()
     {
@@ -73,7 +72,7 @@ public class ReadingMechanicPanel : MonoBehaviour
             pagePrefabList.Add(Instantiate(pagePrefab, contentHolder.transform));
         }
         ChangePagePrefab(0);
-        currentSentence = 1;
+        lineSelector.currentSentenceIndex = 1;
 
     }
 
@@ -98,14 +97,14 @@ public class ReadingMechanicPanel : MonoBehaviour
     public void PreviousLine()
     {
         RemoveHelpPanel();
-        if (lineSelector.SetSliderToNthSentence(currentSentence - 1) == 0)
-            currentSentence -= 1;
+        if (lineSelector.SetSliderToNthSentence(lineSelector.currentSentenceIndex - 1) == 0)
+            lineSelector.currentSentenceIndex -= 1;
     }
     public void NextLine()
     {
         RemoveHelpPanel();
-        if (lineSelector.SetSliderToNthSentence(currentSentence + 1) == 0)
-            currentSentence += 1;
+        if (lineSelector.SetSliderToNthSentence(lineSelector.currentSentenceIndex + 1) == 0)
+            lineSelector.currentSentenceIndex += 1;
 
     }
 
@@ -231,7 +230,7 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             storyText.ForceMeshUpdate();
             currentPagedTotalPrev += lineSelector.ReturnSentenceCount();
-            Debug.Log(currentPagedTotalPrev);
+
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
@@ -239,9 +238,8 @@ public class ReadingMechanicPanel : MonoBehaviour
             HighlightFirstLineOfNextPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
-            currentSentence = 1;
+            lineSelector.currentSentenceIndex = 1;
         }
-
 
     }
 
@@ -252,7 +250,7 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             storyText.ForceMeshUpdate();
             currentPagedTotalPrev -= lineSelector.ReturnSentenceCount();
-            Debug.Log(currentPagedTotalPrev);
+
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
@@ -260,7 +258,7 @@ public class ReadingMechanicPanel : MonoBehaviour
             HighlightLastLineOfPreviousPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
-            currentSentence = 1;
+            lineSelector.currentSentenceIndex = 1;
         }
     }
 
@@ -398,31 +396,28 @@ public class ReadingMechanicPanel : MonoBehaviour
     public void PlayVoiceLine()
     {
 
-        if (!voiceActing.isPlaying)
-        {
-            // 1. Get the story's line detail
-            //      get line
-            //      get page
-            //      could also just get total line from the whole story(?)
-            // 2. play voiceline based on that
-            //      data structure: Static class to call, line # as index, 
-            //      return list startTime and endTime
-            TimeStamping currentIndex = voiceManager.GetTimeStamping(lineSelector.GetCurrentSentence() + currentPagedTotalPrev);
-            StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
-            Debug.Log("should be playing");
-        }
-        else if (voiceActing.isPlaying)
-        {
-            voiceActing.Stop();
-            Debug.Log("should NOT be playing");
-        }
+        if (isVoicePlaying)
+            return;
+        // 1. Get the story's line detail
+        //      get line
+        //      get page
+        //      could also just get total line from the whole story(?)
+        // 2. play voiceline based on that
+        //      data structure: Static class to call, line # as index, 
+        //      return list startTime and endTime
+        TimeStamping currentIndex = voiceManager.GetTimeStamping(lineSelector.currentSentenceIndex + currentPagedTotalPrev);
+        StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
+        Debug.Log("should be playing");
 
+        isVoicePlaying = true;
     }
 
+    // Added is Playing checks so it doesnt bother when replaying
     private IEnumerator PlayFromTo(float startTime, float endTime)
     {
 
         voiceActing.Stop();
+
         voiceActing.time = startTime;
         voiceActing.Play();
 
@@ -432,6 +427,8 @@ public class ReadingMechanicPanel : MonoBehaviour
         yield return new WaitForSeconds(segmentDuration);
 
         voiceActing.Stop();
+
+        isVoicePlaying = false;
     }
 
 

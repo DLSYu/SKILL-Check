@@ -31,12 +31,10 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
     {
         UpdateNearestIndexes(data.position, data.enterEventCamera);
         UpdateScrollbarValue();
+        currentSentenceIndex = GetCurrentSentence();
     }
 
-    public void Update()
-    {
-        Debug.Log("Current Sentence Index: " + GetCurrentSentence());
-    }
+
 
     void UpdateScrollbarValue()
     {
