@@ -10614,13 +10614,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeStamp:
   - start: 0
-    end: 2
-  - start: 2
-    end: 18
-  - start: 18
-    end: 35
+    end: 0
+  - start: 0
+    end: 10
+  - start: 10
+    end: 17
+  - start: 17
+    end: 21
+  - start: 21
+    end: 29
+  - start: 29
+    end: 34
   - start: 35
+    end: 40
+  - start: 40
     end: 42
+  - start: 42
+    end: 50
 --- !u!82 &680132011
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10631,7 +10641,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7ae91ceee806e1e47bffbf3f904cc79c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e5d2363d385cd458c842fe6d4c7d8d5d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
