@@ -2,32 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class LowOrderStageAnalytics
 {
-    private string dateTimeStart;
-    private string stageNumber;
-    private int timeTakenReading;
-    private int clearTime;
-    private int mistakes;
+    [SerializeField] private string dateTimeStart;
+    [SerializeField] private string stageName;
+    [SerializeField] private float clearTime;
+    [SerializeField] private int mistakes = 0;
+    [SerializeField] private string dateTimeEnd;
 
-    public void SetStageNumber(int number)
+    public LowOrderStageAnalytics(string dateTimeStart, string stageName)
     {
-        this.stageNumber = "Stage " + number.ToString();
+        this.dateTimeStart = dateTimeStart;
+        this.stageName = stageName;
     }
 
-    public void SetTimeTakenReading(int time)
+    public void FinishGameTime(float clearTime, string dateTimeEnd)
     {
-        this.timeTakenReading = time;
+        this.clearTime = clearTime;
+        this.dateTimeEnd = dateTimeEnd;
     }
 
-    public void SetClearTime(int time)
+    public void IncrementMistakes()
     {
-        this.clearTime = time;
-    }
-
-    public void SetMistakes(int mistakes)
-    {
-        this.mistakes = mistakes;
+        this.mistakes++;
     }
 
 }

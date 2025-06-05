@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,15 @@ public class GameData
 {
     public SerializedDictionary<string, bool> stageCompletionDictionary;
     public SerializedDictionary<string, bool> alreadyPlayedAnimationForNewlyOpenedStage;
-    // Start is called before the first frame update
+
+    public List<LowOrderStageAnalytics> lowOrderStageAnalyticsList;
+    public List<HighOrderStageAnalytics> highOrderStageAnalyticsList;
+
     public GameData()
     {
         this.stageCompletionDictionary = new SerializedDictionary<string, bool>();
         this.alreadyPlayedAnimationForNewlyOpenedStage = new SerializedDictionary<string, bool>();
+        this.lowOrderStageAnalyticsList = new List<LowOrderStageAnalytics>();
+        this.highOrderStageAnalyticsList = new List<HighOrderStageAnalytics>();
     }
 }

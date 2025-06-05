@@ -2,56 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class HighOrderStageAnalytics
 {
-    private string dateTimeStart;
-    private string stageNumber;
-    private int timeTakenReading;
-    private int timeTakenInInventory;
-    private int timeTakenPeekingInInventory;
-    private int timeTakenPeekingInStory;
-    private int clearTime;
-    private List<int> timeTakenComposingList;
-    private List<string> submittedSentences;
-    private List<string> swbstOrFreeformList;
-    private List<float> scoresList;
-    private int gemsCollected;
+    [SerializeField] private string dateTimeStart;
+    [SerializeField] private string dateTimeEnd;
+    [SerializeField] private string stageName;
+    [SerializeField] private float timeTakenInInventory = 0;
+    [SerializeField] private float timeTakenPeekingInInventory = 0;
+    [SerializeField] private float timeTakenPeekingInStory = 0;
+    [SerializeField] private float clearTime;
+    [SerializeField] private List<string> submittedAnswers;
+    [SerializeField] private List<string> swbstOrFreeformList;
+    [SerializeField] private List<float> scoresList;
+    [SerializeField] private int gemsCollected = 0;
 
-    public void SetStageNumber(int number)
+    public HighOrderStageAnalytics(string dateTimeStart, string stageName)
     {
-        this.stageNumber = "Stage " + number.ToString();
+        this.dateTimeStart = dateTimeStart;
+        this.stageName = stageName;
     }
-
-    public void SetTimeTakenReading(int time)
+    public void FinishedStage(float clearTime, string dateTimeEnd)
     {
-        this.timeTakenReading = time;
+        this.clearTime = clearTime;
+        this.dateTimeEnd = dateTimeEnd;
     }
-
-    public void SetTimeTakenInInventory(int time)
+    public void SetTimeTakenInInventory(float time)
     {
         this.timeTakenInInventory = time;
     }
-    public void SetTimeTakenPeekingInInventory(int time)
+    public void SetTimeTakenPeekingInInventory(float time)
     {
         this.timeTakenPeekingInInventory = time;
     }
-    public void SetTimeTakenPeekingInStory(int time)
+    public void SetTimeTakenPeekingInStory(float time)
     {
         this.timeTakenPeekingInStory = time;
     }
-    public void SetClearTime(int time)
+    public void AddSubmittedAnswers(string answer)
     {
-        this.clearTime = time;
+        this.submittedAnswers.Add(answer);
     }
-    public void AddTimeTakenComposing(int time)
-    {
-        this.timeTakenComposingList.Add(time);
-    }
-    public void SetSubmittedSentences(string sentence)
-    {
-        this.submittedSentences.Add(sentence);
-    }
-    public void swbstOrFreeform(string type)
+    public void AddSwbstOrFreeform(string type)
     {
         this.swbstOrFreeformList.Add(type);
     }
@@ -61,9 +53,9 @@ public class HighOrderStageAnalytics
         this.scoresList.Add(score);
     }
 
-    public void SetGemsCollected(int gems)
+    public void IncrementGemsCollected()
     {
-        this.gemsCollected = gems;
+        this.gemsCollected++;
     }
 
 

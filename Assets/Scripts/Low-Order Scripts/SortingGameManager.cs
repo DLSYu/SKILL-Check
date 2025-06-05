@@ -26,8 +26,19 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
+    // save file shenanigans
+    private LowOrderStageAnalytics lowOrderStageAnalytics;
+    private bool hasSaved = false;
+    private List<string> relicAnswers;
     void Awake()
     {
+        relicAnswers = new List<string>();
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            relicAnswers.Add("");
+        }
+        lowOrderStageAnalytics = new LowOrderStageAnalytics(System.DateTime.Now.ToString(), stageID);
         // Singleton pattern fix
         if (Instance != null && Instance != this)
         {
@@ -51,11 +62,31 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
     {
         bool allCorrect = slots.All(s => s.IsCorrect);
 
+        bool hasChanges = false;
+        int allRelicsCount = 0;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].placedRelic == null)
+            {
+                break;
+            }
+            else
+            {
+                allRelicsCount++;
+
+                if (slots[i].placedRelic.name != relicAnswers[i])
+                {
+                    hasChanges = true;
+                    relicAnswers[i] = slots[i].placedRelic.name;
+                }
+            }
+        }
+
 
         if (allCorrect)
         {
             uiAnimatorDragon.SetActive(true);
-            DataPersistenceManager.instance.SaveGame();
             // Hide Split-Head, Split-Tail, and all Slots
             if (splitHead != null) splitHead.SetActive(false);
             if (splitTail != null) splitTail.SetActive(false);
@@ -67,9 +98,14 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
             if (!isGameCompleted)
             {
                 isGameCompleted = true;
+                lowOrderStageAnalytics.FinishGameTime(timer, System.DateTime.Now.ToString());
                 CalculateStars();
                 StartCoroutine(LoadEndSceneAfterDelay(1f));
             }
+        }
+        else if (hasChanges && allRelicsCount == slots.Count)
+        {
+            lowOrderStageAnalytics.IncrementMistakes();
         }
     }
 
@@ -112,11 +148,25 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        bool value;
-        data.stageCompletionDictionary.TryGetValue(stageID, out value);
+        Debug.Log("got here");
+        if (!hasSaved)
+        {
+            if (isGameCompleted)
+            {
+                bool value;
+                data.stageCompletionDictionary.TryGetValue(stageID, out value);
 
-        if (!value)
-            data.stageCompletionDictionary.Add(stageID, true);
+                if (!value)
+                    data.stageCompletionDictionary.Add(stageID, true);
+            }
+
+            Debug.Log("got here again");
+
+            data.lowOrderStageAnalyticsList.Add(lowOrderStageAnalytics);
+            hasSaved = true;
+        }
+
+
     }
 
     IEnumerator LoadEndSceneAfterDelay(float delay)
@@ -134,5 +184,10 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
         PlayerPrefs.Save();
 
         SceneManager.LoadScene("Sequence_End");
+    }
+
+    private void OnDestroy()
+    {
+        DataPersistenceManager.instance.SaveGame();
     }
 }
