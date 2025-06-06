@@ -6,7 +6,6 @@ using TMPro;
 using System.Globalization;
 using System;
 using Unity.VisualScripting;
-using System.Numerics;
 using UnityEditor;
 using UnityEngine.Animations;
 using System.Collections.Generic;
@@ -27,11 +26,17 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
 
 
     }
+
+    void Update()
+    {
+        Debug.Log("Current Sentence Index: " + currentSentenceIndex);
+    }
     public void OnEndDrag(PointerEventData data)
     {
         UpdateNearestIndexes(data.position, data.enterEventCamera);
         UpdateScrollbarValue();
         currentSentenceIndex = GetCurrentSentence();
+        Debug.Log(GetCurrentSentence());
     }
 
 
@@ -282,10 +287,13 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
 
         bool start = false;
         int sentenceNum = 0;
+        int lastValidSentenceNum = -1;
 
         int currentTextLineCount = storyText.textInfo.lineCount;
         int firstCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].firstCharacterIndex;
         int lastCharIndex = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1].lastCharacterIndex;
+        if (lastCharIndex == 0)
+            lastCharIndex = storyText.textInfo.characterCount;
 
         for (int i = 0; i < currentTextLineCount; i++)
         {
@@ -296,6 +304,7 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
             {
                 start = true;
                 sentenceNum++;
+                lastValidSentenceNum = sentenceNum;
             }
 
             if (lineInfo.lastCharacterIndex > lastCharIndex)
@@ -304,9 +313,9 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
                 start = false;
 
             if (i == targetLine)
-                return sentenceNum;
+                return lastValidSentenceNum;
         }
-        return -1;
+        return lastValidSentenceNum;
     }
 
 }
