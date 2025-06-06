@@ -269,13 +269,21 @@ public class GateSubmit : MonoBehaviour
     public void OnSubmitEarlyLevelButton()
     {
         int correctCount = 0;
+        List<Gem_Early> incorrectGems = new List<Gem_Early>();
 
-        // Check each slot
-        if (somebodySlot.compareGemTypeToSlotType()) correctCount++;
-        if (wantedSlot.compareGemTypeToSlotType()) correctCount++;
-        if (butSlot.compareGemTypeToSlotType()) correctCount++;
-        if (soSlot.compareGemTypeToSlotType()) correctCount++;
-        if (thenSlot.compareGemTypeToSlotType()) correctCount++;
+        // Check slots and collect incorrect gems with debug logs
+        CheckSlot(somebodySlot, "Somebody", ref correctCount, incorrectGems);
+        CheckSlot(wantedSlot, "Wanted", ref correctCount, incorrectGems);
+        CheckSlot(butSlot, "But", ref correctCount, incorrectGems);
+        CheckSlot(soSlot, "So", ref correctCount, incorrectGems);
+        CheckSlot(thenSlot, "Then", ref correctCount, incorrectGems);
+
+        Debug.Log($"Found {incorrectGems.Count} incorrect gems");
+
+        ResetAllHighlights();
+
+        // Wait then Highlight
+        StartCoroutine(HighlightIncorrectGemsAfterReset(incorrectGems));
 
         // Update score display
         scoreText.text = $"Score: {correctCount}/5";
@@ -313,6 +321,71 @@ public class GateSubmit : MonoBehaviour
         }
     }
 
+    private IEnumerator HighlightIncorrectGemsAfterReset(List<Gem_Early> incorrectGems)
+    {
+        // Wait for the reset to complete
+        yield return new WaitForEndOfFrame();
+
+        // Now highlight the incorrect gems
+        foreach (var gem in incorrectGems)
+        {
+            if (gem != null)
+            {
+                Debug.Log($"Highlighting gem: {gem.name} with keyword: {gem.Keyword}");
+                RelicPopupHandler popup = gem.GetComponent<RelicPopupHandler>();
+                if (popup != null)
+                {
+                    popup.SetShouldHighlight(true);
+                    Debug.Log($"Set highlight flag for gem: {gem.name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"No RelicPopupHandler found on gem: {gem.name}");
+                }
+            }
+        }
+    }
+
+    private void ResetAllHighlights()
+    {
+        // Reset highlights for all gems in all slots
+        ResetSlotHighlight(somebodySlot);
+        ResetSlotHighlight(wantedSlot);
+        ResetSlotHighlight(butSlot);
+        ResetSlotHighlight(soSlot);
+        ResetSlotHighlight(thenSlot);
+    }
+
+    private void ResetSlotHighlight(SWBSTSlot slot)
+    {
+        if (slot.GetCurrentGem() != null)
+        {
+            RelicPopupHandler popup = slot.GetCurrentGem().GetComponent<RelicPopupHandler>();
+            if (popup != null)
+            {
+                popup.SetShouldHighlight(false);
+            }
+        }
+    }
+
+    private void CheckSlot(SWBSTSlot slot, string slotName, ref int correctCount, List<Gem_Early> incorrectGems)
+    {
+        if (slot.compareGemTypeToSlotType())
+        {
+            correctCount++;
+            Debug.Log($"{slotName} slot is correct");
+        }
+        else if (slot.GetCurrentGem() != null)
+        {
+            incorrectGems.Add(slot.GetCurrentGem());
+            Debug.Log($"{slotName} slot is incorrect");
+        }
+        else
+        {
+            Debug.Log($"{slotName} slot is empty");
+        }
+    }
+
     public void OnSubmitMidLevelButton()
     {
         // validation logic here
@@ -322,10 +395,3 @@ public class GateSubmit : MonoBehaviour
         OnSubmitButton();
     }
 }
-
-
-
-
-
-
-

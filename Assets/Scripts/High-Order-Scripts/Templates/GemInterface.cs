@@ -14,6 +14,10 @@ public class GemInterface : MonoBehaviour, IInteractable
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected InventoryManager inventoryManager;
     [SerializeField] protected UIManagerTemplate uiManager;
+    // For Highlighting in HO_Early
+    [Header("Keyword")]
+    [SerializeField] protected string keyword;
+    public string Keyword => keyword;
     /*** 
     * Allowed Gem Names and corresponding SWBST Mapping:
         * Somebody = Character

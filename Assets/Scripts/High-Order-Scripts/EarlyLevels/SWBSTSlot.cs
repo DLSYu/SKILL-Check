@@ -99,6 +99,8 @@ public class SWBSTSlot : MonoBehaviour
     {
         if (currentGem == null) return;
 
+        Debug.Log($"Resetting slot {slotType} with gem: {currentGem.name}");
+
         // Return to ORIGINAL parent (not slot's inventory)
         currentGem.transform.SetParent(originalParent);
         currentGem.transform.localPosition = Vector3.zero; // Reset position
@@ -115,6 +117,11 @@ public class SWBSTSlot : MonoBehaviour
 
         // InventoryManager_Early.Instance.ReturnFromSWBST(currentGem);
         currentGem = null;
+    }
+
+    public Gem_Early GetCurrentGem()
+    {
+        return currentGem;
     }
 
     private void UpdatePlaceholderVisibility()
