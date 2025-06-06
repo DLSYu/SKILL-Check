@@ -8,6 +8,10 @@ using UnityEngine.UI;
 public class UIManager_MidEarly : UIManagerTemplate
 {
 
+    void Awake()
+    {
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Mid);
+    }
     public override void openTypingScreen()
     {
         Time.timeScale = 0;

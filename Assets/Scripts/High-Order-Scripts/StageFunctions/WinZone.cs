@@ -12,6 +12,15 @@ public class WinZone : MonoBehaviour, IDataPersistence
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip winSound;
+
+    private float clearTime;
+    private bool hasCleared = false;
+
+    void Update()
+    {
+        if (!hasCleared)
+            clearTime += Time.unscaledDeltaTime;
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
@@ -21,6 +30,9 @@ public class WinZone : MonoBehaviour, IDataPersistence
 
             uIAnimator.SetActive(true);
             audioSource.PlayOneShot(winSound);
+            hasCleared = true;
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.SetClearTime(clearTime);
+
             DataPersistenceManager.instance.SaveGame();
         }
     }
@@ -28,17 +40,23 @@ public class WinZone : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        bool value;
-        Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
-        string stageName = DetermineStage(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
-        data.stageCompletionDictionary.TryGetValue(stageName, out value);
-
-        if (!value)
+        if (hasCleared)
         {
+            bool value;
+            Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
+            string stageName = DetermineStage(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
+            data.stageCompletionDictionary.TryGetValue(stageName, out value);
 
-            data.stageCompletionDictionary.Add(stageName, true);
+
+            if (!value)
+            {
+
+                data.stageCompletionDictionary.Add(stageName, true);
+            }
         }
 
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.SetDateTimeEnd(System.DateTime.Now.ToString());
+        data.highOrderStageAnalyticsList.Add(HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics);
 
     }
 
@@ -53,14 +71,22 @@ public class WinZone : MonoBehaviour, IDataPersistence
             return "HO_1";
         else if (spriteName == "statue_tarsier")
             return "HO_2";
-        else if (spriteName == "statue_adarna")
-            return "HO_3";
-        else if (spriteName == "statue_agila")
-            return "HO_4";
         else if (spriteName == "statue_bakunawa")
+            return "HO_3";
+        else if (spriteName == "statue_adarna")
+            return "HO_4";
+        else if (spriteName == "statue_agila")
             return "HO_5";
+
+
+
         else
             return "";
+    }
+
+    void OnDestroy()
+    {
+        DataPersistenceManager.instance.SaveGame();
     }
 
 

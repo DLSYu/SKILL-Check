@@ -43,6 +43,14 @@ public class UIManagerTemplate : MonoBehaviour
         Screen.SetResolution(2000, 1200, true);
     }
 
+    void Update()
+    {
+        if (InventoryCanvas.activeInHierarchy)
+        {
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.AddTimeTakenInInventory(Time.unscaledDeltaTime);
+        }
+    }
+
     public virtual void openTypingScreen()
     {
         Time.timeScale = 0;
@@ -213,7 +221,6 @@ public class UIManagerTemplate : MonoBehaviour
             inventoryGemHighlight(0);
         }
     }
-
     public void exitInventory()
     {
         Time.timeScale = 1;

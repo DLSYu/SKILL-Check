@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class IntroHandler : MonoBehaviour
 {
@@ -47,6 +49,8 @@ public class IntroHandler : MonoBehaviour
 
         if (player != null)
             player.GetComponent<PlayerMovement>().enabled = true;
+
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.SetStartingStats(System.DateTime.Now.ToString(), SceneManager.GetActiveScene().name);
         Destroy(this.gameObject);
     }
 }

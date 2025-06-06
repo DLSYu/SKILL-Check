@@ -9,6 +9,7 @@ public class Gem_Early : GemInterface
     public override void Interact()
     {
         audioSource.PlayOneShot(gemSound);
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.IncrementGemsCollected();
         uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName);
 
         if (transform.parent == null || transform.parent.GetComponent<SWBSTSlot>() == null)

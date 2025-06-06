@@ -52,6 +52,22 @@ public class TypingPanel : MonoBehaviour
 
     private bool isCurrentlyShowingStory = true;
 
+
+    void Update()
+    {
+        if (storyAndInventoryPanelHolder.activeInHierarchy)
+        {
+            if (isCurrentlyShowingStory)
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.AddTimeTakenPeekingInStory(Time.unscaledDeltaTime);
+            }
+            else
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.AddTimeTakenPeekingInInventory(Time.unscaledDeltaTime);
+            }
+        }
+    }
+
     // General Functions
     public void showStoryAndGems()
     {

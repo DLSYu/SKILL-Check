@@ -8,7 +8,10 @@ using UnityEngine.UI;
 // Early level UI doesn't need to think about text input
 public class UIManager_Early : UIManagerTemplate
 {
-
+    void Awake()
+    {
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Early);
+    }
     public override void openTypingScreen()
     {
         Time.timeScale = 0;

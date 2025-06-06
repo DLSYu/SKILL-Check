@@ -26,6 +26,7 @@ public class Gem_MidMid : MonoBehaviour, IInteractable
         audioSource.PlayOneShot(gemSound);
         gameObject.SetActive(false);
         uiManager.openGemCanvas(gemDescription, gemImage, gemType);
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.IncrementGemsCollected();
         door.collectGem();
         inventoryManager.addGemToInventory(this);
     }

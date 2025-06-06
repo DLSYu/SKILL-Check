@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Late Level UI needs text input handlng
 public class UIManager_Late : UIManagerTemplate
 {
+    void Awake()
+    {
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Late);
+    }
     // Downcasted from doorInterface from doorManager to door_Early
     public override void openTypingScreen()
     {

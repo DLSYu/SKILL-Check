@@ -121,12 +121,17 @@ public class GateSubmit : MonoBehaviour
         if (typingPanelData.GetCurrentWritingStyle() == writingStyle.freeform)
         {
             completeText = freeformField.text;
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.Freeform);
         }
         else if (typingPanelData.GetCurrentWritingStyle() == writingStyle.swbst)
         {
             completeText = somebodyField.text + " " + wantedField.text + " " +
                             butField.text + " " + soField.text + " " + thenField.text;
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.SWBST);
         }
+        HO_SubmitAttempt hO_SubmitAttempt = new HO_SubmitAttempt();
+        hO_SubmitAttempt.submittedAnswers.Add(completeText);
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddAnswer(hO_SubmitAttempt);
 
         String[] doorData = doorObserver.GetCurrentDoor().getDoorData();
 
@@ -156,6 +161,8 @@ public class GateSubmit : MonoBehaviour
             candidatesText.Clear();
             referencesText.Clear();
         }
+
+        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddScore(score);
 
         return score;
     }
@@ -263,6 +270,30 @@ public class GateSubmit : MonoBehaviour
         {
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
+        }
+
+        else
+        {
+            if (!somebodySlot.compareGemTypeToSlotType())
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSomebody();
+            }
+            if (!wantedSlot.compareGemTypeToSlotType())
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeWanted();
+            }
+            if (!butSlot.compareGemTypeToSlotType())
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeBut();
+            }
+            if (!soSlot.compareGemTypeToSlotType())
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSo();
+            }
+            if (!thenSlot.compareGemTypeToSlotType())
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeThen();
+            }
         }
     }
 
