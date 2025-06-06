@@ -120,19 +120,4 @@ public class RelicPopupHandler : MonoBehaviour
             Debug.Log($"Reset highlight for gem: {gem.GemName}");
         }
     }
-
-    void Update()
-    {
-        // Temporary debug control - remove after testing
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            shouldHighlight = !shouldHighlight;
-            Debug.Log($"Toggled highlight: {shouldHighlight}");
-            if (isPopupActive)
-            {
-                if (shouldHighlight) ApplyHighlight();
-                else relicText.text = originalPassage;
-            }
-        }
-    }
 }
