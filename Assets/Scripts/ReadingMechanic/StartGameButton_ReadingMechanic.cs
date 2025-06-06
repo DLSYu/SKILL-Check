@@ -9,6 +9,8 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
     private LoadingScreen loadingScreen;
     public void startGameScene()
     {
+        ReadingAnalyticsManager.instance.readingAnalytics.SetContinuedToGame();
+
         if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_1)
             loadingScreen.LoadScene("H01_Early");
         else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_2)

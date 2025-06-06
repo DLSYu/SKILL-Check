@@ -2,30 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class ReadingAnalytics
 {
-    private string dateTimeStart;
-    private string stageName;
-    private int timeTakenReading;
-    private string dateTimeEnd;
-    private List<string> dictionaryWordsClicked;
+    [SerializeField] private string dateTimeStart;
+    [SerializeField] private string stageName;
+    [SerializeField] private float timeTakenReading;
+    [SerializeField] private string dateTimeEnd;
+    [SerializeField] private List<string> dictionaryWordsClicked = new List<string>();
+    [SerializeField] private bool continuedToGame = false;
 
-    public ReadingAnalytics(string dateTimeStart, string stageName)
+    public void SetStartingStats(string dateTimeStart, string stageName)
     {
         this.dateTimeStart = dateTimeStart;
         this.stageName = stageName;
 
     }
 
-    public void SetDateTimeEnd(System.DateTime dateTime)
+    public void SetDateTimeEnd(string dateTime)
     {
-        this.dateTimeEnd = dateTime.ToString();
+        this.dateTimeEnd = dateTime;
     }
 
 
-    public void SetTimeTakenReading(int time)
+    public void AddTimeTakenReading(float time)
     {
-        this.timeTakenReading = time;
+        this.timeTakenReading += time;
+    }
+
+    public void AddNewDictionaryWord(string word)
+    {
+        dictionaryWordsClicked.Add(word);
+    }
+
+    public void SetContinuedToGame()
+    {
+        continuedToGame = true;
+    }
+    public bool GetContinuedToGame()
+    {
+        return continuedToGame;
     }
 
 

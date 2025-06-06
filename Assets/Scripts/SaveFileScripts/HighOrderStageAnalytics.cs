@@ -13,6 +13,12 @@ public class HighOrderStageAnalytics
     [SerializeField] private float timeTakenPeekingInStory = 0;
     [SerializeField] private float clearTime;
     [SerializeField] private List<string> submittedAnswers;
+    [SerializeField] private int mistakeSomebody;
+    [SerializeField] private int mistakeWanted;
+    [SerializeField] private int mistakeBut;
+    [SerializeField] private int mistakeSo;
+    [SerializeField] private int mistakeThen;
+
     [SerializeField] private List<string> swbstOrFreeformList;
     [SerializeField] private List<float> scoresList;
     [SerializeField] private int gemsCollected = 0;

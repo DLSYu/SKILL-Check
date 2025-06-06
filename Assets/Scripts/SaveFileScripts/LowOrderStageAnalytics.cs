@@ -11,15 +11,19 @@ public class LowOrderStageAnalytics
     [SerializeField] private int mistakes = 0;
     [SerializeField] private string dateTimeEnd;
 
-    public LowOrderStageAnalytics(string dateTimeStart, string stageName)
+    public void SetStartingStats(string dateTimeStart, string stageName)
     {
         this.dateTimeStart = dateTimeStart;
         this.stageName = stageName;
     }
 
-    public void FinishGameTime(float clearTime, string dateTimeEnd)
+    public void SetClearTime(float clearTime)
     {
         this.clearTime = clearTime;
+    }
+
+    public void SetDateTimeEnd(string dateTimeEnd)
+    {
         this.dateTimeEnd = dateTimeEnd;
     }
 

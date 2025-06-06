@@ -26,19 +26,17 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
-    // save file shenanigans
-    private LowOrderStageAnalytics lowOrderStageAnalytics;
     private bool hasSaved = false;
-    private List<string> relicAnswers;
+
+
     void Awake()
     {
-        relicAnswers = new List<string>();
-
         for (int i = 0; i < slots.Count; i++)
         {
-            relicAnswers.Add("");
+            LowOrderAnalyticsManager.instance.relicAnswers.Add("");
         }
-        lowOrderStageAnalytics = new LowOrderStageAnalytics(System.DateTime.Now.ToString(), stageID);
+        LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetStartingStats(System.DateTime.Now.ToString(), stageID);
+
         // Singleton pattern fix
         if (Instance != null && Instance != this)
         {
@@ -75,10 +73,10 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
             {
                 allRelicsCount++;
 
-                if (slots[i].placedRelic.name != relicAnswers[i])
+                if (slots[i].placedRelic.name != LowOrderAnalyticsManager.instance.relicAnswers[i])
                 {
                     hasChanges = true;
-                    relicAnswers[i] = slots[i].placedRelic.name;
+                    LowOrderAnalyticsManager.instance.relicAnswers[i] = slots[i].placedRelic.name;
                 }
             }
         }
@@ -98,14 +96,14 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
             if (!isGameCompleted)
             {
                 isGameCompleted = true;
-                lowOrderStageAnalytics.FinishGameTime(timer, System.DateTime.Now.ToString());
+                LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetClearTime(timer);
                 CalculateStars();
                 StartCoroutine(LoadEndSceneAfterDelay(1f));
             }
         }
         else if (hasChanges && allRelicsCount == slots.Count)
         {
-            lowOrderStageAnalytics.IncrementMistakes();
+            LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.IncrementMistakes();
         }
     }
 
@@ -148,9 +146,10 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        Debug.Log("got here");
+
         if (!hasSaved)
         {
+            LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetDateTimeEnd(System.DateTime.Now.ToString());
             if (isGameCompleted)
             {
                 bool value;
@@ -160,9 +159,7 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
                     data.stageCompletionDictionary.Add(stageID, true);
             }
 
-            Debug.Log("got here again");
-
-            data.lowOrderStageAnalyticsList.Add(lowOrderStageAnalytics);
+            data.lowOrderStageAnalyticsList.Add(LowOrderAnalyticsManager.instance.lowOrderStageAnalytics);
             hasSaved = true;
         }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+
 
 public class DictionaryManager : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class DictionaryManager : MonoBehaviour
         blackBackground.SetActive(true);
         this.clickedWord.text = text.FirstCharacterToUpper();
         definitionText.text = definition.ToString();
+
+        ReadingAnalyticsManager.instance.readingAnalytics.AddNewDictionaryWord(this.clickedWord.text);
     }
 
     public void HideDictionaryPanel()
@@ -32,4 +36,6 @@ public class DictionaryManager : MonoBehaviour
         dictionaryPanel.SetActive(false);
         blackBackground.SetActive(false);
     }
+
+
 }

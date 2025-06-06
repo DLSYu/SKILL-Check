@@ -13,11 +13,14 @@ public class GameData
     public List<LowOrderStageAnalytics> lowOrderStageAnalyticsList;
     public List<HighOrderStageAnalytics> highOrderStageAnalyticsList;
 
+    public List<ReadingAnalytics> readingAnalyticsList;
+
     public GameData()
     {
         this.stageCompletionDictionary = new SerializedDictionary<string, bool>();
         this.alreadyPlayedAnimationForNewlyOpenedStage = new SerializedDictionary<string, bool>();
         this.lowOrderStageAnalyticsList = new List<LowOrderStageAnalytics>();
         this.highOrderStageAnalyticsList = new List<HighOrderStageAnalytics>();
+        this.readingAnalyticsList = new List<ReadingAnalytics>();
     }
 }
