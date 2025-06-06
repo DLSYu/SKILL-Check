@@ -100,9 +100,10 @@ public class UIManagerTemplate : MonoBehaviour
 
     public void exitGemCanvas()
     {
+        Time.timeScale = 1;
         GemCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
-        Time.timeScale = 1;
+
     }
 
     public void openMenu()

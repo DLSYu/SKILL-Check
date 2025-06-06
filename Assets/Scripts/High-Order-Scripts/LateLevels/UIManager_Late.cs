@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 // Late Level UI needs text input handlng
 public class UIManager_Late : UIManagerTemplate
 {
-    void Awake()
+    void Start()
     {
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Late);
     }

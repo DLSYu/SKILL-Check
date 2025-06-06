@@ -31,12 +31,6 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
 
     void Awake()
     {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            LowOrderAnalyticsManager.instance.relicAnswers.Add("");
-        }
-        LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetStartingStats(System.DateTime.Now.ToString(), stageID);
-
         // Singleton pattern fix
         if (Instance != null && Instance != this)
         {
@@ -45,6 +39,16 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
         else
         {
             Instance = this;
+        }
+    }
+
+    void Start()
+    {
+        LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetStartingStats(System.DateTime.Now.ToString(), stageID);
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            LowOrderAnalyticsManager.instance.relicAnswers.Add("");
         }
     }
 

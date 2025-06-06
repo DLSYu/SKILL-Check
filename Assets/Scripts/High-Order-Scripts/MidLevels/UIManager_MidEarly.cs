@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIManager_MidEarly : UIManagerTemplate
 {
 
-    void Awake()
+    void Start()
     {
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Mid);
     }

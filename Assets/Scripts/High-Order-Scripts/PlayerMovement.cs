@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     // This is for UI switching purposes
     private GameObject isJoystickPanelActive;
 
+    private bool onPause = false;
+
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
@@ -47,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFingerMove(Finger MovedFinger)
     {
+        if (Time.timeScale == 0) return;
+
         if (!isJoystickPanelActive.activeSelf) { return; }
 
         if (MovedFinger == MovementFinger)
@@ -89,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
+        if (Time.timeScale == 0) return;
+
         if (!isJoystickPanelActive.activeSelf) { return; }
 
         if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
@@ -121,11 +127,32 @@ public class PlayerMovement : MonoBehaviour
         return StartPosition;
     }
 
+    public void ResetMovement()
+    {
+        MovementAmount = Vector2.zero;
+        Joystick.Knob.anchoredPosition = Vector2.zero;
+        MovementFinger = null;
+    }
+
     private void Update()
     {
-        HandleKeyboardInput();
-        this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
-        UpdateAnimator();
+        if (Time.timeScale == 0)
+        {
+            onPause = true;
+            return;
+        }
+        else if (onPause && Time.timeScale == 1)
+        {
+            onPause = false;
+            ResetMovement();
+        }
+
+        if (!onPause)
+        {
+            HandleKeyboardInput();
+            this.transform.Translate(speed * new Vector2(MovementAmount.x, 0) * Time.deltaTime);
+            UpdateAnimator();
+        }
 
     }
 

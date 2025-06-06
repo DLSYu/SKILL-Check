@@ -26,6 +26,10 @@ public class UIManager_MidMid : MonoBehaviour
     private void Awake()
     {
         Screen.SetResolution(2000, 1200, true);
+    }
+
+    private void Start()
+    {
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics = new HighOrderStageTypeAnalytics(StageType.Mid);
     }
 
