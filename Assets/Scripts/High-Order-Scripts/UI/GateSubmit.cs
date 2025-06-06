@@ -40,6 +40,10 @@ public class GateSubmit : MonoBehaviour
     [SerializeField]
     private GameObject resultsPanelHolder;
 
+    [Header("Early Level Scoring")]
+    [SerializeField] private TextMeshProUGUI scoreText; // Assign SCORETEXT object in inspector
+    [SerializeField] private GameObject scorePanelHolder; // Assign SCOREPANELHOLDER in inspector
+
     [SerializeField]
     private GameObject loadingEvaluatingScreen;
     [Header("For Early level submission")]
@@ -102,6 +106,7 @@ public class GateSubmit : MonoBehaviour
         loadingEvaluatingScreen.SetActive(false);
         resultsPanelHolder.SetActive(true);
     }
+
     public void DismissResultsScreen()
     {
         resultsPanelHolder.SetActive(false);
@@ -263,10 +268,21 @@ public class GateSubmit : MonoBehaviour
 
     public void OnSubmitEarlyLevelButton()
     {
-        //check if all SWBST slots
-        if (somebodySlot.compareGemTypeToSlotType() && wantedSlot.compareGemTypeToSlotType() &&
-            butSlot.compareGemTypeToSlotType() && soSlot.compareGemTypeToSlotType() &&
-            thenSlot.compareGemTypeToSlotType())
+        int correctCount = 0;
+
+        // Check each slot
+        if (somebodySlot.compareGemTypeToSlotType()) correctCount++;
+        if (wantedSlot.compareGemTypeToSlotType()) correctCount++;
+        if (butSlot.compareGemTypeToSlotType()) correctCount++;
+        if (soSlot.compareGemTypeToSlotType()) correctCount++;
+        if (thenSlot.compareGemTypeToSlotType()) correctCount++;
+
+        // Update score display
+        scoreText.text = $"Score: {correctCount}/5";
+        scorePanelHolder.SetActive(true); // Show the score panel
+
+        // Unlock door if all correct
+        if (correctCount == 5)
         {
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
