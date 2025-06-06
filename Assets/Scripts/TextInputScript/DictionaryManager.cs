@@ -28,7 +28,7 @@ public class DictionaryManager : MonoBehaviour
         this.clickedWord.text = text.FirstCharacterToUpper();
         definitionText.text = definition.ToString();
 
-        ReadingAnalyticsManager.instance.readingAnalytics.AddNewDictionaryWord(this.clickedWord.text);
+        ReadingAnalyticsManager.instance.readingAnalytics.AddNewDictionaryWord(text);
     }
 
     public void HideDictionaryPanel()
