@@ -25,6 +25,9 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     [SerializeField] private GameObject introHandler;
 
+    [SerializeField] private GameObject warningScreen;
+    [SerializeField] private LoadingScreen loadingScreen;
+
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
 
@@ -169,6 +172,21 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
             }
         }
 
+    }
+
+    public void ClickXButton()
+    {
+        warningScreen.SetActive(true);
+    }
+
+    public void ClickYesButton()
+    {
+        loadingScreen.LoadScene("TitleScreen");
+    }
+
+    public void ClickNoButton()
+    {
+        warningScreen.SetActive(false);
     }
 
     private void showActiveButton()
@@ -348,7 +366,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
         }
 
         data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("Intro", out hasIntroBeenPlayed);
-        if (!hasIntroBeenPlayed)
+        if (!hasIntroBeenPlayed && !introHandler.activeInHierarchy)
         {
             data.alreadyPlayedAnimationForNewlyOpenedStage.Add("Intro", true);
         }
