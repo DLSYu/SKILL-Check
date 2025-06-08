@@ -279,12 +279,12 @@ public class ReadingMechanicPanel : MonoBehaviour
         {
             if (i != currentPage)
             {
-                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255, 255, 225, 20);
+                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, 100);
             }
 
             else
             {
-                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color32(255, 255, 225, 100);
+                pagePrefabList[i].GetComponent<UnityEngine.UI.Image>().color = new Color(255, 255, 225, 100);
             }
         }
     }
