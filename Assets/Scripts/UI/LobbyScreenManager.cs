@@ -23,6 +23,8 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
     [SerializeField] private AudioSource libraryMusic;
     [SerializeField] private AudioSource otherMusic;
 
+    [SerializeField] private GameObject introHandler;
+
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
 
@@ -59,6 +61,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
+
         prevCharacterPos = mainCharacter.transform.position;
         prevCameraPos = camera.transform.position;
         targetPosition = camera.transform.position;
@@ -221,6 +224,8 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
         int lo_completed_stage_index = 0;
         int ho_completed_stage_index = 0;
 
+        bool hasIntroBeenPlayed;
+
 
         // save file checking
         foreach (KeyValuePair<String, bool> key in data.stageCompletionDictionary)
@@ -313,10 +318,17 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
             }
         }
 
+        data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("Intro", out hasIntroBeenPlayed);
+        if (!hasIntroBeenPlayed)
+        {
+            introHandler.SetActive(true);
+        }
+
 
     }
     public void SaveData(GameData data)
     {
+        bool hasIntroBeenPlayed = false;
 
         if (lo_level_to_reveal != -1 && lo_level_has_played_animation)
         {
@@ -333,6 +345,12 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
             data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("HO_" + ho_level_to_reveal.ToString(), out temp);
             if (!temp)
                 data.alreadyPlayedAnimationForNewlyOpenedStage.Add("HO_" + ho_level_to_reveal.ToString(), true);
+        }
+
+        data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("Intro", out hasIntroBeenPlayed);
+        if (!hasIntroBeenPlayed)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.Add("Intro", true);
         }
     }
 
