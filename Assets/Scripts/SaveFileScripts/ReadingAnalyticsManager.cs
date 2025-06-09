@@ -12,6 +12,8 @@ public class ReadingAnalyticsManager : MonoBehaviour, IDataPersistence
     // save file shenanigans
     public ReadingAnalytics readingAnalytics;
 
+    public bool hasTutorialPlayed;
+
     private void Awake()
     {
         if (instance != null)
@@ -43,6 +45,15 @@ public class ReadingAnalyticsManager : MonoBehaviour, IDataPersistence
     {
         readingAnalytics.SetDateTimeEnd(System.DateTime.Now.ToString());
         data.readingAnalyticsList.Add(readingAnalytics);
+
+        if (hasTutorialPlayed)
+        {
+            bool value;
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("ReadingMechanicTutorial", out value);
+
+            if (!value)
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("ReadingMechanicTutorial", true);
+        }
     }
 
     void OnDestroy()

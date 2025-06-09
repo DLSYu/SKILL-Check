@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
+public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandler
 {
-
-    [Header("Disable Controls")]
-    [SerializeField]
-    private GameObject player;
 
     [Header("Animation Sprites")]
     [SerializeField]
@@ -37,6 +34,7 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
     private int firstFrameIndex = 0;
     private int stepIndex = 0;
     private int messageIndex = -1;
+    private int bgIndex = 0;
 
     [Header("Image to animate")]
 
@@ -55,9 +53,6 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
     void OnEnable()
     {
         Time.timeScale = 0;
-        // disable controls
-        if (player != null)
-            player.GetComponent<PlayerMovement>().enabled = false;
 
         if (animCoroutine != null)
             StopCoroutine(animCoroutine);
@@ -118,11 +113,10 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
 
         }
 
-        // enable controls
-        if (player != null)
-            player.GetComponent<PlayerMovement>().enabled = true;
 
         Time.timeScale = 1;
+
+        ReadingAnalyticsManager.instance.hasTutorialPlayed = true;
         Destroy(gameObject);
     }
 
@@ -147,10 +141,13 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
                 stepIndex++;
 
 
-            Debug.Log("stepIndex in nextStep: " + stepIndex);
-            if (stepIndex < blackBackgroundImages.Length)
-                backgroundImageAnimate.sprite = blackBackgroundImages[stepIndex];
+        }
 
+        if (clickedOnce)
+        {
+            bgIndex++;
+            if (bgIndex < blackBackgroundImages.Length)
+                backgroundImageAnimate.sprite = blackBackgroundImages[bgIndex];
         }
 
         if (firstFrameIndex % 3 != 0)
@@ -165,6 +162,7 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
             if (messageIndex < messagesToDisplay.Length)
                 messagesToDisplay[messageIndex].SetActive(true);
         }
+
 
 
 

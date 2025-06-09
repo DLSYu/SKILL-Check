@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.Text.RegularExpressions;
 
-public class ReadingMechanicPanel : MonoBehaviour
+public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
 {
 
     [SerializeField]
@@ -44,6 +44,10 @@ public class ReadingMechanicPanel : MonoBehaviour
     private AudioSource voiceActing;
     [SerializeField]
     private VoiceManager voiceManager;
+    [SerializeField]
+    private GameObject tutorialHandler;
+
+    private bool hasTutorialPlayed;
 
     private List<int> currentAppliedLines = new List<int>();
     private List<GameObject> pagePrefabList = new List<GameObject>();
@@ -70,6 +74,22 @@ public class ReadingMechanicPanel : MonoBehaviour
         }
         ChangePagePrefab(0);
         lineSelector.currentSentenceIndex = 1;
+
+        if (tutorialHandler != null)
+        {
+            if (!hasTutorialPlayed)
+            {
+                tutorialHandler.SetActive(true);
+            }
+        }
+
+    }
+    public void LoadData(GameData data)
+    {
+        data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("ReadingMechanicTutorial", out hasTutorialPlayed);
+    }
+    public void SaveData(GameData data)
+    {
 
     }
 
