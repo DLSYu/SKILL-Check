@@ -27,6 +27,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     [SerializeField] private GameObject warningScreen;
     [SerializeField] private LoadingScreen loadingScreen;
+    [SerializeField] private LoadingScreen backToTitleScreenLoadingScreen;
 
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
@@ -181,7 +182,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
 
     public void ClickYesButton()
     {
-        loadingScreen.LoadScene("TitleScreen");
+        backToTitleScreenLoadingScreen.LoadScene("TitleScreen");
     }
 
     public void ClickNoButton()
