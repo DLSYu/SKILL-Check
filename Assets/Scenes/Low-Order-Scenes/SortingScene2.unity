@@ -995,6 +995,113 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3263420916874040805, guid: ee40279322e001d4181f4fd0e1feeb90, type: 3}
   m_PrefabInstance: {fileID: 446427094}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &446525788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1419275889}
+    m_Modifications:
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046515017736268626, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Name
+      value: BlackBackground
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+--- !u!224 &446525789 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+  m_PrefabInstance: {fileID: 446525788}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &446525790 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7046515017736268626, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+  m_PrefabInstance: {fileID: 446525788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &450050086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,8 +1403,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2049002124}
   - {fileID: 1204330840}
+  - {fileID: 2049002124}
   m_Father: {fileID: 1419275889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1439,6 +1546,10 @@ PrefabInstance:
       value: '"As Bathala grew old and weak, he asked his children to stay by his
         side, but they ignored his wish, absorbed in their own pleasures."'
       objectReference: {fileID: 0}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 446525790}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
@@ -2053,6 +2164,10 @@ PrefabInstance:
         Apolaqui and Mayari. Their eyes provided the world\u2019s first light, bringing
         joy to all living things.\""
       objectReference: {fileID: 0}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 446525790}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
@@ -3061,6 +3176,10 @@ PrefabInstance:
         dimmer light due to her lost eye."'
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 446525790}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
       objectReference: {fileID: 981681192}
@@ -3360,6 +3479,10 @@ PrefabInstance:
         They fought fiercely with bamboo clubs until Mayari lost an eye."'
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 446525790}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
       objectReference: {fileID: 981681192}
@@ -3569,6 +3692,7 @@ RectTransform:
   - {fileID: 522551858}
   - {fileID: 1489359457}
   - {fileID: 446427095}
+  - {fileID: 446525789}
   - {fileID: 981681193}
   - {fileID: 888265995}
   m_Father: {fileID: 0}

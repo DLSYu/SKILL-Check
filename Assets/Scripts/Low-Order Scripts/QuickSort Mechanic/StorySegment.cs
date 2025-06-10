@@ -7,8 +7,9 @@ public class StorySegment : MonoBehaviour
 {
     public int order;
     [SerializeField] private bool isRead = false;
-    [TextArea] [SerializeField] private string storySegment;
+    [TextArea][SerializeField] private string storySegment;
 
+    [SerializeField] private GameObject blackBackground;
     [SerializeField] private GameObject relicPopupPanel; // Reference to the pop-up panel
     [SerializeField] private TextMeshProUGUI relicText; // Reference to the text component
 
@@ -25,7 +26,7 @@ public class StorySegment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ReadStorySegment()
@@ -33,7 +34,11 @@ public class StorySegment : MonoBehaviour
         Debug.Log("reading segment...");
         Debug.Log($"relicText == null: {relicText == null}");
         Debug.Log($"storySegment == null: {storySegment == null}");
+
         relicText.text = storySegment;
+
+        if (blackBackground != null)
+            blackBackground.SetActive(true);
         relicPopupPanel.SetActive(true);
 
         isRead = true;
@@ -41,6 +46,8 @@ public class StorySegment : MonoBehaviour
 
     public void OnCloseButton()
     {
+        if (blackBackground != null)
+            blackBackground.SetActive(false);
         relicPopupPanel.SetActive(false);
     }
 }

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemType: {fileID: 183908122406646317}
   gemDescription: {fileID: 2679029493163905560}
-  gemImage: {fileID: 6129870245073873554}
+  gemImage: {fileID: 151619779212127753}
 --- !u!1 &3758838777628807716
 GameObject:
   m_ObjectHideFlags: 0

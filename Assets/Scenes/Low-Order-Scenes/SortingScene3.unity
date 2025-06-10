@@ -753,7 +753,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 605104867}
+      objectReference: {fileID: 300536504}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
@@ -1250,8 +1250,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2049002124}
   - {fileID: 1204330840}
+  - {fileID: 2049002124}
   m_Father: {fileID: 1419275889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1318,6 +1318,10 @@ PrefabInstance:
       value: "\"In his anger, Pablo struck Juan\u2019s head with the comb and, using
         his magic, cursed him to turn into a bird. The comb became part of his flesh.\""
       objectReference: {fileID: 0}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 1713885821}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
@@ -1576,6 +1580,10 @@ PrefabInstance:
       value: "\"Despite his father\u2019s efforts, Juan refused to help and spent
         his time in front of the mirror, combing his hair instead of working.\""
       objectReference: {fileID: 0}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 1713885821}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
@@ -2352,6 +2360,10 @@ PrefabInstance:
         and disobedient. Juan only cared about his appearance and fine clothes."'
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 1713885821}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
       objectReference: {fileID: 981681192}
@@ -3025,7 +3037,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 1141392454}
+      objectReference: {fileID: 819594477}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
@@ -3591,7 +3603,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 300536504}
+      objectReference: {fileID: 605104867}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 
@@ -4325,6 +4337,10 @@ PrefabInstance:
         bear the comb on their heads."'
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 1713885821}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
       objectReference: {fileID: 981681192}
@@ -4534,6 +4550,7 @@ RectTransform:
   - {fileID: 522551858}
   - {fileID: 1025084620}
   - {fileID: 83232470}
+  - {fileID: 1713885822}
   - {fileID: 981681193}
   - {fileID: 1680334972}
   m_Father: {fileID: 0}
@@ -5584,6 +5601,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709878622}
   m_CullTransparentMesh: 1
+--- !u!1 &1713885821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7046515017736268626, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+  m_PrefabInstance: {fileID: 3490360155088738059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1713885822 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+  m_PrefabInstance: {fileID: 3490360155088738059}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734113812
 GameObject:
   m_ObjectHideFlags: 0
@@ -6281,6 +6308,10 @@ PrefabInstance:
         he snatched the comb from Juan\u2019s hand and scolded him.\""
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
+      propertyPath: blackBackground
+      value: 
+      objectReference: {fileID: 1713885821}
+    - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
       value: 
       objectReference: {fileID: 981681192}
@@ -6750,6 +6781,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116942785}
   m_CullTransparentMesh: 1
+--- !u!1001 &3490360155088738059
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1419275889}
+    m_Modifications:
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090191310040571719, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046515017736268626, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
+      propertyPath: m_Name
+      value: BlackBackground
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3ca991016c581f54aa51db561ba0254e, type: 3}
 --- !u!1001 &6851273844265782293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6765,7 +6893,7 @@ PrefabInstance:
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: correctRelic
       value: 
-      objectReference: {fileID: 819594477}
+      objectReference: {fileID: 1141392454}
     - target: {fileID: 7093381669335866259, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
       propertyPath: originalPart
       value: 

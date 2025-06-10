@@ -52,6 +52,13 @@ public class TypingPanel : MonoBehaviour
 
     private bool isCurrentlyShowingStory = true;
 
+    [SerializeField] private Sprite gemRedImage;
+    [SerializeField] private Sprite gemBlueImage;
+    [SerializeField] private Sprite gemGreenImage;
+    [SerializeField] private Sprite gemPurpleImage;
+    [SerializeField] private Sprite gemOrangeImage;
+
+
 
     void Update()
     {
@@ -84,13 +91,40 @@ public class TypingPanel : MonoBehaviour
             GameObject newGemPrefab = Instantiate(gemPrefab, gemScrollviewContentHolder.transform);
             newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemType(currentGemData[0]);
             newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemDescription(currentGemData[1]);
+
             newGemPrefab.SetActive(true);
+
+
+            switch (currentGemData[2])
+            {
+                case "Somebody":
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemBlueImage);
+                    break;
+                case "Wanted":
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemGreenImage);
+                    break;
+                case "But":
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemOrangeImage);
+                    break;
+                case "So":
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemPurpleImage);
+                    break;
+                case "Then":
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemRedImage);
+                    break;
+                default:
+                    newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemRedImage);
+                    break;
+
+            }
 
         }
 
         storyAndInventoryPanelHolder.SetActive(true);
 
     }
+
+
 
     public void swapStoryAndInventory()
     {

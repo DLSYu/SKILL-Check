@@ -122,6 +122,7 @@ public class TutorialAnimator : MonoBehaviour, IPointerClickHandler
         if (player != null)
             player.GetComponent<PlayerMovement>().enabled = true;
 
+        player.GetComponent<PlayerMovement>().ResetMovement();
         Time.timeScale = 1;
         Destroy(gameObject);
     }

@@ -67,6 +67,9 @@ public class GateSubmit : MonoBehaviour
     private float recall;
     private float f1;
 
+    private float passingScore = 0.63f;
+    private float bonusKeywordScore = 0.05f;
+
 
     void Start()
     {
@@ -88,7 +91,7 @@ public class GateSubmit : MonoBehaviour
             percentage.text = "Score: " + score.ToString();
             resultsScoreText.text = "Score: " + score.ToString();
 
-            if (score >= 0.5f)
+            if (score >= passingScore)
             {
                 // resultsResultsText.text = "Cleared!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
@@ -122,20 +125,53 @@ public class GateSubmit : MonoBehaviour
         // Score evluation logic here
         completeText = "";
 
+
+        HO_SubmitAttempt hO_SubmitAttempt = new HO_SubmitAttempt();
+
         // Get text from input field
         if (typingPanelData.GetCurrentWritingStyle() == writingStyle.freeform)
         {
             completeText = freeformField.text;
             HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.Freeform);
+            hO_SubmitAttempt.submittedAnswers.Add(completeText);
         }
         else if (typingPanelData.GetCurrentWritingStyle() == writingStyle.swbst)
         {
-            completeText = somebodyField.text + " " + wantedField.text + " " +
-                            butField.text + " " + soField.text + " " + thenField.text;
+
+            if (somebodyField != null)
+            {
+                hO_SubmitAttempt.submittedAnswers.Add(somebodyField.text);
+                completeText += somebodyField.text + ". ";
+            }
+
+            if (wantedField != null)
+            {
+                hO_SubmitAttempt.submittedAnswers.Add(wantedField.text);
+                completeText += wantedField.text + ". ";
+            }
+
+            if (butField != null)
+            {
+                hO_SubmitAttempt.submittedAnswers.Add(butField.text);
+                completeText += butField.text + ". ";
+            }
+            if (soField != null)
+            {
+                hO_SubmitAttempt.submittedAnswers.Add(soField.text);
+                completeText += soField.text + ". ";
+            }
+
+            if (thenField != null)
+            {
+                hO_SubmitAttempt.submittedAnswers.Add(thenField.text);
+                completeText += thenField.text + ". ";
+            }
+
+
             HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.SWBST);
         }
-        HO_SubmitAttempt hO_SubmitAttempt = new HO_SubmitAttempt();
-        hO_SubmitAttempt.submittedAnswers.Add(completeText);
+
+
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddAnswer(hO_SubmitAttempt);
 
         String[] doorData = doorObserver.GetCurrentDoor().getDoorData();
@@ -147,25 +183,31 @@ public class GateSubmit : MonoBehaviour
         Debug.Log("Keyword: " + keyWord);
 
         // String logic here
-        if (completeText.Contains(keyWord))
+
+        Debug.Log("completeText: " + completeText);
+        if (completeText.Contains(keyWord) || completeText.Contains(keyWord.ToLower()))
         {
-            score += 0.1f;
+            score += bonusKeywordScore;
             Debug.Log("KeyWord Bonus Points");
         }
-
-        Debug.Log("Written: " + completeText + "\n" +
-                "Reference: " + referenceText);
 
         if (Application.platform == RuntimePlatform.Android)
         {
             List<string> candidatesText = Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>();
             List<string> referencesText = Regex.Split(referenceText, @"(?<=[\.!\?])\s+").ToList<string>();
 
+            if (candidatesText.Count > 1)
+                candidatesText.RemoveAt(Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>().Count - 1);
+
+
+
             CallBertScoreEval(candidatesText, referencesText, score);
 
             candidatesText.Clear();
             referencesText.Clear();
         }
+
+
 
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddScore(score);
 
@@ -197,7 +239,7 @@ public class GateSubmit : MonoBehaviour
         percentage.text = "Score: " + $"{score + toAdd}";
         resultsScoreText.text = "Score: " + $"{score + toAdd}";
 
-        if (score + toAdd >= 0.5f)
+        if (score + toAdd >= passingScore)
         {
             // this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
             resultsResultsText.text = "Cleared!";
