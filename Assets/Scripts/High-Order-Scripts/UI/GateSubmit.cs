@@ -331,9 +331,18 @@ public class GateSubmit : MonoBehaviour
         scoreText.text = $"Score: {correctCount}/5";
         scorePanelHolder.SetActive(true); // Show the score panel
 
+        UpdateResetButtonsVisibility();
+
         // Unlock door if all correct
         if (correctCount == 5)
         {
+            // Hide Typing Panel
+            GameObject typingPanel = GameObject.Find("TypingPanel");
+            if (typingPanel != null)
+            {
+                typingPanel.SetActive(false);
+            }
+
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
         }
@@ -361,6 +370,15 @@ public class GateSubmit : MonoBehaviour
                 HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeThen();
             }
         }
+    }
+
+    private void UpdateResetButtonsVisibility()
+    {
+        somebodySlot.SetCorrectness(somebodySlot.compareGemTypeToSlotType());
+        wantedSlot.SetCorrectness(wantedSlot.compareGemTypeToSlotType());
+        butSlot.SetCorrectness(butSlot.compareGemTypeToSlotType());
+        soSlot.SetCorrectness(soSlot.compareGemTypeToSlotType());
+        thenSlot.SetCorrectness(thenSlot.compareGemTypeToSlotType());
     }
 
     private IEnumerator HighlightIncorrectGemsAfterReset(List<Gem_Early> incorrectGems)

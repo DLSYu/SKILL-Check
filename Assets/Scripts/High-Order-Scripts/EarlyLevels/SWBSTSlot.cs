@@ -13,6 +13,7 @@ public class SWBSTSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI displayText;
     [SerializeField] private TextMeshProUGUI placeholderText;
     [SerializeField] private Button resetButton;
+    private bool isCorrect = false;
 
     [Header("Gem Tracking")]
     private Transform originalParent;
@@ -31,6 +32,10 @@ public class SWBSTSlot : MonoBehaviour
     {
         resetButton.onClick.AddListener(ResetSlot);
         UpdatePlaceholderVisibility();
+        
+        // Initialize reset button visibility
+        isCorrect = false;
+        UpdateResetButtonVisibility();
     }
     void Update()
     {
@@ -89,8 +94,10 @@ public class SWBSTSlot : MonoBehaviour
         }
 
         currentGem = gem;
+
         // InventoryManager_Early.Instance.MoveToSWBST(gem);
         Debug.Log($"Placed {gem.Type} in {slotType} slot");
+
         return true;
     }
 
@@ -131,14 +138,35 @@ public class SWBSTSlot : MonoBehaviour
 
     public bool compareGemTypeToSlotType()
     {
-        if (currentGem == null) { return false; }
-
-        // Compare the gem type with the slot type
-        if (currentGem.Type.ToString().ToLower() == slotType.ToString().ToLower())
+        if (currentGem == null)
         {
-            Debug.Log($"Gem type {currentGem.Type} matches slot type {slotType}");
-            return true;
+            isCorrect = false;
+            return false;
         }
-        return false;
+
+        bool matches = currentGem.Type.ToString().ToLower() == slotType.ToString().ToLower();
+        isCorrect = matches;
+        UpdateResetButtonVisibility();
+        return matches;
+    }
+
+    private void UpdateResetButtonVisibility()
+    {
+        if (resetButton != null)
+        {
+            // Hide reset button if gem is correct
+            resetButton.gameObject.SetActive(!isCorrect);
+        }
+    }
+
+    public bool IsCorrect()
+    {
+        return isCorrect;
+    }
+
+    public void SetCorrectness(bool correct)
+    {
+        isCorrect = correct;
+        UpdateResetButtonVisibility();
     }
 }
