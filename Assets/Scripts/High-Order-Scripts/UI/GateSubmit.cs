@@ -26,6 +26,8 @@ public class GateSubmit : MonoBehaviour
     // will change to serialized list later
     private DoorManager doorObserver;
     [SerializeField]
+    private UIManagerTemplate uIManagerTemplate;
+    [SerializeField]
     private TMP_InputField freeformField;
     [SerializeField]
     private TMP_InputField somebodyField, wantedField, butField, soField, thenField;
@@ -337,11 +339,7 @@ public class GateSubmit : MonoBehaviour
         if (correctCount == 5)
         {
             // Hide Typing Panel
-            GameObject typingPanel = GameObject.Find("TypingPanel");
-            if (typingPanel != null)
-            {
-                typingPanel.SetActive(false);
-            }
+            uIManagerTemplate.exitTypingScreen();
 
             doorObserver.GetCurrentDoor().unlockDoor();
             doorObserver.SetNextDoor();
