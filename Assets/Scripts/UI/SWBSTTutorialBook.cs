@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler
+public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler, IDataPersistence
 {
     [SerializeField] private GameObject previousPageButton;
     [SerializeField] private GameObject nextPageButton;
@@ -11,6 +11,9 @@ public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private GameObject[] SWBSTPageObjects;
     [SerializeField] private GameObject SWBSTPageHolder;
+
+    [SerializeField] private float timer = 0;
+    [SerializeField] private List<float> allSWBSTtimer;
 
     void Update()
     {
@@ -29,6 +32,11 @@ public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler
             previousPageButton.SetActive(true);
             nextPageButton.SetActive(true);
 
+        }
+
+        if (SWBSTPageHolder.activeInHierarchy)
+        {
+            timer += Time.deltaTime;
         }
     }
 
@@ -65,6 +73,11 @@ public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler
         pageIndex = 0;
         SetPageActive();
         SWBSTPageHolder.SetActive(false);
+
+        allSWBSTtimer.Add(timer);
+        timer = 0;
+
+
     }
 
     void SetPageActive()
@@ -80,5 +93,16 @@ public class SWBSTTutorialBook : MonoBehaviour, IPointerClickHandler
         }
 
 
+    }
+
+    public void LoadData(GameData data)
+    {
+
+    }
+
+    public void SaveData(GameData data)
+    {
+        for (int i = 0; i < allSWBSTtimer.Count; i++)
+            data.swbstInLobbyTime.Add(allSWBSTtimer[i]);
     }
 }

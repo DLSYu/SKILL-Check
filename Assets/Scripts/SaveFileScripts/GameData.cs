@@ -15,6 +15,8 @@ public class GameData
 
     public List<ReadingAnalytics> readingAnalyticsList;
 
+    public List<float> swbstInLobbyTime;
+
     public GameData()
     {
         this.stageCompletionDictionary = new SerializedDictionary<string, bool>();
