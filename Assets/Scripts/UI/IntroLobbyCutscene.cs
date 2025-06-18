@@ -15,6 +15,9 @@ public class IntroLobbyCutscene : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private List<Sprite> librarianImageOrder;
 
+    [SerializeField] private GameObject particleSystemObject;
+    [SerializeField] private GameObject swbstObject;
+
     private int index;
     private bool hasHandledClick = false;
 
@@ -32,6 +35,7 @@ public class IntroLobbyCutscene : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                Instantiate(particleSystemObject, swbstObject.transform);
                 this.gameObject.SetActive(false);
             }
 
