@@ -8,8 +8,10 @@ public class HighOrderStageAnalytics
     [SerializeField] private string dateTimeStart;
     [SerializeField] private string stageName;
     [SerializeField] private float timeTakenInInventory = 0;
+    [SerializeField] private float timeTakenInStory = 0;
     [SerializeField] private float timeTakenPeekingInInventory = 0;
     [SerializeField] private float timeTakenPeekingInStory = 0;
+
     [SerializeField] private float clearTime;
     [SerializeField] private int gemsCollected = 0;
 
@@ -41,6 +43,10 @@ public class HighOrderStageAnalytics
     public void AddTimeTakenPeekingInStory(float time)
     {
         this.timeTakenPeekingInStory += time;
+    }
+    public void AddTimeTakenInStory(float time)
+    {
+        this.timeTakenInStory += time;
     }
     public void IncrementGemsCollected()
     {

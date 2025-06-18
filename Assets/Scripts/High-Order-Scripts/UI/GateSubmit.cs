@@ -139,7 +139,7 @@ public class GateSubmit : MonoBehaviour
         }
         else if (typingPanelData.GetCurrentWritingStyle() == writingStyle.swbst)
         {
-
+            // NOTE: It is important to set disabled fields (or pre-filled slots) as null in GateSubmit
             if (somebodyField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(somebodyField.text);

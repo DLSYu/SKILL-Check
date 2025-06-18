@@ -29,6 +29,9 @@ public class UIManagerTemplate : MonoBehaviour
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private LoadingScreen loadingScreen;
     [SerializeField] protected GateSubmit gateSubmit;
+
+    [SerializeField] private GameObject storyUI;
+    [SerializeField] private TextMeshProUGUI storyText;
     public bool isScorePanelCleanable = false;
     private List<GameObject> gemInventoryGameObjectList = new List<GameObject>();
 
@@ -48,6 +51,11 @@ public class UIManagerTemplate : MonoBehaviour
         if (InventoryCanvas.activeInHierarchy)
         {
             HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.AddTimeTakenInInventory(Time.unscaledDeltaTime);
+        }
+
+        if (storyUI.activeInHierarchy)
+        {
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.AddTimeTakenInStory(Time.unscaledDeltaTime);
         }
     }
 
@@ -163,6 +171,21 @@ public class UIManagerTemplate : MonoBehaviour
                 break;
 
         }
+    }
+
+    public void openStoryUI()
+    {
+        Time.timeScale = 0;
+        storyUI.SetActive(true);
+        storyText.text = StoryData.GetStoryString();
+
+    }
+
+    public void closeStoryUI()
+    {
+        Time.timeScale = 1;
+        storyUI.SetActive(false);
+
     }
 
     public void inventoryGemHighlight(int id)
