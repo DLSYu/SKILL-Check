@@ -520,7 +520,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tandaan na maaari mong suriin ang iyong imbentaryo dito.
+  m_text: Tandaan na maaari mong suriin ang iyong <color="red">imbentaryo</color>
+    dito.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -1638,6 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237d5da13c184bc4d8de3903d023a3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 6c4b703be7feb7a41b32fe1ce2efe34e, type: 3}
   - {fileID: 21300000, guid: 0e2b73dc1287a2c4c97b6f3b62ce04c3, type: 3}
@@ -1670,7 +1672,7 @@ MonoBehaviour:
   blackBackgroundImages:
   - {fileID: 21300000, guid: 4ea52f2564f1e224d8b2bdc0b5bde257, type: 3}
   - {fileID: 21300000, guid: 4ea52f2564f1e224d8b2bdc0b5bde257, type: 3}
-  - {fileID: 21300000, guid: 4ea52f2564f1e224d8b2bdc0b5bde257, type: 3}
+  - {fileID: 21300000, guid: 096c2ab6753926949bc231ddc7634b97, type: 3}
   - {fileID: 21300000, guid: 096c2ab6753926949bc231ddc7634b97, type: 3}
   - {fileID: 21300000, guid: 69d38ebdad51c93418cfc8c49d52522d, type: 3}
   - {fileID: 21300000, guid: 4ea52f2564f1e224d8b2bdc0b5bde257, type: 3}
@@ -2028,7 +2030,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kapag nakakita ka ng isang interactable, lalabas ang button na ito.
+  m_text: <color="red">Kapag nakakita ka ng isang interactable, lalabas ang button
+    na ito.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}

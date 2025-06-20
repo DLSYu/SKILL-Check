@@ -65,7 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Maaari mo ring i-drag at bitawan ang tagapili ng linya na ito.
+  m_text: Maaari mo ring <color="red">i-drag at bitawan ang tagapili ng linya na
+    ito.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -199,7 +200,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upang bumalik, i-tap lang muli ang button.
+  m_text: Upang <color="red">bumalik</color>, <color="red">i-tap</color> lang muli
+    ang button.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -637,7 +639,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Maaari mong gamitin ang mga button na ito upang pumili ng linya.
+  m_text: Maaari mong gamitin ang mga button na ito upang <color="red">pumili ng
+    linya.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -771,8 +774,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pagkatapos ay ginagamit ang mga button na ito upang mag-navigate mula sa
-    pahina patungo sa pahina.
+  m_text: Pagkatapos ay ginagamit ang mga button na ito upang <color="red">mag-navigate
+    mula sa pahina patungo sa pahina.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -2028,7 +2031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2026 Paki-basa please."
+  m_text: "<color=\"red\">\u2026 Paki-basa please.</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -2238,7 +2241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ang pag-tap sa button na ito ay lilipat sa dictionary mode.
+  m_text: Ang pag-tap sa button na ito ay lilipat sa <color="red">dictionary mode.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -2372,8 +2375,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gamitin ang button na ito ng play at pause, at babasahin ng boses ang napiling
-    linya para sa iyo.
+  m_text: Gamitin ang button na ito ng <color="red">play at pause</color>, at <color="red">babasahin
+    ng boses ang napiling linya para sa iyo.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -3372,7 +3375,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tulad ng sinabi ng librarian, kailangan mong magbasa.
+  m_text: Tulad ng sinabi ng librarian, kailangan mong <color="red">magbasa.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -3657,8 +3660,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sa dictionary mode, ang mga salita ay maaaring i-tap, at maaari mong i-tap
-    ang mga ito upang tingnan ang kahulugan nito.
+  m_text: Sa <color="red">dictionary mode</color>, <color="red">ang mga salita ay
+    maaaring i-tap</color> upang <color="red">tingnan ang kahulugan nito.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
