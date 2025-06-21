@@ -1,34 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandler
+public class ReadingMechanicReadyPrompt : MonoBehaviour
 {
 
     [Header("Animation Sprites")]
     [SerializeField]
     private List<Sprite> sprites;
 
-    [Header("Messages")]
-    [SerializeField]
-    private GameObject[] messagesToDisplay;
 
     [Header("Animation Sprites")]
     [SerializeField]
     private List<int> messagesWhereinAnimationIsReused;
 
-    [Header("Things to Highlight Backgrounds")]
+    [Header("Set Objects Active After Running Animation")]
     [SerializeField]
-    private Sprite[] blackBackgroundImages; // 0 is all black
-
-    [Header("Open Reading Prompt")]
-
-    [SerializeField]
-    private GameObject readingPromptUI;
-
+    private GameObject[] objectsToSetActiveAfterRunningAnimation;
 
     [Header("Adjust Parameters in Animation")]
 
@@ -38,8 +29,7 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
     private int frameIndex = 0;
     private int firstFrameIndex = 0;
     private int stepIndex = 0;
-    private int messageIndex = -1;
-    private int bgIndex = 0;
+    private int messageIndex = 0;
 
     [Header("Image to animate")]
 
@@ -57,10 +47,12 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
 
     void OnEnable()
     {
-
-
+        Time.timeScale = 0;
         if (animCoroutine != null)
             StopCoroutine(animCoroutine);
+
+        frameIndex = 0;
+        firstFrameIndex = 0;
 
         animCoroutine = StartCoroutine(PlayAnimationUnscaled());
     }
@@ -68,7 +60,6 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
     IEnumerator PlayAnimationUnscaled()
     {
 
-        Time.timeScale = 0;
         float frameDuration = framesPerSprite / 60f; // adjust if needed
         float timer;
 
@@ -81,8 +72,14 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
                 toProceedToNextStep = false;
                 clickedOnce = false;
             }
+
             if (frameIndex >= sprites.Count)
+            {
+
+                this.gameObject.SetActive(false);
                 break;
+            }
+
 
             imageToAnimate.sprite = sprites[frameIndex];
 
@@ -118,12 +115,16 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
 
 
         }
+        Time.timeScale = 1;
+        Destroy(this.gameObject);
+
+    }
+
+    public void NextStep()
+    {
+        ProceedToNextStep();
 
 
-        ReadingAnalyticsManager.instance.hasTutorialPlayed = true;
-        readingPromptUI.SetActive(true);
-
-        Destroy(gameObject);
     }
 
     private void ProceedToNextStep()
@@ -141,56 +142,41 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
                 firstFrameIndex += 2;
             }
 
-            frameIndex = firstFrameIndex;
 
             if (clickedOnce)
                 stepIndex++;
 
 
-        }
+            Debug.Log("stepIndex in nextStep: " + stepIndex);
 
-        if (clickedOnce)
-        {
-            bgIndex++;
-            if (bgIndex < blackBackgroundImages.Length)
-                backgroundImageAnimate.sprite = blackBackgroundImages[bgIndex];
+
+            if (firstFrameIndex > 0)
+                foreach (GameObject obj in objectsToSetActiveAfterRunningAnimation)
+                    obj.SetActive(true);
+
+
+
         }
 
         if (firstFrameIndex % 3 != 0)
         {
             frameIndex = firstFrameIndex;
 
-            if (messageIndex >= 0 && messageIndex < messagesToDisplay.Length)
-                messagesToDisplay[messageIndex].SetActive(false);
-
-            messageIndex++;
-
-            if (messageIndex < messagesToDisplay.Length)
-                messagesToDisplay[messageIndex].SetActive(true);
         }
 
-
-
-
-
-
-
-    }
-
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-
-        if (firstFrameIndex % 3 != 0)
+        if (firstFrameIndex == 3)
         {
-            if (!clickedOnce)
-            {
-                clickedOnce = true;
-                toProceedToNextStep = true;
+            foreach (GameObject obj in objectsToSetActiveAfterRunningAnimation)
+                obj.SetActive(false);
 
-            }
+
         }
+
+
+
+
     }
+
 
 
 }
