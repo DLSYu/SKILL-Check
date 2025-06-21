@@ -17,6 +17,17 @@ public class ObjectiveManager : MonoBehaviour
     // [SerializeField] private TMPro.TextMeshProUGUI objectiveText;
     private Vector3 playerPosition;
     private bool isPathFinding = false;
+
+    void Update()
+    {
+        List<Vector3> gemLocations = doorManager.GetCurrentDoor().getActiveGemsLocations();
+
+        if (gemLocations.Count == 0)
+        {
+            optionalPanel.SetActive(false);
+            optionalButtonImage.gameObject.SetActive(false);
+        }
+    }
     public void findDoor()
     {
         if (isPathFinding) { return; }
