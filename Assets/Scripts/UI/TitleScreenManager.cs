@@ -29,7 +29,7 @@ public class TitleScreenManager : MonoBehaviour
         string input = inputtedText.text.Trim((char)8203);
 
 
-        if (input == TimeCheckInstance.instance.IdentifyCurrentWeekPassword(now))
+        if (input == TimeCheckInstance.instance.IdentifyCurrentWeekPassword())
         {
             manualUnlockScreen.SetActive(false);
             DataPersistenceManager.instance.LoadGame();
@@ -47,10 +47,9 @@ public class TitleScreenManager : MonoBehaviour
 
     public void StartButton()
     {
-        DateTime now = DateTime.UtcNow.ToLocalTime();
 
         // is not within allowed times
-        if (!bypassPassword && !TimeCheckInstance.instance.isWithinAllowedTimes(now))
+        if (!bypassPassword && !TimeCheckInstance.instance.isWithinAllowedTimes())
         {
             manualUnlockScreen.SetActive(true);
         }

@@ -66,8 +66,9 @@ public class TimeCheckInstance : MonoBehaviour
 
     }
 
-    public string IdentifyCurrentWeekPassword(DateTime now)
+    public string IdentifyCurrentWeekPassword()
     {
+        DateTime now = DateTime.UtcNow.ToLocalTime();
         string currentPassword = weekPasswords[0];
         for (int i = 0; i < allowedTimes.Count; i++)
         {
@@ -78,31 +79,32 @@ public class TimeCheckInstance : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("password: " + currentPassword);
+        // Debug.Log("password: " + currentPassword);
         return currentPassword;
     }
 
-    public DateTime GetNextPlaySession(DateTime now)
+    public DateTime GetNextPlaySession()
     {
+        DateTime now = DateTime.UtcNow.ToLocalTime();
         DateTime temp = DateTime.MinValue;
         for (int i = 0; i < allowedTimes.Count; i++)
         {
             if (now < allowedTimes[i][0])
-                temp = allowedTimes[i][0];
-            else
             {
+                temp = allowedTimes[i][0];
                 break;
             }
         }
         return temp;
     }
 
-    public bool isWithinAllowedTimes(DateTime now)
+    public bool isWithinAllowedTimes()
     {
+        DateTime now = DateTime.UtcNow.ToLocalTime();
         bool foundAllowedTime = false;
         for (int i = 0; i < allowedTimes.Count; i++)
         {
-            if (now > allowedTimes[i][0] && now < allowedTimes[i][1])
+            if (now > allowedTimes[i][0] && now <= allowedTimes[i][1])
             {
                 foundAllowedTime = true;
                 break;
