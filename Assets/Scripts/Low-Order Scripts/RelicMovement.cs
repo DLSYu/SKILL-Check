@@ -140,7 +140,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
             newParent = null;
             dragging = false;
-            
+
         }
     }
 

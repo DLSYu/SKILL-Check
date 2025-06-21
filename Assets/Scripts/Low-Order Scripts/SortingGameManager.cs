@@ -23,6 +23,9 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
     [Header("Relics")]
     [SerializeField] public List<GameObject> allRelics;
 
+    [Header("Disable Buttons")]
+    [SerializeField] public List<GameObject> buttonElementsToDisable;
+
     private float timer = 0f;
     private bool isGameCompleted = false; // Flag to track completion for timer
 
@@ -59,6 +62,13 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
             timer += Time.deltaTime;
         }
     }
+    void DisableAllButtons()
+    {
+        for (int i = 0; i < buttonElementsToDisable.Count; i++)
+        {
+            buttonElementsToDisable[i].GetComponent<Button>().enabled = false;
+        }
+    }
 
     public void CheckCompletion()
     {
@@ -89,6 +99,7 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
         if (allCorrect)
         {
             uiAnimatorDragon.SetActive(true);
+            DisableAllButtons();
             // Hide Split-Head, Split-Tail, and all Slots
             if (splitHead != null) splitHead.SetActive(false);
             if (splitTail != null) splitTail.SetActive(false);

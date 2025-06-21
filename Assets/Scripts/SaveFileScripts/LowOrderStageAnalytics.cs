@@ -10,7 +10,7 @@ public class LowOrderStageAnalytics
     [SerializeField] private float clearTime;
     [SerializeField] private int mistakes = 0;
     [SerializeField] private string dateTimeEnd;
-
+    [SerializeField] private List<float> timeSpentPeekingInStoryList = new List<float>();
     public void SetStartingStats(string dateTimeStart, string stageName)
     {
         this.dateTimeStart = dateTimeStart;
@@ -25,6 +25,11 @@ public class LowOrderStageAnalytics
     public void SetDateTimeEnd(string dateTimeEnd)
     {
         this.dateTimeEnd = dateTimeEnd;
+    }
+
+    public void AddTimeSpentPeekingInStoryList(float time)
+    {
+        timeSpentPeekingInStoryList.Add(time);
     }
 
     public void IncrementMistakes()
