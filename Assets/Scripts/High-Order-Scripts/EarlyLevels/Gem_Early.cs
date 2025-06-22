@@ -10,7 +10,7 @@ public class Gem_Early : GemInterface
     {
         audioSource.PlayOneShot(gemSound);
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.IncrementGemsCollected();
-        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName);
+        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName, isColorless);
 
         if (transform.parent == null || transform.parent.GetComponent<SWBSTSlot>() == null)
         {

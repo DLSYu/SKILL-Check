@@ -11,7 +11,7 @@ public class Gem_Late : GemInterface
         audioSource.PlayOneShot(gemSound);
         HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.IncrementGemsCollected();
         gameObject.SetActive(false);
-        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName);
+        uiManager.openGemCanvas(gemDescription, gemType.ToString(), gemName, isColorless);
         inventoryManager.addGemToInventory(this);
     }
 

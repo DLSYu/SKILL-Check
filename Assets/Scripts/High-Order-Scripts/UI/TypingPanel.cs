@@ -57,6 +57,7 @@ public class TypingPanel : MonoBehaviour
     [SerializeField] private Sprite gemGreenImage;
     [SerializeField] private Sprite gemPurpleImage;
     [SerializeField] private Sprite gemOrangeImage;
+    [SerializeField] private Sprite gemColorlessImage;
 
 
 
@@ -94,7 +95,11 @@ public class TypingPanel : MonoBehaviour
 
             newGemPrefab.SetActive(true);
 
-
+            if (currentGemData[3] == "True")
+            {
+                newGemPrefab.GetComponent<GemSummarizationScrollviewPrefab>().setGemImage(gemColorlessImage);
+                continue; // Skip setting the color for colorless gems
+            }
             switch (currentGemData[2])
             {
                 case "Somebody":

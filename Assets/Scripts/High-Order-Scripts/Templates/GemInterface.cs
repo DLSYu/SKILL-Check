@@ -9,6 +9,7 @@ public class GemInterface : MonoBehaviour, IInteractable
     [SerializeField] protected String gemName;
     [SerializeField] protected GemType gemType;
     [SerializeField] protected string gemDescription;
+    [SerializeField] protected bool isColorless;
     [Header("References")]
     [SerializeField] protected AudioClip gemSound;
     [SerializeField] protected AudioSource audioSource;
@@ -37,7 +38,16 @@ public class GemInterface : MonoBehaviour, IInteractable
         Wanted,
         But,
         So,
-        Then,
+        Then
+    }
+
+    void Awake()
+    {
+        if (isColorless)
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color32(19, 19, 19, 255);
+        }
     }
     public virtual void Interact()
     {
@@ -47,7 +57,7 @@ public class GemInterface : MonoBehaviour, IInteractable
 
     public virtual string[] getGemData()
     {
-        string[] gemData = { gemName, gemDescription, gemType.ToString() };
+        string[] gemData = { gemName, gemDescription, gemType.ToString(), isColorless.ToString() };
         return gemData;
     }
 

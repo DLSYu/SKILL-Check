@@ -84,7 +84,7 @@ EditorBuildSettings:
     path: Assets/Scenes/High-Order-Scenes/H02_Early.unity
     guid: daddbeb50fc91174f9ac55972a80f410
   - enabled: 1
-    path: Assets/Scenes/High-Order-Scenes/H03_Mid.unity
+    path: Assets/Scenes/High-Order-Scenes/H03_Early.unity
     guid: f41a981d85b89724b95a3a834f507b6b
   - enabled: 1
     path: Assets/Scenes/High-Order-Scenes/H04_Mid.unity

@@ -100,7 +100,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6829139281936907471}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   gemGreenImage: {fileID: 21300000, guid: 5cd6a080e125d484d807b725b487718a, type: 3}
   gemBlueImage: {fileID: 21300000, guid: 279c82f7dbf9e0940967bb025b51d0f5, type: 3}
   gemPurpleImage: {fileID: 21300000, guid: 8e1defd74e2552c48a0d9ea7e923d55b, type: 3}
+  gemColorlessImage: {fileID: 21300000, guid: c6106f2b64def1c4e9e3305dc044f3c9, type: 3}
   gemHighlight: {fileID: 1824132619943037401}
 --- !u!1 &7934951379187046757
 GameObject:

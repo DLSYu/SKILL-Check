@@ -9,6 +9,7 @@ public class GemInventoryPrefab : MonoBehaviour
     private string type;
     private string gemName;
     private string description;
+    private bool isColorless = false;
 
     [SerializeField] private GameObject gemImage;
 
@@ -21,6 +22,7 @@ public class GemInventoryPrefab : MonoBehaviour
     [SerializeField] private Sprite gemBlueImage;
 
     [SerializeField] private Sprite gemPurpleImage;
+    [SerializeField] private Sprite gemColorlessImage;
 
     [SerializeField]
     private GameObject gemHighlight;
@@ -37,9 +39,18 @@ public class GemInventoryPrefab : MonoBehaviour
             button.onClick.AddListener(OnItemClicked);
     }
 
-    public void setType(string type)
+    public void setType(string type, string isColorless)
     {
         this.type = type;
+
+        Debug.Log(isColorless);
+
+        if (isColorless == "True")
+        {
+            gemImage.GetComponent<Image>().sprite = gemColorlessImage;
+            this.isColorless = true;
+            return;
+        }
 
         switch (type)
         {
@@ -107,12 +118,12 @@ public class GemInventoryPrefab : MonoBehaviour
         // Call a central method to update the UI
         if (UIManagerTemplate.Instance != null)
         {
-            UIManagerTemplate.Instance.updateInventoryGemSelectedText(this.gemName, this.type, this.description);
+            UIManagerTemplate.Instance.updateInventoryGemSelectedText(this.gemName, this.type, this.description, this.isColorless);
             UIManagerTemplate.Instance.inventoryGemHighlight(this.id);
         }
         else if (UIManager_Early.Instance != null)
         {
-            UIManager_Early.Instance.updateInventoryGemSelectedText(this.gemName, this.type, this.description);
+            UIManager_Early.Instance.updateInventoryGemSelectedText(this.gemName, this.type, this.description, this.isColorless);
             UIManager_Early.Instance.inventoryGemHighlight(this.id);
         }
 
