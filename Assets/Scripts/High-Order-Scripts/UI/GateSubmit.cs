@@ -106,10 +106,10 @@ public class GateSubmit : MonoBehaviour
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
 
-        }
+            loadingEvaluatingScreen.SetActive(false);
+            resultsPanelHolder.SetActive(true);
 
-        loadingEvaluatingScreen.SetActive(false);
-        resultsPanelHolder.SetActive(true);
+        }
     }
 
     public void DismissResultsScreen()
@@ -230,7 +230,21 @@ public class GateSubmit : MonoBehaviour
             javaReferences.Call<bool>("add", reference);
         }
 
-        bertScoreEval.CallStatic("evaluate", javaCandidates, javaReferences, new BertCallback(percentage, currScore, (value) => { submitable = value; }, (score, toAdd) => { ShowScore(score, toAdd); }));
+        bertScoreEval.CallStatic("evaluate", javaCandidates, javaReferences,
+    new BertCallback(
+        this,
+        percentage,
+        currScore,
+        (value) => { submitable = value; },
+        (score, toAdd) =>
+        {
+            StartCoroutine(RunOnMainThread(() =>
+            {
+                ShowScore(score, toAdd);
+                loadingEvaluatingScreen.SetActive(false);
+                resultsPanelHolder.SetActive(true);
+            }));
+        }));
     }
 
     private void ShowScore(float score, float toAdd)
@@ -266,6 +280,12 @@ public class GateSubmit : MonoBehaviour
         thenField.text = "";
     }
 
+    public IEnumerator RunOnMainThread(Action action)
+    {
+        yield return null; // Wait one frame to make sure we're on Unity's main thread
+        action?.Invoke();
+    }
+
     public class BertCallback : AndroidJavaProxy
     {
         private TextMeshProUGUI percentage;
@@ -273,12 +293,12 @@ public class GateSubmit : MonoBehaviour
         private Action<bool> setSubmitable;
         private Action<float, float> showScore;
 
-        public BertCallback(TextMeshProUGUI percentage, float score, Action<bool> setSubmitable, Action<float, float> showScore) : base("com.skillcheck.bertscore_aar.BertScoreEval$BertCallback")
-        {
-            //this.precision = precision;
-            //this.recall = recall;
-            //this.f1 = f1;
+        private GateSubmit gateSubmit;
 
+        public BertCallback(GateSubmit gateSubmit, TextMeshProUGUI percentage, float score, Action<bool> setSubmitable, Action<float, float> showScore)
+            : base("com.skillcheck.bertscore_aar.BertScoreEval$BertCallback")
+        {
+            this.gateSubmit = gateSubmit;
             this.percentage = percentage;
             this.score = score;
             this.setSubmitable = setSubmitable;
@@ -297,11 +317,12 @@ public class GateSubmit : MonoBehaviour
             }
 
             float f1 = float.Parse(scores[2], CultureInfo.InvariantCulture.NumberFormat);
-            //percentage.GetComponent<TextMeshProUGUI>().text = $"{score + f1}";
 
-            showScore(score, f1 / 2);
-
-            setSubmitable(true);
+            gateSubmit.StartCoroutine(gateSubmit.RunOnMainThread(() =>
+            {
+                showScore(score, f1 / 2);
+                setSubmitable(true);
+            }));
         }
         public void onError(String error)
         {
