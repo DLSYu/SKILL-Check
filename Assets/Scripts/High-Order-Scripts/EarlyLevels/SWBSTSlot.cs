@@ -30,9 +30,10 @@ public class SWBSTSlot : MonoBehaviour
 
     void Start()
     {
-        resetButton.onClick.AddListener(ResetSlot);
+        if (resetButton != null)
+            resetButton.onClick.AddListener(ResetSlot);
         UpdatePlaceholderVisibility();
-        
+
         // Initialize reset button visibility
         isCorrect = false;
         UpdateResetButtonVisibility();
@@ -146,7 +147,7 @@ public class SWBSTSlot : MonoBehaviour
 
         bool matches = currentGem.Type.ToString().ToLower() == slotType.ToString().ToLower();
         isCorrect = matches;
-        UpdateResetButtonVisibility();
+        // UpdateResetButtonVisibility();
         return matches;
     }
 

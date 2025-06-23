@@ -19,6 +19,8 @@ using UnityEngine.UIElements;
 
 public class GateSubmit : MonoBehaviour
 {
+
+
     // Start is called before the first frame update
     [SerializeField]
     private TextMeshProUGUI percentage;
@@ -42,9 +44,13 @@ public class GateSubmit : MonoBehaviour
     [SerializeField]
     private GameObject resultsPanelHolder;
 
+    [SerializeField]
+    private GameObject fairyMistakeGems; // for low SWBST
+
     [Header("Early Level Scoring")]
     [SerializeField] private TextMeshProUGUI scoreText; // Assign SCORETEXT object in inspector
     [SerializeField] private GameObject scorePanelHolder; // Assign SCOREPANELHOLDER in inspector
+
 
     [SerializeField]
     private GameObject loadingEvaluatingScreen;
@@ -60,6 +66,9 @@ public class GateSubmit : MonoBehaviour
     [SerializeField]
     private SWBSTSlot thenSlot;
     private AndroidJavaClass bertScoreEval;
+
+    [SerializeField]
+    private GameObject fairyMissingFieldHandler;
 
     private bool submitable = true;
 
@@ -86,12 +95,13 @@ public class GateSubmit : MonoBehaviour
         float score = EvaluateScore();
 
 
+
+
         if (Application.platform == RuntimePlatform.LinuxEditor ||
-            Application.platform == RuntimePlatform.OSXEditor ||
-            Application.platform == RuntimePlatform.WindowsEditor)
+                    Application.platform == RuntimePlatform.OSXEditor ||
+                    Application.platform == RuntimePlatform.WindowsEditor)
         {
-            percentage.text = "Score: " + score.ToString();
-            resultsScoreText.text = "Score: " + score.ToString();
+
 
             if (score >= passingScore)
             {
@@ -106,8 +116,20 @@ public class GateSubmit : MonoBehaviour
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
 
+
+            if (score == -1)
+            {
+                fairyMissingFieldHandler.SetActive(true);
+            }
+            else
+            {
+                percentage.text = "Score: " + (score * 100).ToString();
+                resultsScoreText.text = "Score: " + (score * 100).ToString();
+                resultsPanelHolder.SetActive(true);
+            }
+
             loadingEvaluatingScreen.SetActive(false);
-            resultsPanelHolder.SetActive(true);
+
 
         }
     }
@@ -127,6 +149,7 @@ public class GateSubmit : MonoBehaviour
         // Score evluation logic here
         completeText = "";
 
+        bool areAllFieldsFilled = true;
 
         HO_SubmitAttempt hO_SubmitAttempt = new HO_SubmitAttempt();
 
@@ -134,86 +157,119 @@ public class GateSubmit : MonoBehaviour
         if (typingPanelData.GetCurrentWritingStyle() == writingStyle.freeform)
         {
             completeText = freeformField.text;
-            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.Freeform);
-            hO_SubmitAttempt.submittedAnswers.Add(completeText);
+
+            areAllFieldsFilled = CheckIfFieldIsNotEmpty(completeText);
+
+            if (areAllFieldsFilled)
+            {
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.Freeform);
+                hO_SubmitAttempt.submittedAnswers.Add(completeText);
+            }
         }
         else if (typingPanelData.GetCurrentWritingStyle() == writingStyle.swbst)
         {
+
             // NOTE: It is important to set disabled fields (or pre-filled slots) as null in GateSubmit
             if (somebodyField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(somebodyField.text);
                 completeText += somebodyField.text + ". ";
+                areAllFieldsFilled = areAllFieldsFilled && CheckIfFieldIsNotEmpty(somebodyField.text);
             }
 
             if (wantedField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(wantedField.text);
                 completeText += wantedField.text + ". ";
+                areAllFieldsFilled = areAllFieldsFilled && CheckIfFieldIsNotEmpty(wantedField.text);
             }
 
             if (butField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(butField.text);
                 completeText += butField.text + ". ";
+                areAllFieldsFilled = areAllFieldsFilled && CheckIfFieldIsNotEmpty(butField.text);
             }
             if (soField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(soField.text);
                 completeText += soField.text + ". ";
+                areAllFieldsFilled = areAllFieldsFilled && CheckIfFieldIsNotEmpty(soField.text);
             }
 
             if (thenField != null)
             {
                 hO_SubmitAttempt.submittedAnswers.Add(thenField.text);
                 completeText += thenField.text + ". ";
+                areAllFieldsFilled = areAllFieldsFilled && CheckIfFieldIsNotEmpty(thenField.text);
+            }
+
+            if (areAllFieldsFilled)
+                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.SWBST);
+        }
+
+        if (areAllFieldsFilled)
+        {
+
+
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddAnswer(hO_SubmitAttempt);
+
+            String[] doorData = doorObserver.GetCurrentDoor().getDoorData();
+
+            string referenceText = doorData[0];
+            keyWord = doorData[1];
+
+            Debug.Log("Reference Text: " + referenceText);
+            Debug.Log("Keyword: " + keyWord);
+
+            // String logic here
+
+            Debug.Log("completeText: " + completeText);
+            if (completeText.Contains(keyWord) || completeText.Contains(keyWord.ToLower()))
+            {
+                score += bonusKeywordScore;
+                Debug.Log("KeyWord Bonus Points");
+            }
+
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                List<string> candidatesText = Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>();
+                List<string> referencesText = Regex.Split(referenceText, @"(?<=[\.!\?])\s+").ToList<string>();
+
+                if (candidatesText.Count > 1)
+                    candidatesText.RemoveAt(Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>().Count - 1);
+
+
+
+                CallBertScoreEval(candidatesText, referencesText, score);
+
+                candidatesText.Clear();
+                referencesText.Clear();
             }
 
 
-            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddSWBSTOrFreeformList(SWBSTOrFreeform.SWBST);
+
+            HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddScore(score);
+            return score;
         }
-
-
-        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddAnswer(hO_SubmitAttempt);
-
-        String[] doorData = doorObserver.GetCurrentDoor().getDoorData();
-
-        string referenceText = doorData[0];
-        keyWord = doorData[1];
-
-        Debug.Log("Reference Text: " + referenceText);
-        Debug.Log("Keyword: " + keyWord);
-
-        // String logic here
-
-        Debug.Log("completeText: " + completeText);
-        if (completeText.Contains(keyWord) || completeText.Contains(keyWord.ToLower()))
+        else
         {
-            score += bonusKeywordScore;
-            Debug.Log("KeyWord Bonus Points");
-        }
-
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            List<string> candidatesText = Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>();
-            List<string> referencesText = Regex.Split(referenceText, @"(?<=[\.!\?])\s+").ToList<string>();
-
-            if (candidatesText.Count > 1)
-                candidatesText.RemoveAt(Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>().Count - 1);
-
-
-
-            CallBertScoreEval(candidatesText, referencesText, score);
-
-            candidatesText.Clear();
-            referencesText.Clear();
+            loadingEvaluatingScreen.SetActive(false);
+            fairyMissingFieldHandler.SetActive(true);
+            return -1;
         }
 
 
+    }
 
-        HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.AddScore(score);
+    private bool CheckIfFieldIsNotEmpty(string answer)
+    {
+        string input = answer.Trim((char)8203);
 
-        return score;
+        if (input.Length == 0)
+            return false;
+        else
+            return true;
     }
 
     private void CallBertScoreEval(List<string> candidates, List<string> references, float currScore)
@@ -252,8 +308,8 @@ public class GateSubmit : MonoBehaviour
         Debug.Log($"score = {score}; toAdd = {toAdd}");
 
         //percentage.SetActive(true);
-        percentage.text = "Score: " + $"{score + toAdd}";
-        resultsScoreText.text = "Score: " + $"{score + toAdd}";
+        percentage.text = "Score: " + $"{(score + toAdd) * 100}";
+        resultsScoreText.text = "Score: " + $"{(score + toAdd) * 100}";
 
         if (score + toAdd >= passingScore)
         {
@@ -268,6 +324,14 @@ public class GateSubmit : MonoBehaviour
             // this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
         }
 
+    }
+
+    public void CheckIfDismissTypingPanel()
+    {
+        if (resultsResultsText.text == "Cleared!")
+        {
+            uIManagerTemplate.exitTypingScreen();
+        }
     }
 
     public void clearAllfields()
@@ -337,57 +401,66 @@ public class GateSubmit : MonoBehaviour
         List<Gem_Early> incorrectGems = new List<Gem_Early>();
 
         // Check slots and collect incorrect gems with debug logs
-        CheckSlot(somebodySlot, "Somebody", ref correctCount, incorrectGems);
-        CheckSlot(wantedSlot, "Wanted", ref correctCount, incorrectGems);
-        CheckSlot(butSlot, "But", ref correctCount, incorrectGems);
-        CheckSlot(soSlot, "So", ref correctCount, incorrectGems);
-        CheckSlot(thenSlot, "Then", ref correctCount, incorrectGems);
-
-        Debug.Log($"Found {incorrectGems.Count} incorrect gems");
-
-        ResetAllHighlights();
-
-        // Wait then Highlight
-        StartCoroutine(HighlightIncorrectGemsAfterReset(incorrectGems));
-
-        // Update score display
-        scoreText.text = $"Score: {correctCount}/5";
-        scorePanelHolder.SetActive(true); // Show the score panel
-
-        UpdateResetButtonsVisibility();
-
-        // Unlock door if all correct
-        if (correctCount == 5)
+        if (CheckSlot(somebodySlot, "Somebody", ref correctCount, incorrectGems) &&
+        CheckSlot(wantedSlot, "Wanted", ref correctCount, incorrectGems) &&
+        CheckSlot(butSlot, "But", ref correctCount, incorrectGems) &&
+        CheckSlot(soSlot, "So", ref correctCount, incorrectGems) &&
+        CheckSlot(thenSlot, "Then", ref correctCount, incorrectGems))
         {
-            // Hide Typing Panel
-            uIManagerTemplate.exitTypingScreen();
 
-            doorObserver.GetCurrentDoor().unlockDoor();
-            doorObserver.SetNextDoor();
+            Debug.Log($"Found {incorrectGems.Count} incorrect gems");
+
+            ResetAllHighlights();
+
+            // Wait then Highlight
+            StartCoroutine(HighlightIncorrectGemsAfterReset(incorrectGems));
+
+            // Update score display
+            scoreText.text = $"Score: {correctCount}/5";
+            scorePanelHolder.SetActive(true); // Show the score panel
+
+            UpdateResetButtonsVisibility();
+
+            // Unlock door if all correct
+            if (correctCount == 5)
+            {
+                // Hide Typing Panel
+                uIManagerTemplate.exitTypingScreen();
+
+                doorObserver.GetCurrentDoor().unlockDoor();
+                doorObserver.SetNextDoor();
+            }
+
+            else
+            {
+
+                if (!somebodySlot.compareGemTypeToSlotType())
+                {
+                    HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSomebody();
+                }
+                if (!wantedSlot.compareGemTypeToSlotType())
+                {
+                    HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeWanted();
+                }
+                if (!butSlot.compareGemTypeToSlotType())
+                {
+                    HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeBut();
+                }
+                if (!soSlot.compareGemTypeToSlotType())
+                {
+                    HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSo();
+                }
+                if (!thenSlot.compareGemTypeToSlotType())
+                {
+                    HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeThen();
+                }
+
+
+            }
         }
-
         else
         {
-            if (!somebodySlot.compareGemTypeToSlotType())
-            {
-                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSomebody();
-            }
-            if (!wantedSlot.compareGemTypeToSlotType())
-            {
-                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeWanted();
-            }
-            if (!butSlot.compareGemTypeToSlotType())
-            {
-                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeBut();
-            }
-            if (!soSlot.compareGemTypeToSlotType())
-            {
-                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeSo();
-            }
-            if (!thenSlot.compareGemTypeToSlotType())
-            {
-                HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.highOrderStageTypeAnalytics.earlyStage.IncrementMistakeThen();
-            }
+            fairyMissingFieldHandler.SetActive(true);
         }
     }
 
@@ -402,6 +475,8 @@ public class GateSubmit : MonoBehaviour
 
     private IEnumerator HighlightIncorrectGemsAfterReset(List<Gem_Early> incorrectGems)
     {
+        if (incorrectGems.Count > 0)
+            fairyMistakeGems.SetActive(true);
         // Wait for the reset to complete
         yield return new WaitForEndOfFrame();
 
@@ -447,21 +522,24 @@ public class GateSubmit : MonoBehaviour
         }
     }
 
-    private void CheckSlot(SWBSTSlot slot, string slotName, ref int correctCount, List<Gem_Early> incorrectGems)
+    private bool CheckSlot(SWBSTSlot slot, string slotName, ref int correctCount, List<Gem_Early> incorrectGems)
     {
         if (slot.compareGemTypeToSlotType())
         {
             correctCount++;
             Debug.Log($"{slotName} slot is correct");
+            return true;
         }
         else if (slot.GetCurrentGem() != null)
         {
             incorrectGems.Add(slot.GetCurrentGem());
             Debug.Log($"{slotName} slot is incorrect");
+            return true;
         }
         else
         {
             Debug.Log($"{slotName} slot is empty");
+            return false;
         }
     }
 

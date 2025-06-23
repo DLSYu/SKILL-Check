@@ -45,9 +45,13 @@ public class ReadingMechanicReadyPrompt : MonoBehaviour
 
     private bool toProceedToNextStep = false;
 
+    [SerializeField] private bool useTimeScale = true;
+
     void OnEnable()
     {
-        Time.timeScale = 0;
+        if (useTimeScale)
+            Time.timeScale = 0;
+
         if (animCoroutine != null)
             StopCoroutine(animCoroutine);
 
@@ -115,8 +119,11 @@ public class ReadingMechanicReadyPrompt : MonoBehaviour
 
 
         }
-        Time.timeScale = 1;
-        Destroy(this.gameObject);
+        if (useTimeScale)
+        {
+            Time.timeScale = 1;
+            Destroy(this.gameObject);
+        }
 
     }
 

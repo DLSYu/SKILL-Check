@@ -12,6 +12,8 @@ public enum writingStyle
 public class TypingPanel : MonoBehaviour
 {
     [SerializeField]
+    private GameObject instructionsPanel;
+    [SerializeField]
     private GameObject freeFormPanel, swbstPanel;
     [SerializeField]
     private InventoryManager inventoryManager;
@@ -59,7 +61,10 @@ public class TypingPanel : MonoBehaviour
     [SerializeField] private Sprite gemOrangeImage;
     [SerializeField] private Sprite gemColorlessImage;
 
-
+    void OnEnable()
+    {
+        instructionsPanel.SetActive(true);
+    }
 
     void Update()
     {
