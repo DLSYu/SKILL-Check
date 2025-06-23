@@ -28,6 +28,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject warningScreen;
     [SerializeField] private LoadingScreen loadingScreen;
     [SerializeField] private LoadingScreen backToTitleScreenLoadingScreen;
+    [SerializeField] private LibrarianDialogue librarianDialogue;
 
     private int currentScreenIndex = 0; // -1 is left, 0 is center, 1 is right
     private Vector3 targetPosition;
@@ -62,6 +63,17 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
     private int loTotalStages = 5;
 
     private float fadeDuration = 3.0f;
+
+    private bool alreadyPlayingDialogue = false;
+
+
+    [SerializeField] private GameObject afterLevelLO1;
+    [SerializeField] private GameObject afterLevelLO3;
+    [SerializeField] private GameObject afterLevelLO5;
+
+    [SerializeField] private GameObject afterLevelHO1;
+    [SerializeField] private GameObject afterLevelHO3;
+    [SerializeField] private GameObject afterLevelHO5;
 
     private void Start()
     {
@@ -341,7 +353,141 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
         if (!hasIntroBeenPlayed)
         {
             introHandler.SetActive(true);
+            alreadyPlayingDialogue = true;
         }
+
+
+        bool result;
+        bool alreadyCleared;
+        // more if conditions here
+
+        data.stageCompletionDictionary.TryGetValue("LO_1", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("LO_1_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelLO1.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("LO_1_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("It's important to preserve history like how we have to remember the bakunawa story!");
+            librarianDialogue.openingDialogue.Add("A bakunawa is supposedly huge and scary, but who says otherwise?");
+        }
+
+        data.stageCompletionDictionary.TryGetValue("LO_2", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            librarianDialogue.openingDialogue.Add("Always respect your parents and elders, alright?");
+            librarianDialogue.openingDialogue.Add("Siblings like Apolaqui and Mayari may fight and argue, but what's important is that they forgive and make up.");
+        }
+
+        data.stageCompletionDictionary.TryGetValue("LO_3", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("LO_3_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelLO3.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("LO_3_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("It's odd how Juan's father turned him into a rooster. How could that even happen in real life?");
+            librarianDialogue.openingDialogue.Add("Juan was lazy, but he didn't deserve that kind of punishment.");
+        }
+
+
+        data.stageCompletionDictionary.TryGetValue("LO_4", out alreadyCleared);
+        if (alreadyCleared)
+        {
+
+            librarianDialogue.openingDialogue.Add("I wish cats and dogs would work together in harmony.");
+            librarianDialogue.openingDialogue.Add("The dogs who were wagging their tails earlier by the library were pretty happy. I guess they weren't the old dog.");
+        }
+
+
+        data.stageCompletionDictionary.TryGetValue("LO_5", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("LO_5_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelLO5.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("LO_5_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("Never take your anger on others. It'll only hurt you in the end, like what happened to Kapitan Lara and Joselito.");
+            librarianDialogue.openingDialogue.Add("Even without knowing Maria Makiling's curse, just don't do nefarious deeds, alright?");
+        }
+
+        data.stageCompletionDictionary.TryGetValue("HO_1", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("HO_1_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelHO1.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("HO_1_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("The moth story reminded me of Rizal. I hope I can also see Rizal's talent in you, iho!");
+            librarianDialogue.openingDialogue.Add("Mothers and moths know best!");
+        }
+
+        data.stageCompletionDictionary.TryGetValue("HO_2", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            librarianDialogue.openingDialogue.Add("No journey's too long. Just take your time.");
+            librarianDialogue.openingDialogue.Add("As long as you persevere, you'll succeed in the end.");
+        }
+
+
+        data.stageCompletionDictionary.TryGetValue("HO_3", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("HO_3_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelHO3.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("HO_3_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("Do you think my jewelry can shine brighter than Maria's?");
+            librarianDialogue.openingDialogue.Add("Could you even imagine a sky so low?");
+        }
+
+
+        data.stageCompletionDictionary.TryGetValue("HO_4", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            librarianDialogue.openingDialogue.Add("Never judge a book by its cover. Both literally and figuratively.");
+            librarianDialogue.openingDialogue.Add("I'd say to just be kind. Who knows what the other person is going through.");
+        }
+
+
+        data.stageCompletionDictionary.TryGetValue("HO_5", out alreadyCleared);
+        if (alreadyCleared)
+        {
+            data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("HO_5_CLEAR", out result);
+            if (!alreadyPlayingDialogue && !result)
+            {
+                afterLevelHO5.SetActive(true);
+                data.alreadyPlayedAnimationForNewlyOpenedStage.Add("HO_5_CLEAR", true);
+                alreadyPlayingDialogue = true;
+            }
+            librarianDialogue.openingDialogue.Add("A tikbalang looks like a horse on two legs. I'd rather not encounter one.");
+            librarianDialogue.openingDialogue.Add("Filipino mythological creatures are interesting, but scary. I would still want to meet one though.");
+        }
+
+
+
+
+
+
+
+
+
+
 
 
     }
