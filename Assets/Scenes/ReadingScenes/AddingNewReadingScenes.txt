@@ -2,5 +2,18 @@ MAKE SURE THE PYTHON DEPENDENCIES ARE SETUP
 1. run ReadingMechanicNew scene with the story.
  - Can manually add the story there, or can also run it through the lobby
 2. Find POSGenerator, click 3 vertical dots, GeneratePOS
-3. Find StoryText, TextMeshInputHelpr, click 3 vertical dots, SetupReadingScene
+3. Find StoryText, TextMeshInputHelper, click 3 vertical dots, SetupReadingScene
 4. Copy all gameobjects in the scene, paste on the new scene
+
+
+PYTHON DEPENDENCIES
+1. Install Miniconda
+2. Make an environment using conda create --name spacy
+3. conda activate spacy "spacy" can be anything btw its just a name
+4. Install spacy using the settings you pick here
+   - if you have a gpu i recommend using cuda
+   - https://spacy.io/usage
+5. Sanity check: Run the python script
+   - go to directory with pos-gen.py
+   - python pos-gen.py "I am under a tree"
+6. Make sure the filepaths are current in PartOfSpeechGen.cs
