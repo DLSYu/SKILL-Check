@@ -49,11 +49,10 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerClickHandler
             Debug.LogError("TextInputPanel has no _TMP reference!");
         }
 
+        dictionaryDefinition = DictionaryReader.ReadDictionary(text.ToLower(), Enum.Parse<POS>(POS));
         // Get dictionary if missing
         if (dictionaryDefinition == null)
         {
-            // Reinitialize the dictionaryDefinition
-            dictionaryDefinition = DictionaryReader.ReadDictionary(text.ToLower(), Enum.Parse<POS>(POS));
             if (dictionaryDefinition == null)
             {
                 dictionaryDefinition = new InTextDefinition("No definition found.", "No example available.", false);

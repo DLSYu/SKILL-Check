@@ -1,0 +1,22 @@
+Dictionary Issue
+Solution 1: More effort - More useful and catered
+1. Get specific useful words per story
+2. Chatgpt the definition
+3. Delete all the indexed
+4. Redo the thing from mac???? T_T OR actually make the generation not generic for just my mac settings
+
+Solution 2: Less effort - Time efficient?, the conjunction problem is still there
+1. Just get the missing words per story
+2. Chatgpt the definition
+3. Congrats
+
+
+Go with Solution 1
+Tasks:
+- Generation rework -> non-brute forced DONEE
+- Read and list words
+   - Generate Chatgpt
+   - Follow Json format or smth
+   - not all texts appear -> mismatch of POS with text, make chatgpt generate all possible but with my specific words nalang
+- Regenerate per story 
+- Also include English-Tagalog Translation

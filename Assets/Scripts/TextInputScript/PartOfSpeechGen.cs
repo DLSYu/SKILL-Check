@@ -10,8 +10,8 @@ using UnityEngine;
 public class PartOfSpeechGen : MonoBehaviour
 {
     private string scriptPath = Application.dataPath + "/PythonScripts/pos-gen.py";
-    // private string condaPath = "D:/Programs/Miniconda";
-    private string condaPath = "/Users/hanzpatrickyu/miniconda3";
+    private string condaPath = "D:/Miniconda";
+    // private string condaPath = "/Users/hanzpatrickyu/miniconda3";
     private string envName = "spacy";
 
     [ContextMenu("GeneratePOS")]
@@ -27,74 +27,67 @@ public class PartOfSpeechGen : MonoBehaviour
 
     private void GeneratePartOfSpeech(string text)
     {
-        var workingDirectory = Path.GetFullPath(Application.dataPath + "/Resources/PartsOfSpeech");
+        var workingDirectory = Path.Combine(Application.dataPath, "Resources", "PartsOfSpeech");
+
+        string pythonExe = IsWindows()
+            ? Path.Combine(condaPath, "envs", envName, "python.exe")
+            : $"{condaPath}/envs/{envName}/bin/python";
+
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = IsWindows() ? "cmd.exe" : "/bin/bash",
-                RedirectStandardInput = true,
-                UseShellExecute = false,
+                FileName = pythonExe,
+                Arguments = $"\"{scriptPath}\" \"{text}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-                WorkingDirectory = workingDirectory,
+                UseShellExecute = false,
                 CreateNoWindow = true,
+                WorkingDirectory = workingDirectory,
             }
         };
-        process.Start();
 
-        using (var sw = process.StandardInput)
+        try
         {
-            if (sw.BaseStream.CanWrite)
-            {
-                if (IsWindows())
-                {
-                    sw.WriteLine($"cmd.exe /K {condaPath}/Scripts/activate.bat {condaPath}"); // change this later depending on your path
-                    sw.WriteLine($"conda activate {envName}"); // change this later depending on your environment file
-                    sw.WriteLine($"python {scriptPath} \"{text}\"");
-                }
-                else
-                {
-                    string spacyPythonPath = "/Users/hanzpatrickyu/anaconda3/envs/spacy/bin/python";
-                    sw.WriteLine($"{spacyPythonPath} \"{scriptPath}\" \"{text}\"");
-                }
+            process.Start();
 
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            process.WaitForExit();
+
+            if (!string.IsNullOrWhiteSpace(output))
+                UnityEngine.Debug.Log($"Python Output:\n{output}");
+
+            if (!string.IsNullOrWhiteSpace(error))
+                UnityEngine.Debug.LogError($"Python Error:\n{error}");
+
+            // Parse output
+            List<string> lines = new();
+            using (StringReader reader = new StringReader(output))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("VALUE "))
+                    {
+                        string[] splitLine = line.Split(' ').Skip(1).ToArray();
+                        string result = string.Join(' ', splitLine);
+                        lines.Add(result);
+                    }
+                }
             }
 
-            sw.Flush();
+            string title = GetTitle(text);
+            File.WriteAllLines(Path.Combine(workingDirectory, $"{title}.txt"), lines);
+            UnityEngine.Debug.Log($"Wrote POS to {title}.txt");
         }
-
-        // for debuggin
-        // string output = process.StandardOutput.ReadToEnd();
-        // string error = process.StandardError.ReadToEnd();
-
-        // if (!string.IsNullOrEmpty(output))
-        // {
-        //     UnityEngine.Debug.Log($"Python Output: {output}");
-        // }
-
-        // if (!string.IsNullOrEmpty(error))
-        // {
-        //     UnityEngine.Debug.LogError($"Python Error: {error}");
-        // }
-
-        List<string> lines = new();
-        string line = process.StandardOutput.ReadLine();
-        while (line != null && !line.Contains("PROCESS DONE"))
+        catch (System.Exception ex)
         {
-            line = process.StandardOutput.ReadLine();
-            if (line != null && line.StartsWith("VALUE"))
-            {
-                string[] splitLine = line.Split(' ').Skip(1).ToArray();
-                string result = string.Join<string>(' ', splitLine);
-                lines.Add(result);
-            }
+            UnityEngine.Debug.LogError($"Error running Python script: {ex.Message}");
         }
-        string title = GetTitle(text);
-        UnityEngine.Debug.Log(title);
-        File.WriteAllLines(workingDirectory + $"/{title}.txt", lines);
-        process.WaitForExit();
     }
+
 
     private bool IsWindows()
     {
