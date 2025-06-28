@@ -568,6 +568,20 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         }
     }
 
+    public void StopVoiceLineFromPauseButton()
+    {
+        // Stop previous coroutine immediately
+        if (voiceCoroutine != null)
+        {
+            StopCoroutine(voiceCoroutine);
+            voiceCoroutine = null;
+
+            storyText.ForceMeshUpdate();
+
+            voiceActing.Stop();
+        }
+    }
+
     public void PlayVoiceLine()
     {
 
@@ -611,8 +625,6 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
     private IEnumerator DelayedHighlight()
     {
 
-        // Wait for 2 frames to ensure mesh is updated
-        yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
         ReapplyLineHighlightsForCurrentPage();
@@ -633,7 +645,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         while (timer <= segmentDuration && !toStopVoice)
         {
             timer += Time.deltaTime;
-            Debug.Log("timer: " + timer);
+            ReadingAnalyticsManager.instance.readingAnalytics.AddTimeVoiceActing(Time.deltaTime);
             yield return null;
         }
 

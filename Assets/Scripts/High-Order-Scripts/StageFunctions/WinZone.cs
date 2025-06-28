@@ -33,7 +33,7 @@ public class WinZone : MonoBehaviour, IDataPersistence
             hasCleared = true;
             HighOrderStageAnalyticsManager.instance.highOrderStageAnalytics.SetClearTime(clearTime);
 
-            DataPersistenceManager.instance.SaveGame();
+
         }
     }
 

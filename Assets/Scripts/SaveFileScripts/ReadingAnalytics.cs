@@ -7,7 +7,8 @@ public class ReadingAnalytics
 {
     [SerializeField] private string dateTimeStart;
     [SerializeField] private string stageName;
-    [SerializeField] private float timeTakenReading;
+    [SerializeField] private float timeTakenReading = 0.0f;
+    [SerializeField] private float timeVoiceActing = 0.0f;
     [SerializeField] private string dateTimeEnd;
     [SerializeField] private List<string> dictionaryWordsClicked = new List<string>();
     [SerializeField] private bool continuedToGame = false;
@@ -28,6 +29,11 @@ public class ReadingAnalytics
     public void AddTimeTakenReading(float time)
     {
         this.timeTakenReading += time;
+    }
+
+    public void AddTimeVoiceActing(float time)
+    {
+        this.timeVoiceActing += time;
     }
 
     public void AddNewDictionaryWord(string word)
