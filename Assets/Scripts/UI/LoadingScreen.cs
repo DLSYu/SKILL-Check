@@ -16,49 +16,56 @@ public class LoadingScreen : MonoBehaviour
 
     [SerializeField]
     private Sprite[] sprites;
-	private int framesPerSprite = 4;
-	private bool loop = true;
-	private bool destroyOnEnd = false;
+    private int framesPerSprite = 4;
+    private bool loop = true;
+    private bool destroyOnEnd = false;
+    private bool alreadyLoading = false;
 
-	private int index = 0;
+    private int index = 0;
 
     [SerializeField]
-	private Image fairyImage;
-	private int frame = 0;
+    private Image fairyImage;
+    private int frame = 0;
 
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
 
-    
-            if (!loop && index == sprites.Length) return;
-            frame++;
 
-            if (frame < framesPerSprite) return;
+        if (!loop && index == sprites.Length) return;
+        frame++;
 
-            fairyImage.sprite = sprites [index];
+        if (frame < framesPerSprite) return;
 
-            frame = 0;
-            index++;
+        fairyImage.sprite = sprites[index];
 
-            if (index >= sprites.Length) {
-                if (loop) index = 0;
-                if (destroyOnEnd) Destroy (gameObject);
-            }
-        
-	}
+        frame = 0;
+        index++;
+
+        if (index >= sprites.Length)
+        {
+            if (loop) index = 0;
+            if (destroyOnEnd) Destroy(gameObject);
+        }
+
+    }
     public void LoadScene(string sceneToLoad)
     {
-        if (!this.gameObject.activeSelf)
+        if (!alreadyLoading)
         {
-            this.gameObject.SetActive(true);
-           
+            alreadyLoading = true;
+            if (!this.gameObject.activeSelf)
+            {
+                this.gameObject.SetActive(true);
+
+            }
+            this.gameObject.GetComponent<Canvas>().sortingOrder = 999;
+            StartCoroutine(LoadSceneAsync(sceneToLoad));
         }
-        this.gameObject.GetComponent<Canvas>().sortingOrder = 999;
-        StartCoroutine(LoadSceneAsync(sceneToLoad));
     }
 
     IEnumerator LoadSceneAsync(string sceneToLoad)
     {
-        
+
         yield return StartCoroutine(FadeInAndOut(true, fadeDuration));
         // Loading operation
         AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(sceneToLoad);
@@ -75,39 +82,39 @@ public class LoadingScreen : MonoBehaviour
 
     }
 
-   IEnumerator FadeInAndOut(bool fadeIn, float duration)
-{
-    float counter = 0f;
-
-    //Set Values depending on if fadeIn or fadeOut
-    float a, b;
-    if (fadeIn)
+    IEnumerator FadeInAndOut(bool fadeIn, float duration)
     {
-        a = 0;
-        b = 1;
+        float counter = 0f;
+
+        //Set Values depending on if fadeIn or fadeOut
+        float a, b;
+        if (fadeIn)
+        {
+            a = 0;
+            b = 1;
+        }
+        else
+        {
+            a = 1;
+            b = 0;
+        }
+
+
+        Color currentColor = Color.clear;
+
+        CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>();
+
+
+
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(a, b, counter / duration);
+            canvasGroup.alpha = alpha;
+
+            yield return null;
+        }
     }
-    else
-    {
-        a = 1;
-        b = 0;
-    }
-
-
-    Color currentColor = Color.clear;
-
-    CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>();
-
-
-    
-    while (counter < duration)
-    {
-        counter += Time.deltaTime;
-        float alpha = Mathf.Lerp(a, b, counter / duration);
-        canvasGroup.alpha = alpha;
-
-        yield return null;
-    }
-}
 
 
 }
