@@ -68,7 +68,9 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         }
 
         storyText.text = fullText;
+
         storyText.ForceMeshUpdate();
+        storyText.richText = false;
     }
     void Start()
     {
@@ -106,6 +108,13 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
                 UpdatePageButtons();
             }
         }
+
+        if (!isVoicePlaying && currentAppliedLines.Count != 0)
+        {
+            // remove highlights
+            storyText.ForceMeshUpdate();
+        }
+
     }
 
     void UpdatePageButtons()
@@ -220,16 +229,18 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             }
         }
 
-        currentAppliedLines.Clear();
+
 
         if (found)
         {
+            // currentAppliedLines.Clear();
             int firstLine = ReturnFirstLine(storyText.pageToDisplay);
             if (storyText.textInfo.lineInfo[firstLine].characterCount != 0)
             {
                 int i = 0;
                 bool hasHighlighted = false;
                 storyText.ForceMeshUpdate();
+
                 while (storyText.text.Substring(storyText.textInfo.lineInfo[firstLine + i].firstCharacterIndex, storyText.textInfo.lineInfo[firstLine + i].characterCount).Trim((char)8203).Trim().Length != 0 || !hasHighlighted)
                 {
                     hasHighlighted = true;
@@ -299,10 +310,11 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             }
         }
 
-        currentAppliedLines.Clear();
+
 
         if (found)
         {
+            // currentAppliedLines.Clear();
             int lastLine = ReturnLastLine(storyText.pageToDisplay);
             if (storyText.textInfo.lineInfo[lastLine].characterCount != 0)
             {
@@ -335,6 +347,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
             lineSelector.currentSentenceIndex = 1;
+            StartCoroutine(DelayedHighlight());
             Debug.Log("Current Index: " + lineSelector.currentSentenceIndex + " Total from prev pages: " + GetTotalSentencesFromPreviousPages());
         }
 
@@ -356,6 +369,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
             lineSelector.currentSentenceIndex = 1;
+            StartCoroutine(DelayedHighlight());
             Debug.Log("Current Index: " + lineSelector.currentSentenceIndex + " Total from prev pages: " + GetTotalSentencesFromPreviousPages());
         }
     }
@@ -521,17 +535,54 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         return currentSentence;
     }
 
+    void ReapplyLineHighlightsForCurrentPage()
+    {
+
+        if (currentAppliedLines.Count == 0) return;
+
+
+        TMP_PageInfo pageInfo = storyText.textInfo.pageInfo[storyText.pageToDisplay - 1];
+
+        foreach (int lineIndex in currentAppliedLines)
+        {
+            TMP_LineInfo line = storyText.textInfo.lineInfo[lineIndex];
+            if (line.firstCharacterIndex >= pageInfo.firstCharacterIndex &&
+                line.lastCharacterIndex <= pageInfo.lastCharacterIndex)
+            {
+                ColorLine(lineIndex, Color.yellow);
+            }
+        }
+
+        Debug.Log("Reapplying highlights on page: " + storyText.pageToDisplay);
+        foreach (int lineIndex in currentAppliedLines)
+        {
+            TMP_LineInfo line = storyText.textInfo.lineInfo[lineIndex];
+            Debug.Log($"Line {lineIndex}: FirstChar={line.firstCharacterIndex}, LastChar={line.lastCharacterIndex}");
+        }
+    }
+
     public void PlayVoiceLine()
     {
 
         if (isVoicePlaying)
             return;
 
+        ApplyColorLine();
         int totalSentences = GetTotalSentencesFromPreviousPages();
         Debug.Log("should be playing: " + (lineSelector.currentSentenceIndex + totalSentences));
         TimeStamping currentIndex = voiceManager.GetTimeStamping(lineSelector.currentSentenceIndex + totalSentences);
         StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
         isVoicePlaying = true;
+    }
+
+    private IEnumerator DelayedHighlight()
+    {
+
+        // Wait for 2 frames to ensure mesh is updated
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        ReapplyLineHighlightsForCurrentPage();
     }
 
     // Added is Playing checks so it doesnt bother when replaying
@@ -549,7 +600,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         yield return new WaitForSeconds(segmentDuration);
 
         voiceActing.Stop();
-
+        storyText.ForceMeshUpdate();
         isVoicePlaying = false;
     }
 
