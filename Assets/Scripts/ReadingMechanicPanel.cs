@@ -56,8 +56,10 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
 
     private List<int> currentAppliedLines = new List<int>();
     private List<GameObject> pagePrefabList = new List<GameObject>();
-    private bool isVoicePlaying = false;
+
+    private bool toStopVoice = false;
     private List<bool> hasReadFully = new List<bool>();
+    private Coroutine voiceCoroutine;
 
     void Awake()
     {
@@ -109,7 +111,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             }
         }
 
-        if (!isVoicePlaying && currentAppliedLines.Count != 0)
+        if (voiceCoroutine == null && currentAppliedLines.Count != 0)
         {
             // remove highlights
             storyText.ForceMeshUpdate();
@@ -431,8 +433,10 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             currentAppliedLines = new List<int>(lineSelector.nearestIndexes);
         }
 
-        else if (!IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
+        //else if (!IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
         // something has been already highlighted, and user wants to highlight something else
+
+        else
         {
             storyText.ForceMeshUpdate();
             currentAppliedLines.Clear();
@@ -444,12 +448,15 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
 
 
         }
+        /*
+
         else if (currentAppliedLines.Count != 0 && IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
         // line indexes are the same
         {
             storyText.ForceMeshUpdate();
             currentAppliedLines.Clear();
         }
+        */
 
     }
 
@@ -564,15 +571,41 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
     public void PlayVoiceLine()
     {
 
-        if (isVoicePlaying)
+        if (voiceActing.isPlaying && !toStopVoice)
+        {
+            toStopVoice = true;
+
+            // Stop previous coroutine immediately
+            if (voiceCoroutine != null)
+            {
+                StopCoroutine(voiceCoroutine);
+                voiceCoroutine = null;
+            }
+
+            storyText.ForceMeshUpdate();
+
+            voiceActing.Stop();
+            toStopVoice = false;
+
+            // feature: stop current voice, play voice for another new line
+            if (!IsColoredLineIndexesSame(currentAppliedLines, lineSelector.nearestIndexes))
+            {
+                ApplyColorLine();
+                int totalNewSentences = GetTotalSentencesFromPreviousPages();
+                TimeStamping newIndex = voiceManager.GetTimeStamping(lineSelector.currentSentenceIndex + totalNewSentences);
+                voiceCoroutine = StartCoroutine(PlayFromTo(newIndex.start, newIndex.end));
+
+            }
+
             return;
+        }
 
         ApplyColorLine();
         int totalSentences = GetTotalSentencesFromPreviousPages();
         Debug.Log("should be playing: " + (lineSelector.currentSentenceIndex + totalSentences));
         TimeStamping currentIndex = voiceManager.GetTimeStamping(lineSelector.currentSentenceIndex + totalSentences);
-        StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
-        isVoicePlaying = true;
+        voiceCoroutine = StartCoroutine(PlayFromTo(currentIndex.start, currentIndex.end));
+
     }
 
     private IEnumerator DelayedHighlight()
@@ -588,7 +621,8 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
     // Added is Playing checks so it doesnt bother when replaying
     private IEnumerator PlayFromTo(float startTime, float endTime)
     {
-
+        float segmentDuration = endTime - startTime;
+        float timer = 0.0f;
         voiceActing.Stop();
 
         voiceActing.time = startTime;
@@ -596,12 +630,21 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
 
         yield return null; // Wait one frame to ensure playback starts
 
-        float segmentDuration = endTime - startTime;
-        yield return new WaitForSeconds(segmentDuration);
+        while (timer <= segmentDuration && !toStopVoice)
+        {
+            timer += Time.deltaTime;
+            Debug.Log("timer: " + timer);
+            yield return null;
+        }
+
 
         voiceActing.Stop();
+
+        // Clear the coroutine reference when done
+        voiceCoroutine = null;
+        toStopVoice = false;
         storyText.ForceMeshUpdate();
-        isVoicePlaying = false;
+
     }
 
 

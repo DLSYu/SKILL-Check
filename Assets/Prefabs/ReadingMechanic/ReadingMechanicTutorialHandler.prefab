@@ -1181,6 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad7ff989e0904148afc2bf10ceb580e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiElementsToTemporarilyEnable: []
   sprites:
   - {fileID: 21300000, guid: abf49c94833454142ad4b33f2fe6657f, type: 3}
   - {fileID: 21300000, guid: 24fe1582972d70446950809498eeba16, type: 3}
@@ -2670,8 +2671,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gamitin ang button na ito ng <color="red">play at pause,</color> at <color="red">babasahin
-    ng boses ang napiling linya para sa iyo.</color>
+  m_text: Gamitin ang button na ito ng <color="red">play at stop,</color> at <color="red">babasahin
+    ng boses ang napiling linya para sa iyo.</color> <color="red">To stop, i-tap
+    uli.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
