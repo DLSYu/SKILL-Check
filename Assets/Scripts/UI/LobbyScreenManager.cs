@@ -493,7 +493,7 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
     }
     public void SaveData(GameData data)
     {
-        bool hasIntroBeenPlayed = false;
+        bool hasIntroBeenPlayed;
 
         if (lo_level_to_reveal != -1 && lo_level_has_played_animation)
         {

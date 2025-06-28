@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandler
 {
-
+    [SerializeField]
+    private List<GameObject> uiElementsToTemporarilyEnable;
     [Header("Animation Sprites")]
     [SerializeField]
     private List<Sprite> sprites;
@@ -67,6 +68,10 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
 
     IEnumerator PlayAnimationUnscaled()
     {
+        foreach (GameObject g in uiElementsToTemporarilyEnable)
+        {
+            g.SetActive(true);
+        }
 
         Time.timeScale = 0;
         float frameDuration = framesPerSprite / 60f; // adjust if needed
@@ -122,6 +127,10 @@ public class ReadingMechanicTutorialHandler : MonoBehaviour, IPointerClickHandle
 
         ReadingAnalyticsManager.instance.hasTutorialPlayed = true;
         readingPromptUI.SetActive(true);
+        foreach (GameObject g in uiElementsToTemporarilyEnable)
+        {
+            g.SetActive(false);
+        }
 
         Destroy(gameObject);
     }

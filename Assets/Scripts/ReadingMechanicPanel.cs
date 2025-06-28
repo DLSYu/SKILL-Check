@@ -9,18 +9,14 @@ using System.Text.RegularExpressions;
 
 public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
 {
+    [SerializeField]
+    private GameObject readingMechanicTutorial;
 
     [SerializeField]
     private TextMeshProUGUI storyText;
 
     [TextArea]
     public string fullText;
-
-    [SerializeField]
-    private UnityEngine.UI.Button previousRelic;
-
-    [SerializeField]
-    private UnityEngine.UI.Button nextRelic;
 
     [SerializeField]
     private Scrollbar scrollbar;
@@ -47,11 +43,21 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
     [SerializeField]
     private GameObject tutorialHandler;
 
+    [SerializeField]
+    private GameObject previousPage;
+    [SerializeField]
+    private GameObject nextPage;
+    [SerializeField]
+    private GameObject startGame;
+
+
     private bool hasTutorialPlayed;
+    private bool hasClearedStagePreviously;
 
     private List<int> currentAppliedLines = new List<int>();
     private List<GameObject> pagePrefabList = new List<GameObject>();
     private bool isVoicePlaying = false;
+    private List<bool> hasReadFully = new List<bool>();
 
     void Awake()
     {
@@ -66,10 +72,10 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
     }
     void Start()
     {
-        UpdateEnabledButtons();
 
         for (int i = 0; i < storyText.textInfo.pageCount; i++)
         {
+            hasReadFully.Add(false);
             pagePrefabList.Add(Instantiate(pagePrefab, contentHolder.transform));
         }
         ChangePagePrefab(0);
@@ -84,9 +90,84 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         }
 
     }
+
+    void Update()
+    {
+        if (readingMechanicTutorial == null)
+        {
+
+            UpdatePageButtons();
+
+        }
+        else
+        {
+            if (!readingMechanicTutorial.activeInHierarchy)
+            {
+                UpdatePageButtons();
+            }
+        }
+    }
+
+    void UpdatePageButtons()
+    {
+        // any of these conditions will enable next page
+        // COND1: last line selected
+        // COND2: previously read the page
+        // COND3: stage already has been completed
+
+        // but it also ensures that there's at least a next page before enabling it
+
+        if ((lineSelector.GetCurrentSentence() == GetSentenceCountForPage(storyText.pageToDisplay) || hasReadFully[storyText.pageToDisplay - 1] || hasClearedStagePreviously) && storyText.pageToDisplay < storyText.textInfo.pageCount)
+        {
+            nextPage.SetActive(true);
+        }
+        else
+        {
+            nextPage.SetActive(false);
+        }
+
+        if (storyText.pageToDisplay - 1 <= 0)
+        {
+            previousPage.SetActive(false);
+        }
+        else
+        {
+            previousPage.SetActive(true);
+        }
+
+    }
     public void LoadData(GameData data)
     {
         data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("ReadingMechanicTutorial", out hasTutorialPlayed);
+        string key = "";
+
+        if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_1)
+            key = "HO_1";
+        else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_2)
+            key = "HO_2";
+        else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_3)
+            key = "HO_3";
+        else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_4)
+            key = "HO_4";
+        else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_5)
+            key = "HO_5";
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_1)
+            key = "LO_1";
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_2)
+            key = "LO_2";
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_3)
+            key = "LO_3";
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_4)
+            key = "LO_4";
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_5)
+            key = "LO_5";
+
+        Debug.Log("key: " + key);
+
+        data.stageCompletionDictionary.TryGetValue(key, out hasClearedStagePreviously);
+
+        if (hasClearedStagePreviously)
+            startGame.SetActive(true);
     }
     public void SaveData(GameData data)
     {
@@ -245,17 +326,21 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         RemoveHelpPanel();
         if (storyText.pageToDisplay < storyText.textInfo.pageCount)
         {
+            hasReadFully[storyText.pageToDisplay - 1] = true;
             storyText.ForceMeshUpdate();
             storyText.pageToDisplay = storyText.pageToDisplay + 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
-            UpdateEnabledButtons();
             HighlightFirstLineOfNextPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
             lineSelector.currentSentenceIndex = 1;
             Debug.Log("Current Index: " + lineSelector.currentSentenceIndex + " Total from prev pages: " + GetTotalSentencesFromPreviousPages());
         }
+
+        if (storyText.pageToDisplay == storyText.textInfo.pageCount)
+            startGame.SetActive(true);
+
     }
 
     public void PreviousPage()
@@ -267,7 +352,6 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             storyText.pageToDisplay = storyText.pageToDisplay - 1;
             textInputHelper.ActivateButtonsOnPage(storyText.pageToDisplay);
 
-            UpdateEnabledButtons();
             HighlightLastLineOfPreviousPage();
             lineSelector.ResetSliderToFirstLine();
             ChangePagePrefab(storyText.pageToDisplay - 1);
@@ -276,20 +360,6 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         }
     }
 
-    void UpdateEnabledButtons()
-    {
-        if (storyText.pageToDisplay == 1)
-            previousRelic.enabled = false;
-
-        else
-            previousRelic.enabled = true;
-
-        if (storyText.pageToDisplay == storyText.textInfo.pageCount)
-            nextRelic.enabled = false;
-
-        else
-            nextRelic.enabled = true;
-    }
 
     void ChangePagePrefab(int currentPage)
     {
