@@ -2446,6 +2446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a348ec0ca69430e9723caf3dd33fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingMechanicPanel: {fileID: 0}
   loadingScreen: {fileID: 515060250}
 --- !u!114 &196725307
 MonoBehaviour:
@@ -19146,6 +19147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a348ec0ca69430e9723caf3dd33fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingMechanicPanel: {fileID: 1761110470}
   loadingScreen: {fileID: 515060250}
 --- !u!114 &1433157643
 MonoBehaviour:

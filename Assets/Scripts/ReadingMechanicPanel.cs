@@ -568,7 +568,7 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void StopVoiceLineFromPauseButton()
+    public bool StopVoiceLineFromPauseButton()
     {
         // Stop previous coroutine immediately
         if (voiceCoroutine != null)
@@ -579,7 +579,9 @@ public class ReadingMechanicPanel : MonoBehaviour, IDataPersistence
             storyText.ForceMeshUpdate();
 
             voiceActing.Stop();
+            return true;
         }
+        return false;
     }
 
     public void PlayVoiceLine()

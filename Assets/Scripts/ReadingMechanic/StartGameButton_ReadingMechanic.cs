@@ -6,10 +6,19 @@ using UnityEngine.SceneManagement;
 public class StartGameButton_ReadingMechanic : MonoBehaviour
 {
     [SerializeField]
+    private ReadingMechanicPanel readingMechanicPanel;
+    [SerializeField]
     private LoadingScreen loadingScreen;
     public void startGameScene()
     {
+
         ReadingAnalyticsManager.instance.readingAnalytics.SetContinuedToGame();
+        if (readingMechanicPanel.StopVoiceLineFromPauseButton())
+        {
+            // noticed when a voice is being played when the user starts the game, it fails to save the analytics
+            DataPersistenceManager.instance.SaveGame();
+        }
+
 
         if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_1)
             loadingScreen.LoadScene("H01_Early");
