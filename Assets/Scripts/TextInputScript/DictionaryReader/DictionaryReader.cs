@@ -64,6 +64,20 @@ public static class DictionaryReader
 
         return null;
     }
+
+    public static InTextDefinition ReadDictionaryFirstValid(string word)
+    {
+        // Get the first valid POS from the enum
+        foreach (POS pos in System.Enum.GetValues(typeof(POS)))
+        {
+            InTextDefinition definition = ReadDictionary(word, pos);
+            if (definition.definition != "" && definition.example != "")
+            {
+                return definition;
+            }
+        }
+        return null;
+    }
     // public static InTextDefinition ReadDictionary(string word, POS pos)
     // {
     //     // NOTE: This path may change when you make the production build.

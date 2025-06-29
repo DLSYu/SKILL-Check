@@ -49,21 +49,22 @@ public class TextMeshInputPanel : MonoBehaviour, IPointerClickHandler
             Debug.LogError("TextInputPanel has no _TMP reference!");
         }
 
-        dictionaryDefinition = DictionaryReader.ReadDictionary(text.ToLower(), Enum.Parse<POS>(POS));
+        dictionaryDefinition = DictionaryReader.ReadDictionaryFirstValid(text.ToLower());
+
         // Get dictionary if missing
-        if (dictionaryDefinition == null)
+        if (dictionaryDefinition.definition == "" || dictionaryDefinition.example == "")
         {
-            if (dictionaryDefinition == null)
-            {
-                dictionaryDefinition = new InTextDefinition("No definition found.", "No example available.", false);
-            }
+            // get the other POS that has definition and example sentence
+            dictionaryDefinition = DictionaryReader.ReadDictionaryFirstValid(text.ToLower());
+            Debug.Log("Got Diff Definition");
         }
 
-        if (!dictionaryDefinition.exists)
+        if (dictionaryDefinition == null)
         {
             Destroy(this.gameObject);
         }
-        Debug.Log(dictionaryDefinition);
+
+        Debug.Log(dictionaryDefinition + "end");
 
         dictionaryManager.ShowDictionaryPanel(text, dictionaryDefinition);
         onClick?.Invoke(_tmp);
