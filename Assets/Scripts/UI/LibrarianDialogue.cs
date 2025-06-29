@@ -49,6 +49,9 @@ public class LibrarianDialogue : MonoBehaviour, IPointerClickHandler
         allDialogueSprites.Add(dialogueOptionSprite3);
         allDialogueSprites.Add(dialogueOptionSprite4);
 
+        // randomize seed thing
+        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+
     }
     void OnEnable()
     {

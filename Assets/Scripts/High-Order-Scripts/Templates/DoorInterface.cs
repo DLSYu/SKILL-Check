@@ -44,7 +44,8 @@ public class DoorInterface : MonoBehaviour, IInteractable
 
     public virtual void Interact()
     {
-        uiManager.openTypingScreen();
+        if (!isDoorUnlocked)
+            uiManager.openTypingScreen();
     }
 
     protected void triggerDoorSound()

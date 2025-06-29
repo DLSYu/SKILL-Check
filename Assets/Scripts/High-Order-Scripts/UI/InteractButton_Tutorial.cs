@@ -12,7 +12,7 @@ public class InteractButton_Tutorial : MonoBehaviour
     [SerializeField] private GameObject questionMark;
     [SerializeField] private GameObject interactButton;
 
-    [SerializeField] private GameObject interactTutorial;
+    [SerializeField] private TutorialHandler tutorialHandler;
 
     void Update()
     {
@@ -21,9 +21,9 @@ public class InteractButton_Tutorial : MonoBehaviour
             questionMark.SetActive(true);
             interactButton.SetActive(true);
 
-            if (!alreadyInitiated && interactTutorial != null)
+            if (!alreadyInitiated && tutorialHandler != null)
             {
-                interactTutorial.SetActive(true);
+                tutorialHandler.EnableTutorial();
                 alreadyInitiated = true;
             }
         }
