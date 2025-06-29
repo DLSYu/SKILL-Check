@@ -24,6 +24,25 @@ public class UIManager_LowOrder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RandomizeStartingPos();
+    }
+
+    void RandomizeStartingPos()
+    {
+        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+        List<GameObject> relicSlotsParentCopy = new List<GameObject>(relicSlotsParent);
+
+
+        for (int i = 0; i < relicSlotsParentCopy.Count; i++)
+        {
+
+            int randomizedNum = Random.Range(0, relics.Count - i);
+
+            relicSlotsParentCopy[randomizedNum].GetComponent<RelicSlot>().PlaceRelic(relics[i]);
+            relics[i].GetComponent<RelicMovement>().originalParent = relicSlotsParentCopy[i].GetComponent<RelicSlot>();
+            relicSlotsParentCopy.RemoveAt(randomizedNum);
+
+        }
 
     }
 
@@ -88,6 +107,7 @@ public class UIManager_LowOrder : MonoBehaviour
 
     public void resetRelics()
     {
+        /*
         for (int i = 0; i < relicSlotsParent.Count; i++)
         {
 
@@ -96,6 +116,8 @@ public class UIManager_LowOrder : MonoBehaviour
             relics[i].GetComponent<RelicMovement>().originalParent = relicSlotsParent[i].GetComponent<RelicSlot>();
 
         }
+        */
+        RandomizeStartingPos();
     }
 
     public void exitStoryUI()

@@ -563,7 +563,7 @@ MonoBehaviour:
   m_text: 'Sigurado ka bang gusto mong silipin ang kwento?
 
     <color="red">Ire-reset
-    ang mga relics sa kanilang orihinal na lugar!</color>'
+    at iju-jumble ang mga relics!</color>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
