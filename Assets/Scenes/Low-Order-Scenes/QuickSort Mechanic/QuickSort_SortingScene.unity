@@ -2108,7 +2108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6308946, y: 0}
   m_AnchorMax: {x: 0.95844895, y: 1}
-  m_AnchoredPosition: {x: -3.2603, y: -4.2922}
+  m_AnchoredPosition: {x: -3.260254, y: -4.292206}
   m_SizeDelta: {x: 6.5396, y: -8.5845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523711304
@@ -2659,11 +2659,12 @@ MonoBehaviour:
   pivotSlot: {fileID: 2045070066}
   inventorySlotPrefab: {fileID: 1257285662897046790, guid: 6b36ec93450a527469fbf6bb631b6389, type: 3}
   checkedSlotPrefab: {fileID: 8270726098615879155, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
-  leftCameraPos: {x: 207, y: 594, z: -979}
-  rightCameraPos: {x: 1793, y: 594, z: -979}
+  canvas: {fileID: 1419275885}
+  leftCanvasPos: {x: 1000, y: 600, z: 0}
+  rightCanvasPos: {x: -650, y: 600, z: 0}
   leftButton: {fileID: 1809590503}
   rightButton: {fileID: 927882782}
-  cameraMoveDuration: 1
+  canvasMoveDuration: 1
 --- !u!1 &1941821840
 GameObject:
   m_ObjectHideFlags: 0

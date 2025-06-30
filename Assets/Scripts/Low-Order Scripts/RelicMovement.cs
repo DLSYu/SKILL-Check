@@ -18,7 +18,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private Vector3 initLocalScale;
     // The original RelicSlot
-    private RelicSlot _originalParent;
+    [SerializeField] private RelicSlot _originalParent;
     public RelicSlot originalParent
     {
         get => _originalParent;
@@ -31,6 +31,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private StorySegment storySegment;
 
     private Coroutine sizeDownCoroutine;
+    [SerializeField] private bool randomizedAtStart = true;
 
     // Method for RelicSlot to check if the relic is being dragged
     public bool IsDragging()
@@ -49,6 +50,7 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (transform.parent.GetComponent<RelicSlot>() != null)
         {
             originalParent = transform.parent.GetComponent<RelicSlot>(); // Set the original parent (RelicSlot)
+            Debug.Log($"set original at movement: {name}");
         }
     }
 
@@ -73,7 +75,9 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             if (useWorldSpace)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                transform.position = ray.GetPoint(1000);
+                Vector3 point = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
+                transform.position = new Vector3(point.x, point.y, transform.position.z);
+                Debug.DrawRay(ray.origin, ray.direction, Color.red);
             }
             else
             {

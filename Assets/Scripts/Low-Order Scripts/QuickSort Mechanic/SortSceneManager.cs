@@ -22,16 +22,17 @@ public class SortSceneManager : MonoBehaviour
     [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private GameObject checkedSlotPrefab;
 
-    //For Camera Movements
-    [SerializeField] private Vector3 leftCameraPos;
-    [SerializeField] private Vector3 rightCameraPos;
+    //For Canvas Movements
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private Vector3 leftCanvasPos;
+    [SerializeField] private Vector3 rightCanvasPos;
     [SerializeField] private GameObject leftButton;
     [SerializeField] private GameObject rightButton;
     private bool isInLeftScreen = true;
-    private bool changeCameraPos = false;
+    private bool changeCanvasPos = false;
     private float movePercentage = 0f;
     private float elapsedTime = 0f;
-    [SerializeField] private float cameraMoveDuration = 1f;
+    [SerializeField] private float canvasMoveDuration = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -102,24 +103,24 @@ public class SortSceneManager : MonoBehaviour
         SortingGameManager.Instance.allRelics.AddRange(beforeRelics);
         SortingGameManager.Instance.allRelics.AddRange(afterRelics);
 
-        Camera.main.transform.position = leftCameraPos;
+        canvas.transform.position = leftCanvasPos;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (changeCameraPos)
+        if (changeCanvasPos)
         {
             elapsedTime += Time.deltaTime;
-            movePercentage = elapsedTime / cameraMoveDuration;
+            movePercentage = elapsedTime / canvasMoveDuration;
 
             if (isInLeftScreen)
             {
-                Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, rightCameraPos, Mathf.SmoothStep(0, 1, movePercentage));
+                canvas.transform.position = Vector3.Lerp(canvas.transform.position, rightCanvasPos, Mathf.SmoothStep(0, 1, movePercentage));
             }
             else
             {
-                Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, leftCameraPos, Mathf.SmoothStep(0, 1, movePercentage));
+                canvas.transform.position = Vector3.Lerp(canvas.transform.position, leftCanvasPos, Mathf.SmoothStep(0, 1, movePercentage));
             }
         }
 
@@ -127,7 +128,7 @@ public class SortSceneManager : MonoBehaviour
         {
             movePercentage = 0f;
             elapsedTime = 0f;
-            changeCameraPos = false;
+            changeCanvasPos = false;
             isInLeftScreen = !isInLeftScreen;
 
             if (isInLeftScreen)
@@ -144,7 +145,7 @@ public class SortSceneManager : MonoBehaviour
     public void ButtonPress()
     {
         movePercentage = 0f;
-        changeCameraPos = true;
+        changeCanvasPos = true;
         leftButton.SetActive(false);
         rightButton.SetActive(false);
     }

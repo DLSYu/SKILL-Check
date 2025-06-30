@@ -141,11 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "On the way they were obliged to cross a wide and deep river, over which
-        there was no bridge, and as they were unable to find a boat, they determined
-        to swim across it. The dog said to the cat: \u201CGive me the magic ring.\u201D
-        \u201COh, no,\u201D replied the cat. \u201CDid you not hear the master say
-        just what each of us had to do?\u201D"
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -1266,13 +1262,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "One day the rich man wished to send a magic ring to his daughter, so
-        he called the dog and the cat to him. To the cat he said: \u201CYou are very
-        cunning and prudent. You may carry this magic ring to my daughter, but be
-        sure to take very great care of it.\u201D To the dog he said: \u201CYou are
-        to go with the cat to take a magic ring to my daughter. Take care not to
-        lose the way, and see that no one molests the cat.\u201D Both animals promised
-        to do their best and set out immediately."
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -1466,13 +1456,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: Once upon a time there lived in a certain pueblo a rich man who had
-        a dog and a cat. His only daughter, of whom he was very fond, was studying
-        in a convent in a city several miles distant and it was his custom, about
-        once a week, to send the dog and cat to take her a little present. The dog
-        was so old that he had lost all his teeth, and so was unable to fight, but
-        the cat was strong and very cunning, and so one could help the other, since
-        the dog knew better how to find the way.
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -2045,14 +2029,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "Then they began to swim across the river, which was so strong that
-        they were about= an hour in getting over, so that both became very tired
-        and weak. Just before they came to the other side, the dog dropped the ring
-        into the water, and it was impossible to find it. \u201CNow,\u201D said the
-        cat, \u201Cwe had better go back home and tell our master that we have lost
-        the ring.\u201D \u201CYes,\u201D answered the dog, \u201Cbut I am very much
-        afraid.\u201D So they turned back toward home, but as they drew near the
-        house his fear so overcame him that he ran away and was never seen again."
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -2815,16 +2792,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "Then the master made a proclamation to the people, offering a reward
-        to the one who should find his old dog and bring him to him. They could recognize
-        the dog by his being old and having no teeth. The master also declared that
-        when he had found the delinquent he would punish him by cutting off his tail.
-        He ordered that the dogs all around the world should take part in the search,
-        and so ever since that time, when one dog meets another he always asks: \u201CAre
-        you the old dog who lost the magic ring? If you are, your tail must be cut
-        off.\u201D Then instantly both show their teeth and wag their tails to mean
-        no. Since that time, also, cats have been afraid of water, and will never
-        swim across a river if it can be avoided."
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -2986,19 +2954,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "The master was very much surprised to see the cat back so soon, and
-        asked him, \u201CWhere is your companion?\u201D The cat was at first afraid
-        to answer. \u201CWhere is the dog?\u201D asked the master again. \u201COh,
-        he ran away,\u201D replied the cat. \u201CRan away?\u201D said the master.
-        \u201CWhat do you mean? Where is the ring?\u201D \u201COh, pardon me, my
-        master,\u201D answered the cat. \u201CDo not be angry, and I will tell you
-        what has happened. When we reached the bank of the river, the dog asked me
-        to give him the ring. This I refused many times, until at last he threatened
-        to kill me if I did not give it to him, and I was obliged to do so. The river
-        was very hard to cross, and on the way the dog dropped the ring into the
-        water and we could not find it. I persuaded the dog to come back with me
-        to tell you about it, but on the way he became so frightened that he ran
-        away.\u201D"
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
@@ -3994,11 +3950,7 @@ PrefabInstance:
       objectReference: {fileID: 838447027}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: "\u201CYes, but you are not very good at swimming, and may lose the
-        ring, while I am strong and can take good care of it,\u201D answered the
-        dog. The cat continued to refuse to disobey its master, until at last the
-        dog threatened to kill it, and it was obliged to entrust the ring to the
-        dog\u2019s keeping."
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: relicPopupPanel
