@@ -13,11 +13,8 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
     {
 
         ReadingAnalyticsManager.instance.readingAnalytics.SetContinuedToGame();
-        if (readingMechanicPanel.StopVoiceLineFromPauseButton())
-        {
-            // noticed when a voice is being played when the user starts the game, it fails to save the analytics
-            DataPersistenceManager.instance.SaveGame();
-        }
+        readingMechanicPanel.StopVoiceLineFromPauseButton();
+
 
 
         if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_1)

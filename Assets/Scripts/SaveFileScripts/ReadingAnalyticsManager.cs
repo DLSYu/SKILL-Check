@@ -56,4 +56,9 @@ public class ReadingAnalyticsManager : MonoBehaviour, IDataPersistence
         }
     }
 
+    public void OnDestroy()
+    {
+        DataPersistenceManager.instance.SaveGame();
+    }
+
 }
