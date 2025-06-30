@@ -21,12 +21,20 @@ public class ObjectiveManager : MonoBehaviour
     void Update()
     {
         List<Vector3> gemLocations = doorManager.GetCurrentDoor().getActiveGemsLocations();
+        bool isAllDoorsUnlocked = doorManager.isLastDoorUnlocked();
 
         if (gemLocations.Count == 0)
         {
             optionalPanel.SetActive(false);
             optionalButtonImage.gameObject.SetActive(false);
         }
+
+        if (isAllDoorsUnlocked)
+        {
+            objectivePanel.SetActive(false);
+            objectiveButtonImage.gameObject.SetActive(false);
+        }
+
     }
     public void findDoor()
     {

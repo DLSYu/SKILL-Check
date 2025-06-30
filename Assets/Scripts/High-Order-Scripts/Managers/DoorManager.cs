@@ -45,4 +45,12 @@ public class DoorManager : MonoBehaviour
     {
         percentage.text = "Score: ???";
     }
+
+    public bool isLastDoorUnlocked()
+    {
+        if (currentDoorIndex == doorList.Length - 1 && doorList[currentDoorIndex].checkIfDoorUnlocked())
+            return true;
+
+        return false;
+    }
 }
