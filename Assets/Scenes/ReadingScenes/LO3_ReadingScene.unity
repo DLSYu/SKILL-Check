@@ -3117,7 +3117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a348ec0ca69430e9723caf3dd33fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readingMechanicPanel: {fileID: 0}
+  readingMechanicPanel: {fileID: 364400508}
   loadingScreen: {fileID: 217217761}
 --- !u!114 &1124802396
 MonoBehaviour:
