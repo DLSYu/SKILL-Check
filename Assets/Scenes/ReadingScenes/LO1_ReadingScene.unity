@@ -1277,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7522589044181510016, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5658,7 +5658,7 @@ MonoBehaviour:
   tutorialHandler: {fileID: 51621304}
   previousPage: {fileID: 2133573675}
   nextPage: {fileID: 1012618701}
-  startGame: {fileID: 1738761272}
+  startGame: {fileID: 1370892788}
 --- !u!114 &1232445573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6106,7 +6106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1370892789
 RectTransform:
   m_ObjectHideFlags: 0

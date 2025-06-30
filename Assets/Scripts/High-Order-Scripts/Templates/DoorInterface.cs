@@ -36,6 +36,7 @@ public class DoorInterface : MonoBehaviour, IInteractable
             openElapsedTime += Time.deltaTime;
             float percentageComplete = openElapsedTime / duration;
             door.transform.position = Vector3.Lerp(door.transform.position, movedPosition, percentageComplete);
+
         }
 
         triggerDoorSound();
@@ -53,6 +54,7 @@ public class DoorInterface : MonoBehaviour, IInteractable
         if (isDoorUnlocked && !triggerOpenOnce)
         {
             audioSource.PlayOneShot(doorSound);
+            this.GetComponent<BoxCollider2D>().enabled = false;
             triggerOpenOnce = true;
         }
     }
