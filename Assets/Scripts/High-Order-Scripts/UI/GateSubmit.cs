@@ -533,6 +533,7 @@ public class GateSubmit : MonoBehaviour
         else if (slot.GetCurrentGem() != null)
         {
             incorrectGems.Add(slot.GetCurrentGem());
+            slot.ResetSlot();
             Debug.Log($"{slotName} slot is incorrect");
             return true;
         }

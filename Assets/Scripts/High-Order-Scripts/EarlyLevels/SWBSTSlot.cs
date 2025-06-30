@@ -43,6 +43,11 @@ public class SWBSTSlot : MonoBehaviour
         //Debug.Log($"Collected Gems: {gems.Count}");
         //Debug.Log($"Slot {slotType} has gem: {currentGem != null}");
         Debug.Log($"Slot {slotType} status: {(currentGem != null ? "Occupied" : "Empty")}");
+
+        if (currentGem == null)
+            resetButton.interactable = false;
+        else
+            resetButton.interactable = true;
     }
 
     // Called when a gem is dropped onto this slot
