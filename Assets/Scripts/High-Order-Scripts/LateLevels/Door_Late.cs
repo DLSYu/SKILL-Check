@@ -9,11 +9,11 @@ public class Door_Late : DoorInterface
 {
     [Header("Late Level Data")]
     [TextArea(3, 10)]
-    public String referenceText;
+    public string referenceText;
     [SerializeField]
-    public String keyWord;
+    public string keyWord;
     private bool isKeyWordUnlocked = false;
-    // Start is called before the first frame update
+
     protected override void Update()
     {
         if (isDoorUnlocked)
@@ -24,7 +24,6 @@ public class Door_Late : DoorInterface
         }
 
         checkIfUnlockKeyword();
-
         triggerDoorSound();
     }
 

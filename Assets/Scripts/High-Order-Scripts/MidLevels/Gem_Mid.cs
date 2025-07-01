@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Gem_MidEarly : GemInterface
+public class Gem_Mid : GemInterface
 {
     // [Header("Specific References")]
     // [SerializeField] private InventoryManager_MidEarly inventoryManager;

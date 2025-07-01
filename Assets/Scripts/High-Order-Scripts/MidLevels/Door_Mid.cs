@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door_MidEarly : DoorInterface
+public class Door_Mid : DoorInterface
 {
     [Header("Mid Level Data")]
     [TextArea(3, 10)]

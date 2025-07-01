@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager_MidEarly : UIManagerTemplate
+public class UIManager_Mid : UIManagerTemplate
 {
 
     void Start()
@@ -22,7 +22,7 @@ public class UIManager_MidEarly : UIManagerTemplate
 
         // FindObjectOfType<TypingPanel_MidEarly>().ShowStoryAndGems();
 
-        Door_MidEarly currentDoor = (Door_MidEarly)doorManager.GetCurrentDoor();
+        Door_Mid currentDoor = (Door_Mid)doorManager.GetCurrentDoor();
         if (currentDoor.checkIfKeywordUnlocked())
         {
             keywordText.text = "Keyword: " + currentDoor.keyWord;

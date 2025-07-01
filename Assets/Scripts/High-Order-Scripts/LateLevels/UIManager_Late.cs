@@ -37,7 +37,6 @@ public class UIManager_Late : UIManagerTemplate
         TypingCanvas.SetActive(false);
         JoystickCanvas.SetActive(true);
 
-
         if (isScorePanelCleanable)
         {
             doorManager.clearScorePanel();
