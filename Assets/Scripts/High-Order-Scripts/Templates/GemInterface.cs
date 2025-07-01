@@ -41,14 +41,6 @@ public class GemInterface : MonoBehaviour, IInteractable
         Then
     }
 
-    void Awake()
-    {
-        if (isColorless)
-        {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.color = new Color32(19, 19, 19, 255);
-        }
-    }
     public virtual void Interact()
     {
         audioSource.PlayOneShot(gemSound);
