@@ -229,6 +229,14 @@ public class GateSubmit : MonoBehaviour
             {
                 score += bonusKeywordScore;
                 Debug.Log("KeyWord Bonus Points");
+
+                if (Application.platform == RuntimePlatform.WindowsEditor ||
+                    Application.platform == RuntimePlatform.LinuxEditor ||
+                    Application.platform == RuntimePlatform.OSXEditor)
+                {
+                    score += 1.0f; // Add 1.0f for bonus keyword score in editor platforms
+                    Debug.Log("Added 1.0f for bonus keyword score for Testing purposes");
+                }
             }
 
             if (Application.platform == RuntimePlatform.Android)
