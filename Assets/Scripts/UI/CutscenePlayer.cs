@@ -18,9 +18,6 @@ public class CutscenePlayer : MonoBehaviour, IPointerClickHandler
     [SerializeField] private List<float> subtitleStartTime;
     [SerializeField] private List<float> subtitleEndTime;
 
-    private Coroutine frameCoroutine;
-    private Coroutine messageCoroutine;
-
     bool isSubtitleDone = false;
     bool isMovieDone = false;
 
@@ -29,8 +26,7 @@ public class CutscenePlayer : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        frameCoroutine = StartCoroutine(PlayFrames());
-        messageCoroutine = StartCoroutine(HandleTimedMessages());
+        StartCoroutine(PlayCutscene());
         StartCoroutine(LoadTitleScreenOnceReady());
 
     }
@@ -42,50 +38,66 @@ public class CutscenePlayer : MonoBehaviour, IPointerClickHandler
         loadingScreen.LoadScene("TitleScreen");
     }
 
-
-    private IEnumerator PlayFrames()
-    {
-
-        for (int i = 0; i < animationFrames.Count && !hasUserTapped; i++)
-        {
-            displayImage.sprite = animationFrames[i];
-            yield return new WaitForSeconds(animationDuration[i]);
-        }
-
-        isMovieDone = true;
-
-    }
-
-    private IEnumerator HandleTimedMessages()
+    private IEnumerator PlayCutscene()
     {
         float currentTime = 0f;
         float checkInterval = 0.05f; // check every 50ms for accuracy
 
-
         int i = 0;
-        while (i < subtitle.Count && !hasUserTapped)
+        int j = 0;
+        float animationFrameDuration = 0.0f;
+        displayImage.sprite = animationFrames[i];
+        while ((!isMovieDone || !isSubtitleDone) && !hasUserTapped)
         {
 
-            if (currentTime >= subtitleStartTime[i])
+            if (!isMovieDone)
             {
-                StartCoroutine(ShowMessage(subtitle[i], subtitleEndTime[i] - subtitleStartTime[i]));
-                i++;
+
+                if (animationFrameDuration > animationDuration[i])
+                {
+                    i++;
+                    if (i < animationFrames.Count)
+                    {
+                        displayImage.sprite = animationFrames[i];
+                        animationFrameDuration = 0.0f;
+                    }
+                    else
+                        isMovieDone = true;
+                }
+
+            }
+
+            if (!isSubtitleDone)
+            {
+                if (currentTime >= subtitleEndTime[j])
+                {
+
+                    Destroy(subtitle[j]);
+                    j++;
+
+                    if (j >= subtitle.Count)
+                    {
+                        isSubtitleDone = true;
+                    }
+                }
+                else if (currentTime >= subtitleStartTime[j])
+                {
+                    subtitle[j].SetActive(true);
+                }
+
             }
 
 
             yield return new WaitForSeconds(checkInterval);
             currentTime += 0.05f;
+            animationFrameDuration += 0.05f;
         }
 
-        isSubtitleDone = true;
+
     }
 
-    private IEnumerator ShowMessage(GameObject message, float duration)
-    {
-        message.SetActive(true);
-        yield return new WaitForSeconds(duration);
-        Destroy(message);
-    }
+
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
