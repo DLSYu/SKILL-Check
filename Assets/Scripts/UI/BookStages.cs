@@ -11,7 +11,8 @@ public enum bookStage
     LO_2,
     LO_3,
     LO_4,
-    LO_5
+    LO_5,
+    LO_6
 }
 
 public class BookStages : MonoBehaviour, IPointerClickHandler
@@ -54,6 +55,9 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
             case 5:
                 currentStage = bookStage.LO_5;
                 break;
+            case 6:
+                currentStage = bookStage.LO_6;
+                break;
             default:
                 currentStage = bookStage.Not_Book_Stage;
                 break;
@@ -80,6 +84,9 @@ public class BookStages : MonoBehaviour, IPointerClickHandler
                 break;
             case bookStage.LO_5:
                 loadingScreen.LoadScene("LO5_ReadingScene");
+                break;
+            case bookStage.LO_6:
+                loadingScreen.LoadScene("LO6_ReadingScene");
                 break;
             default:
                 loadingScreen.LoadScene("ReadingMechanicNew");

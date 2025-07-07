@@ -27,6 +27,8 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
             loadingScreen.LoadScene("H04_Mid");
         else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_5)
             loadingScreen.LoadScene("H05_Mid");
+        else if (StoryData.currentGameMode == "HighOrder" && StoryData.currentStatueStage == statueStage.HO_6)
+            loadingScreen.LoadScene("H06_Late");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_1)
             loadingScreen.LoadScene("SortingScene");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_2)
@@ -37,5 +39,9 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
             loadingScreen.LoadScene("SortingScene4");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_5)
             loadingScreen.LoadScene("SortingScene5");
+        // else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_6)
+        //     loadingScreen.LoadScene("QuickSortScene");
+
+
     }
 }

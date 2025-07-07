@@ -11,7 +11,8 @@ public enum statueStage
     HO_2,
     HO_3,
     HO_4,
-    HO_5
+    HO_5,
+    HO_6
 }
 
 public class StatueStages : MonoBehaviour, IPointerClickHandler
@@ -53,6 +54,9 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
             case 5:
                 currentStage = statueStage.HO_5;
                 break;
+            case 6:
+                currentStage = statueStage.HO_6;
+                break;
             default:
                 currentStage = statueStage.Not_Statue_Stage;
                 break;
@@ -79,6 +83,9 @@ public class StatueStages : MonoBehaviour, IPointerClickHandler
                 break;
             case statueStage.HO_5:
                 loadingScreen.LoadScene("HO5_ReadingScene");
+                break;
+            case statueStage.HO_6:
+                loadingScreen.LoadScene("HO6_ReadingScene");
                 break;
             default:
                 loadingScreen.LoadScene("ReadingMechanicNew");
