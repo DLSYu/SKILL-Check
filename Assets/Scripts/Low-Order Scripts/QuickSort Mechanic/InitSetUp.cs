@@ -11,6 +11,8 @@ public class InitSetUp : MonoBehaviour
     [SerializeField] private GameObject initialRelicPanel;
     [SerializeField] private GameObject QuickSortSortingGameManagerObj;
     [SerializeField] private GameObject popUpCanvas;
+    [SerializeField] private GameObject lowOrderAnalytics;
+    [SerializeField] private GameObject dataPersistence;
 
     private void Awake()
     {
@@ -60,6 +62,8 @@ public class InitSetUp : MonoBehaviour
     {
         initialRelicPartsContainer.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
         popUpCanvas.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
+        lowOrderAnalytics.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
+        dataPersistence.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
         SceneManager.LoadScene("QuickSort_PivotScene");
     }
 
