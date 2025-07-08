@@ -19,6 +19,8 @@ public class PivotSceneManager : MonoBehaviour
 
     private GameObject relicBeingSorted;
 
+    [SerializeField] private GameObject failureTextbox;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +97,8 @@ public class PivotSceneManager : MonoBehaviour
             else
             {
                 Debug.Log("WRONG ORDER. TRY AGAIN.");
+
+                failureTextbox.SetActive(true);
 
                 currRelicPartIndex = 0;
                 relicsChecked = 0;
