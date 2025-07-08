@@ -59,8 +59,8 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
     private int lo_level_to_reveal = -1;
     private bool lo_level_has_played_animation = false;
 
-    private int hoTotalStages = 5;
-    private int loTotalStages = 5;
+    private int hoTotalStages = 6;
+    private int loTotalStages = 6;
 
     private float fadeDuration = 3.0f;
 
