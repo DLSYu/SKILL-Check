@@ -9,10 +9,15 @@ using UnityEngine.Networking;
 public class OpenPDFScript : MonoBehaviour
 {
 
-    public void OpenPDF()
+    public void OpenPretestPDF()
     {
-        StartCoroutine(CopyAndOpenPDF("shrek.pdf"));
-        
+        StartCoroutine(CopyAndOpenPDF("1_english_BT_pretest.pdf"));
+
+    }
+    public void OpenPosttestPDF()
+    {
+        StartCoroutine(CopyAndOpenPDF("1_english_BT_posttest.pdf"));
+
     }
     IEnumerator CopyAndOpenPDF(string pdfFilename)
     {
@@ -28,8 +33,8 @@ public class OpenPDFScript : MonoBehaviour
             Debug.Log("PDF copied to: " + destPath);
             // Now you can pass destPath to your PDF plugin
 
-            Debug.Log(Path.Combine(Application.streamingAssetsPath, "shrek.pdf"));
-            AndroidContentOpenerWrapper.OpenContent(Path.Combine(Application.persistentDataPath, "shrek.pdf"));
+            Debug.Log(Path.Combine(Application.streamingAssetsPath, pdfFilename));
+            AndroidContentOpenerWrapper.OpenContent(Path.Combine(Application.persistentDataPath, pdfFilename));
         }
         else
         {
