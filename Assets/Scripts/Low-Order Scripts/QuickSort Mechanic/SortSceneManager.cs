@@ -69,6 +69,22 @@ public class SortSceneManager : MonoBehaviour
             }
         }
 
+        int numeralCount = 1;
+
+        foreach (RelicCheckedSlotNumeralChanger changer in beforeCheckedSlots.transform.GetComponentsInChildren<RelicCheckedSlotNumeralChanger>())
+        {
+            changer.ChangeNumeral(numeralCount.ToString());
+            numeralCount++;
+        }
+
+        numeralCount++;
+
+        foreach (RelicCheckedSlotNumeralChanger changer in afterCheckedSlots.transform.GetComponentsInChildren<RelicCheckedSlotNumeralChanger>())
+        {
+            changer.ChangeNumeral(numeralCount.ToString());
+            numeralCount++;
+        }
+
         QuickSortSortingGameManager.Instance.Shuffle<GameObject>(beforeRelics);
         QuickSortSortingGameManager.Instance.Shuffle<GameObject>(afterRelics);
 

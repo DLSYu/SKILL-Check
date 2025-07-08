@@ -1853,7 +1853,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2658,7 +2658,7 @@ MonoBehaviour:
   afterCheckedSlots: {fileID: 617986724}
   pivotSlot: {fileID: 2045070066}
   inventorySlotPrefab: {fileID: 1257285662897046790, guid: 6b36ec93450a527469fbf6bb631b6389, type: 3}
-  checkedSlotPrefab: {fileID: 8270726098615879155, guid: 72a178fb56db0114f93e32146f3114c2, type: 3}
+  checkedSlotPrefab: {fileID: 3903054175090821049, guid: 01ce585093647ea4ca96af0dcf1ccb44, type: 3}
   canvas: {fileID: 1419275885}
   leftCanvasPos: {x: 1000, y: 600, z: 0}
   rightCanvasPos: {x: -650, y: 600, z: 0}
