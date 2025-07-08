@@ -1157,6 +1157,7 @@ GameObject:
   - component: {fileID: 927882786}
   - component: {fileID: 927882785}
   - component: {fileID: 927882784}
+  - component: {fileID: 927882787}
   - component: {fileID: 927882783}
   m_Layer: 5
   m_Name: RightButton
@@ -1278,6 +1279,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.80322266}
   m_SizeDelta: {x: 0, y: 1.6063}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927882787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927882782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22fbb2d18a4a2b4fbfe0b9071778afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAltBob: 1
+  bobbingSpeed: 2
+  bobbingHeight: 15
 --- !u!1 &999855583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2503,7 @@ GameObject:
   - component: {fileID: 1809590504}
   - component: {fileID: 1809590507}
   - component: {fileID: 1809590506}
+  - component: {fileID: 1809590508}
   - component: {fileID: 1809590505}
   m_Layer: 5
   m_Name: LeftButton
@@ -2608,6 +2625,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809590503}
   m_CullTransparentMesh: 1
+--- !u!114 &1809590508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809590503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22fbb2d18a4a2b4fbfe0b9071778afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAltBob: 1
+  bobbingSpeed: 2
+  bobbingHeight: 15
 --- !u!1 &1857304482
 GameObject:
   m_ObjectHideFlags: 0

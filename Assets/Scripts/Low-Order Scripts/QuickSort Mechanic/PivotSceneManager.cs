@@ -17,6 +17,8 @@ public class PivotSceneManager : MonoBehaviour
     [SerializeField] private GameObject pivotSlot;
     [SerializeField] private GameObject relicPartSlot;
 
+    private GameObject relicBeingSorted;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +42,18 @@ public class PivotSceneManager : MonoBehaviour
             currRelicPartIndex++;
         }
 
-        QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+        relicBeingSorted = QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
         relicsChecked++;
+
+        relicBeingSorted.GetComponent<RelicMovement>().isPivotScene = true;
+        relicBeingSorted.GetComponent<RelicMovement>().useWorldSpace = false;
+        relicBeingSorted.GetComponent<RelicMovement>().isMovable = true;
+        relicBeingSorted.GetComponent<RelicMovement>().pivotSceneManager = gameObject;
 
         QuickSortSortingGameManager.Instance.PutRelicPart(pivotSlot, pivot);
 
         Debug.Log($"shuffled index: {currRelicPartIndex}");
+        Debug.Log($"shuffledRelicParts[currRelicPartIndex]: {shuffledRelicParts[currRelicPartIndex].name}");
     }
 
     // Update is called once per frame
@@ -72,7 +80,11 @@ public class PivotSceneManager : MonoBehaviour
 
     private void ResetScene()
     {
-        if(relicsChecked >= shuffledRelicParts.Count - 1)
+        relicBeingSorted.GetComponent<RelicMovement>().isPivotScene = false;
+        relicBeingSorted.GetComponent<RelicMovement>().isMovable = false;
+        relicBeingSorted.GetComponent<RelicMovement>().useWorldSpace = true;
+
+        if (relicsChecked >= shuffledRelicParts.Count - 1)
         {
             if (rightOrder)
             {
@@ -94,9 +106,16 @@ public class PivotSceneManager : MonoBehaviour
                     currRelicPartIndex++;
                 }
 
-                QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+                relicBeingSorted = QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
                 relicsChecked++;
+
+                relicBeingSorted.GetComponent<RelicMovement>().isPivotScene = true;
+                relicBeingSorted.GetComponent<RelicMovement>().isMovable = true;
+                relicBeingSorted.GetComponent<RelicMovement>().useWorldSpace = false;
+                relicBeingSorted.GetComponent<RelicMovement>().pivotSceneManager = gameObject;
+
                 Debug.Log($"shuffled index: {currRelicPartIndex}");
+                Debug.Log($"shuffledRelicParts[currRelicPartIndex]: {shuffledRelicParts[currRelicPartIndex].name}");
             }
         }
         else
@@ -120,8 +139,14 @@ public class PivotSceneManager : MonoBehaviour
 
             }
 
-            QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
+            relicBeingSorted = QuickSortSortingGameManager.Instance.PutRelicPart(relicPartSlot, shuffledRelicParts[currRelicPartIndex]);
             relicsChecked++;
+
+            relicBeingSorted.GetComponent<RelicMovement>().isPivotScene = true;
+            relicBeingSorted.GetComponent<RelicMovement>().isMovable = true;
+            relicBeingSorted.GetComponent<RelicMovement>().useWorldSpace = false;
+            relicBeingSorted.GetComponent<RelicMovement>().pivotSceneManager = gameObject;
+
             Debug.Log($"shuffled index: {currRelicPartIndex}");
         }
     }

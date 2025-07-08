@@ -8,9 +8,15 @@ using UnityEngine.UIElements;
 
 public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    [SerializeField] private bool useWorldSpace = false;
+    [SerializeField] public bool useWorldSpace = false;
     public bool isMovable = true;
     [SerializeField] private bool isQuickSort = false;
+
+    // FOR PIVOT SCENE LOGIC { private get; set; }
+    [SerializeField] public bool isPivotScene = false;
+    [SerializeField] private GameObject beforeOrAfter;
+    [SerializeField] public GameObject pivotSceneManager;
+
     private bool dragging = false;
     private bool isAttemptingDrag = false; // New flag to track drag attempt
 
@@ -112,8 +118,31 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
         if (dragging)
         {
+
             //transform.localScale = initLocalScale;
             RelicSlot previousParent = originalParent;
+
+            if (isPivotScene)
+            {
+                if (beforeOrAfter.IsUnityNull())
+                {
+                    previousParent.placedRelic = gameObject;
+                    transform.SetParent(previousParent.transform);
+                    transform.localPosition = Vector3.zero;
+                } else
+                {
+                    if (beforeOrAfter.name == "BeforeButton")
+                    {
+                        pivotSceneManager.GetComponent<PivotSceneManager>().BeforeButtonClick();
+                    } else if (beforeOrAfter.name == "AfterButton")
+                    {
+                        pivotSceneManager.GetComponent<PivotSceneManager>().AfterButtonClick();
+                    }
+                }
+
+                dragging = false;
+                return;
+            }
 
             if (newParent != null)
             {
@@ -163,14 +192,37 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         }
 
         sizeDownCoroutine = StartCoroutine(SizeDown());
-        transform.SetParent(transform.root);
+        if(!isPivotScene) transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         dragging = true;
         isAttemptingDrag = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isPivotScene)
+        {
+            if (collision.name == "BeforeButton" || collision.name == "AfterButton")
+            {
+                beforeOrAfter = collision.gameObject;
+            }
+
+            return;
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (isPivotScene)
+        {
+            if(collision.name == "BeforeButton" || collision.name == "AfterButton")
+            {
+                beforeOrAfter = collision.gameObject;
+            }
+
+            return;
+        }
+
         RelicSlot slot = collision.GetComponent<RelicSlot>();
         if (slot != null && slot != originalParent && newParent != originalParent)
         {
@@ -180,6 +232,16 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (isPivotScene)
+        {
+            if (collision.name == "BeforeButton" || collision.name == "AfterButton")
+            {
+                beforeOrAfter = null;
+            }
+
+            return;
+        }
+
         if (collision.GetComponent<RelicSlot>() == newParent)
         {
             newParent = null;
