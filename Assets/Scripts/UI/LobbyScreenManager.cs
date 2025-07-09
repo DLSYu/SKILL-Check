@@ -331,6 +331,11 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
                 statueGlows[ho_completed_stage_index].SetActive(true);
             }
         }
+        // else
+        // {
+        //     // All HO stages completed, ensure no level to reveal
+        //     ho_level_to_reveal = -1;
+        // }
 
         if (lo_completed_stage_index < loTotalStages)
         {
@@ -348,6 +353,11 @@ public class LobbyScreenManager : MonoBehaviour, IDataPersistence
                 bookGlows[lo_completed_stage_index].SetActive(true);
             }
         }
+        // else
+        // {
+        //     // All LO stages completed, ensure no level to reveal
+        //     lo_level_to_reveal = -1;
+        // }
 
         data.alreadyPlayedAnimationForNewlyOpenedStage.TryGetValue("Intro", out hasIntroBeenPlayed);
         if (!hasIntroBeenPlayed)
