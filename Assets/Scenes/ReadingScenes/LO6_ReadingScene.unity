@@ -6634,6 +6634,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3501531019834366188, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
+      propertyPath: m_text
+      value: "Mukhang magaling ka na. Hindi na muna kita babasahan ng kwento. \nMagbasa
+        ng maigi."
+      objectReference: {fileID: 0}
     - target: {fileID: 7522589044181510016, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
       propertyPath: m_Name
       value: ReadyToReadPrompt
