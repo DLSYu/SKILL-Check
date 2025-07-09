@@ -77,8 +77,8 @@ public class WinZone : MonoBehaviour, IDataPersistence
             return "HO_4";
         else if (spriteName == "statue_agila")
             return "HO_5";
-
-
+        else if (spriteName == "Torch")
+            return "HO_6";
 
         else
             return "";
