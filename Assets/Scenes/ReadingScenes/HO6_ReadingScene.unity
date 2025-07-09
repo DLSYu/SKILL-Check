@@ -570,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &120368819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1488,13 +1488,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3501531019834366188, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
+      propertyPath: m_text
+      value: "Mukhang magaling ka na. Hindi na muna kita babasahan ng kwento. \nMagbasa
+        ng maigi."
+      objectReference: {fileID: 0}
     - target: {fileID: 7522589044181510016, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
       propertyPath: m_Name
       value: ReadyToReadPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 7522589044181510016, guid: 9d9fbe72f2307f846b2a6fdcdd341bd5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1673,6 +1678,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2934318714680667391, guid: bb4d3672e16d37a4a9c0d094da7a84b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278368808245621972, guid: bb4d3672e16d37a4a9c0d094da7a84b8, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8135959784752911319, guid: bb4d3672e16d37a4a9c0d094da7a84b8, type: 3}
