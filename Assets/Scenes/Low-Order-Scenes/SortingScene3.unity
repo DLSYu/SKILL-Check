@@ -4875,8 +4875,8 @@ PrefabInstance:
       objectReference: {fileID: 1709878624}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: '"Juan transformed into a cock, and to this day, his descendants still
-        bear the comb on their heads."'
+      value: '"Juan transformed into a rooster, and to this day, his descendants
+        still bear the comb on their heads."'
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
