@@ -63,7 +63,7 @@ public class InitSetUp : MonoBehaviour
         initialRelicPartsContainer.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
         popUpCanvas.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
         lowOrderAnalytics.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
-        dataPersistence.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
+        //dataPersistence.transform.SetParent(QuickSortSortingGameManager.Instance.transform);
         SceneManager.LoadScene("QuickSort_PivotScene");
     }
 

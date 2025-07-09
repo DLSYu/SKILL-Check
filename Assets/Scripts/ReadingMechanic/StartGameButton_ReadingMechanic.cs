@@ -39,8 +39,8 @@ public class StartGameButton_ReadingMechanic : MonoBehaviour
             loadingScreen.LoadScene("SortingScene4");
         else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_5)
             loadingScreen.LoadScene("SortingScene5");
-        // else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_6)
-        //     loadingScreen.LoadScene("QuickSortScene");
+        else if (StoryData.currentGameMode == "LowOrder" && StoryData.currentBookStage == bookStage.LO_6)
+            loadingScreen.LoadScene("QuickSort_InitialReadScene");
 
 
     }

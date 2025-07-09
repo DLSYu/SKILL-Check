@@ -130,6 +130,7 @@ public class SortingGameManager : MonoBehaviour, IDataPersistence
         {
             isGameCompleted = true;
 
+            LowOrderAnalyticsManager.instance.lowOrderStageAnalytics.SetClearTime(timer);
 
             CalculateStars();
             StartCoroutine(LoadEndSceneAfterDelay(1f));
