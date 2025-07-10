@@ -141,7 +141,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 3
+      value: One day, bandits attacked a nearby village, killing people and stealing
+        their money.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -1308,7 +1309,7 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 2
+      value: Maria enjoyed tending her beautiful flower garden.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -1839,7 +1840,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 1
+      value: Mang Dondong and Aling Iska loved their kind, shy daughter Maria very
+        much.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -2280,7 +2282,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 5
+      value: The bandits attacked the parents, stole their valuables, and left without
+        finding Maria.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -3026,7 +3029,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 7
+      value: Believing the plant was Maria transformed by God, they named it "makahiya"
+        for its shyness and cared for it lovingly.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -3192,7 +3196,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 6
+      value: After the bandits left, the parents searched for Maria but instead found
+        a shy, unfamiliar plant in the garden.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
@@ -4176,7 +4181,8 @@ PrefabInstance:
       objectReference: {fileID: 1774249085}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: storySegment
-      value: 4
+      value: When the bandits came to their village, Mang Dondong hid Maria in the
+        garden to keep her safe.
       objectReference: {fileID: 0}
     - target: {fileID: 1313401169195097329, guid: 6d376265a39eb9645b74d5fe80d5146e, type: 3}
       propertyPath: blackBackground
