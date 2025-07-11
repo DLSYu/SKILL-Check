@@ -113,19 +113,23 @@ public class RelicSlot : MonoBehaviour, IPointerClickHandler
         if (currentRelic != null)
         {
             currentRelic.transform.SetParent(swapWith.transform);
+            Debug.Log($"Placing {currentRelic.name} to {swapWith.name}");
             // Replace the next line with a tween if desired, e.g., using DOTween:
             // currentRelic.transform.DOLocalMove(Vector3.zero, 0.3f);
             currentRelic.transform.localPosition = Vector3.zero;
             swapWith.placedRelic = currentRelic;
             currentRelic.GetComponent<RelicMovement>().originalParent = swapWith;
+            Debug.Log($"Update originalparent of {currentRelic.name} to {swapWith.name}");
         }
 
         if (incomingRelic != null)
         {
             incomingRelic.transform.SetParent(this.transform);
+            Debug.Log($"Placing {incomingRelic.name} to {name}");
             incomingRelic.transform.localPosition = Vector3.zero;
             this.placedRelic = incomingRelic;
             incomingRelic.GetComponent<RelicMovement>().originalParent = this;
+            Debug.Log($"Update originalparent of {incomingRelic.name} to {name}");
         }
 
         // --- STEP 4: Final visual update on both slots ---

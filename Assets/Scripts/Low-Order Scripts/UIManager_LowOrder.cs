@@ -24,27 +24,25 @@ public class UIManager_LowOrder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"IN START() OF UIMANAGER");
         RandomizeStartingPos();
+        Debug.Log($"EXITING START() OF UIMANAGER");
     }
 
     void RandomizeStartingPos()
     {
         UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
         List<GameObject> relicSlotsParentCopy = new List<GameObject>(relicSlotsParent);
-        //Debug.Log($"relicSlotsParentCopy.Count: {relicSlotsParentCopy.Count}");
 
 
         for (int i = 0; i < relicSlotsParentCopy.Count; i++)
         {
-            //Debug.Log($"relicSlotsParentCopy i: {i}");
             int randomizedNum = Random.Range(0, relics.Count - 1 - i);
-            //Debug.Log($"remaining slots: {0} - {relics.Count - 1 - i}");
 
             relicSlotsParentCopy[randomizedNum].GetComponent<RelicSlot>().PlaceRelic(relics[i]);
             relics[i].GetComponent<RelicMovement>().originalParent = relicSlotsParentCopy[randomizedNum].GetComponent<RelicSlot>();
-            //Debug.Log($"set original at randomized: {relics[i].name}");
-
         }
+
         relicSlotsParentCopy.Clear();
 
     }

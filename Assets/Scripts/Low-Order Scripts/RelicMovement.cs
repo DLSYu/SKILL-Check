@@ -48,16 +48,19 @@ public class RelicMovement : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     Collider2D inCollisionWith;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log($"IN START() OF RELICMOVEMENT OF {name}");
         storySegment = GetComponent<StorySegment>();
 
         initLocalScale = transform.localScale;
         if (transform.parent.GetComponent<RelicSlot>() != null)
         {
+            transform.parent.GetComponent<RelicSlot>().PlaceRelic(gameObject);
             originalParent = transform.parent.GetComponent<RelicSlot>(); // Set the original parent (RelicSlot)
             Debug.Log($"set original at movement: {name}");
         }
+        Debug.Log($"EXITING START() OF RELICMOVEMENT OF {name}");
     }
 
     // Update is called once per frame
