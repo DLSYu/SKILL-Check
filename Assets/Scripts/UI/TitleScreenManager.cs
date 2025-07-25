@@ -48,17 +48,17 @@ public class TitleScreenManager : MonoBehaviour
     public void StartButton()
     {
 
-        // is not within allowed times
-        if (!bypassPassword && !TimeCheckInstance.instance.isWithinAllowedTimes())
-        {
-            manualUnlockScreen.SetActive(true);
-        }
-        else
-        {
-            DataPersistenceManager.instance.LoadGame();
-            DataPersistenceManager.instance.SaveGame();
-            loadingScreen.LoadScene("Lobby");
-        }
+        // // is not within allowed times
+        // if (!bypassPassword && !TimeCheckInstance.instance.isWithinAllowedTimes())
+        // {
+        //     manualUnlockScreen.SetActive(true);
+        // }
+        // else
+        // {
+        DataPersistenceManager.instance.LoadGame();
+        DataPersistenceManager.instance.SaveGame();
+        loadingScreen.LoadScene("Lobby");
+        // }
     }
 
     public void ResetButton()
