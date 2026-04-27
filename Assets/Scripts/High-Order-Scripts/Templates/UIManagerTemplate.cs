@@ -124,6 +124,11 @@ public class UIManagerTemplate : MonoBehaviour
 
     }
 
+    public bool isAnyUICanvasOpen()
+    {
+        return isTypingScreenOpen() || GemCanvas.activeSelf || storyUI.activeSelf || MenuCanvas.activeSelf || InventoryCanvas.activeSelf || MenuAnimationHandler.activeSelf;
+    }
+
     public void openMenu()
     {
         //pause game

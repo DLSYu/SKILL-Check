@@ -25,7 +25,7 @@ public class WinZone : MonoBehaviour, IDataPersistence
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("You Win!");
+            // Debug.Log("You Win!");
 
 
             uIAnimator.SetActive(true);
@@ -43,7 +43,7 @@ public class WinZone : MonoBehaviour, IDataPersistence
         if (hasCleared)
         {
             bool value;
-            Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
+            // Debug.Log(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
             string stageName = DetermineStage(this.gameObject.GetComponent<SpriteRenderer>().sprite.name);
             data.stageCompletionDictionary.TryGetValue(stageName, out value);
 

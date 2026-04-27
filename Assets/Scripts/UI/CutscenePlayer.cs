@@ -31,6 +31,12 @@ public class CutscenePlayer : MonoBehaviour, IPointerClickHandler
 
     }
 
+    void Update()
+    {
+        if (Input.anyKeyDown)
+            hasUserTapped = true;
+    }
+
     private IEnumerator LoadTitleScreenOnceReady()
     {
 

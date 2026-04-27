@@ -276,7 +276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upang <color="red">bumalik,</color> <color="red">i-tap</color> lang muli
+  m_text: Upang <color="red">bumalik,</color> <color="red">i-click</color> lang muli
     ang button.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sa wakas, maaari mong i-tap ang button dito upang simulan ang laro.
+  m_text: 'Sa wakas, maaari mong i-click ang button dito upang simulan ang laro.
 
 '
   m_isRightToLeft: 0
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ang pag-tap sa button na ito ay lilipat sa <color="red">dictionary mode.</color>
+  m_text: Ang pag-click sa button na ito ay lilipat sa <color="red">dictionary mode.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -2672,7 +2672,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Gamitin ang button na ito ng <color="red">play at stop,</color> at <color="red">babasahin
-    ng boses ang napiling linya para sa iyo.</color> <color="red">To stop, i-tap
+    ng boses ang napiling linya para sa iyo.</color> <color="red">To stop, i-click
     uli.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -4112,7 +4112,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Sa <color="red">dictionary mode,</color> <color="red">ang mga salita ay
-    maaaring i-tap</color> upang <color="red">makita ang kahulugan nito.</color>
+    maaaring i-click</color> upang <color="red">makita ang kahulugan nito.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}

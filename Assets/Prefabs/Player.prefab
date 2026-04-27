@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6394791239562991435}
   - component: {fileID: 1321138543167913277}
   - component: {fileID: 8281893981195446123}
-  - component: {fileID: 8031981169431440599}
   - component: {fileID: 8495964924832966717}
+  - component: {fileID: 6000491165603374946}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -178,23 +178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb879ef1a41ec4d4dacd2e9d971a8dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick_size: {x: 300, y: 300}
-  Joystick: {fileID: 0}
   animator: {fileID: 8495964924832966717}
   interactRange: {fileID: 0}
   MovementAmount: {x: 0, y: 0}
---- !u!114 &8031981169431440599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459056133487784426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e31057ef324a04478bb4f7d469b3cdc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isJoystickPanelActive: {fileID: 0}
 --- !u!95 &8495964924832966717
 Animator:
   serializedVersion: 5
@@ -216,6 +203,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6000491165603374946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459056133487784426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a396786f2eb606b499cadb8554caedaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowJumpBoxSize: {x: 0.7, y: 0.19}
+  allowJumpCastDistance: 1.48
+  allowWalkBoxSize: {x: 1.2, y: 0.1}
+  allowWalkCastDistance: 1.43
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  jumpSound: {fileID: 8300000, guid: e9088800e9de047ea837066fbe140b0c, type: 3}
+  landSound: {fileID: 8300000, guid: 6119d217179c44ec99f1f537e212ee32, type: 3}
 --- !u!1 &1034276347505675931
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,3 +318,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e05f6f6dfb3345efbb5af05a9b8edf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionMark: {fileID: 0}
+  interactButton: {fileID: 0}

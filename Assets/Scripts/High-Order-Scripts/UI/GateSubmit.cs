@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,6 +18,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+
+[Serializable]
+public class Result { public float f1; }
+
 
 public class GateSubmit : MonoBehaviour
 {
@@ -87,6 +93,7 @@ public class GateSubmit : MonoBehaviour
         bertScoreEval = new AndroidJavaClass("com.skillcheck.bertscore_aar.BertScoreEval");
     }
 
+
     public void OnSubmitButton()
     {
         if (!submitable) return;
@@ -103,16 +110,17 @@ public class GateSubmit : MonoBehaviour
         {
 
 
+
             if (score >= passingScore)
             {
-                // resultsResultsText.text = "Cleared!";
+                resultsResultsText.text = "Cleared!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
                 doorObserver.GetCurrentDoor().unlockDoor();
                 doorObserver.SetNextDoor();
             }
             else
             {
-                // resultsResultsText.text = "Try again!";
+                resultsResultsText.text = "Try again!";
                 //this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
 
@@ -132,6 +140,7 @@ public class GateSubmit : MonoBehaviour
 
 
         }
+
     }
 
     public void DismissResultsScreen()
@@ -219,24 +228,26 @@ public class GateSubmit : MonoBehaviour
             string referenceText = doorData[0];
             keyWord = doorData[1];
 
-            Debug.Log("Reference Text: " + referenceText);
-            Debug.Log("Keyword: " + keyWord);
+            UnityEngine.Debug.Log("Reference Text: " + referenceText);
+            UnityEngine.Debug.Log("Keyword: " + keyWord);
 
             // String logic here
 
-            Debug.Log("completeText: " + completeText);
+            UnityEngine.Debug.Log("completeText: " + completeText);
             if (completeText.Contains(keyWord) || completeText.Contains(keyWord.ToLower()))
             {
                 score += bonusKeywordScore;
-                Debug.Log("KeyWord Bonus Points");
+                UnityEngine.Debug.Log("KeyWord Bonus Points");
 
+                /*
                 if (Application.platform == RuntimePlatform.WindowsEditor ||
                     Application.platform == RuntimePlatform.LinuxEditor ||
                     Application.platform == RuntimePlatform.OSXEditor)
                 {
                     score += 1.0f; // Add 1.0f for bonus keyword score in editor platforms
-                    Debug.Log("Added 1.0f for bonus keyword score for Testing purposes");
+                    UnityEngine.Debug.Log("Added 1.0f for bonus keyword score for Testing purposes");
                 }
+                */
             }
 
             if (Application.platform == RuntimePlatform.Android)
@@ -250,6 +261,39 @@ public class GateSubmit : MonoBehaviour
 
 
                 CallBertScoreEval(candidatesText, referencesText, score);
+
+                candidatesText.Clear();
+                referencesText.Clear();
+            }
+
+            else if (Application.platform == RuntimePlatform.LinuxEditor ||
+                    Application.platform == RuntimePlatform.OSXEditor ||
+                    Application.platform == RuntimePlatform.WindowsEditor ||
+                    Application.platform == RuntimePlatform.LinuxPlayer ||
+                    Application.platform == RuntimePlatform.OSXPlayer ||
+                    Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+
+                List<string> candidatesText = Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>();
+                List<string> referencesText = Regex.Split(referenceText, @"(?<=[\.!\?])\s+").ToList<string>();
+
+                if (candidatesText.Count > 1)
+                    candidatesText.RemoveAt(Regex.Split(completeText, @"(?<=[\.!\?])\s+").ToList<string>().Count - 1);
+
+
+                float[] scores = BERTClient.ScoreBatch(candidatesText.ToArray(), referencesText.ToArray());
+                float mean = 0;
+                for (int num = 0; num < scores.Length; num++)
+                {
+                    mean += scores[num];
+                    UnityEngine.Debug.Log("cand: " + scores[num]);
+                }
+
+                mean /= scores.Length;
+
+                score = mean;
+
+                UnityEngine.Debug.Log("score: " + score);
 
                 candidatesText.Clear();
                 referencesText.Clear();
@@ -313,7 +357,7 @@ public class GateSubmit : MonoBehaviour
 
     private void ShowScore(float score, float toAdd)
     {
-        Debug.Log($"score = {score}; toAdd = {toAdd}");
+        UnityEngine.Debug.Log($"score = {score}; toAdd = {toAdd}");
 
         //percentage.SetActive(true);
         percentage.text = "Score: " + $"{(score + toAdd) * 100}";
@@ -379,7 +423,7 @@ public class GateSubmit : MonoBehaviour
 
         public void sendResult(AndroidJavaObject results)
         {
-            Debug.Log("Returned to Unity...");
+            UnityEngine.Debug.Log("Returned to Unity...");
 
             int size = results.Call<int>("size");
             List<string> scores = new List<string>();
@@ -398,7 +442,7 @@ public class GateSubmit : MonoBehaviour
         }
         public void onError(String error)
         {
-            Debug.Log($"ERROR IN UNITY: {error}");
+            UnityEngine.Debug.Log($"ERROR IN UNITY: {error}");
         }
 
     }
@@ -416,7 +460,7 @@ public class GateSubmit : MonoBehaviour
         CheckSlot(thenSlot, "Then", ref correctCount, incorrectGems))
         {
 
-            Debug.Log($"Found {incorrectGems.Count} incorrect gems");
+            UnityEngine.Debug.Log($"Found {incorrectGems.Count} incorrect gems");
 
             ResetAllHighlights();
 
@@ -493,16 +537,16 @@ public class GateSubmit : MonoBehaviour
         {
             if (gem != null)
             {
-                Debug.Log($"Highlighting gem: {gem.name} with keyword: {gem.Keyword}");
+                UnityEngine.Debug.Log($"Highlighting gem: {gem.name} with keyword: {gem.Keyword}");
                 RelicPopupHandler popup = gem.GetComponent<RelicPopupHandler>();
                 if (popup != null)
                 {
                     popup.SetShouldHighlight(true);
-                    Debug.Log($"Set highlight flag for gem: {gem.name}");
+                    UnityEngine.Debug.Log($"Set highlight flag for gem: {gem.name}");
                 }
                 else
                 {
-                    Debug.LogWarning($"No RelicPopupHandler found on gem: {gem.name}");
+                    UnityEngine.Debug.LogWarning($"No RelicPopupHandler found on gem: {gem.name}");
                 }
             }
         }
@@ -535,19 +579,19 @@ public class GateSubmit : MonoBehaviour
         if (slot.compareGemTypeToSlotType())
         {
             correctCount++;
-            Debug.Log($"{slotName} slot is correct");
+            UnityEngine.Debug.Log($"{slotName} slot is correct");
             return true;
         }
         else if (slot.GetCurrentGem() != null)
         {
             incorrectGems.Add(slot.GetCurrentGem());
             slot.ResetSlot();
-            Debug.Log($"{slotName} slot is incorrect");
+            UnityEngine.Debug.Log($"{slotName} slot is incorrect");
             return true;
         }
         else
         {
-            Debug.Log($"{slotName} slot is empty");
+            UnityEngine.Debug.Log($"{slotName} slot is empty");
             return false;
         }
     }

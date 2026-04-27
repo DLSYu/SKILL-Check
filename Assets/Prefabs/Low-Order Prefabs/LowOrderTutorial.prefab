@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pagkatapos, kung kailangan mong <color="red">mag-pause,</color> mag-tap
+  m_text: Pagkatapos, kung kailangan mong <color="red">mag-pause,</color> mag-click
     lang dito.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -3866,7 +3866,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color="red">I-tap</color> ito para <color="red">basahin ang passage nito.</color>
+  m_text: <color="red">I-click</color> ito para <color="red">basahin ang passage
+    nito.</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
@@ -4376,7 +4377,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2954681381736053138}
   - component: {fileID: 5273336317480786880}
-  - component: {fileID: 2351610762518949608}
   m_Layer: 5
   m_Name: LowOrderTutorial
   m_TagString: Untagged
@@ -4474,18 +4474,6 @@ MonoBehaviour:
   framesPerSprite: 4
   imageToAnimate: {fileID: 467300479010862609}
   backgroundImageAnimate: {fileID: 3794491221823131863}
---- !u!114 &2351610762518949608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717550151754080541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c75e6d9a042b6948a3a966130c16ad1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8770336592951085856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,7 +4750,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: At... kung kailangan mo talagang <color="red">silipin muli ang kuwento,</color>
-    mag-tap dito.
+    mag-click dito.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}
   m_sharedMaterial: {fileID: 6668728726769981386, guid: 6619655a4e02543f482dc7e67a1dedf3, type: 2}

@@ -19,7 +19,7 @@ public class OpeningCutscene : MonoBehaviour
 
     IEnumerator PlayVideo()
     {
-        Handheld.PlayFullScreenMovie("babaylan_openingcutscene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
+        // Handheld.PlayFullScreenMovie("babaylan_openingcutscene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
         yield return new WaitForEndOfFrame();
 
         loadingScreen.LoadScene("TitleScreen");

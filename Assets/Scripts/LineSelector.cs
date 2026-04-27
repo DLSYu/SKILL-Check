@@ -29,7 +29,7 @@ public class LineSelector : MonoBehaviour, IEndDragHandler
 
     void Update()
     {
-        Debug.Log("Current Sentence Index: " + currentSentenceIndex);
+        //Debug.Log("Current Sentence Index: " + currentSentenceIndex);
     }
     public void OnEndDrag(PointerEventData data)
     {

@@ -6,15 +6,26 @@ public class InteractButton : MonoBehaviour
 {
     // TO IMPLEMENT: GET LIST OF ALL INTERACTABLES CHECK IN UPDATES THE CLOSEST OBJECT TO INTERACT WITH
     GameObject currentInteractable;
+
+    private PlayerMovement playerMovement;
     [SerializeField] private GameObject questionMark;
     [SerializeField] private GameObject interactButton;
 
+    void Start()
+    {
+        playerMovement = this.gameObject.transform.parent.GetComponent<PlayerMovement>();
+    }
     void Update()
     {
         if (currentInteractable != null)
         {
             questionMark.SetActive(true);
             interactButton.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.Return) && !playerMovement.isAnyUICanvasOpen())
+            {
+                ClickInteractButton();
+            }
         }
         else
         {

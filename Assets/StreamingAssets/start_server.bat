@@ -1,0 +1,1 @@
+python\python.exe bert_server.py

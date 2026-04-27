@@ -45,7 +45,7 @@ public class DoorInterface : MonoBehaviour, IInteractable
 
     public virtual void Interact()
     {
-        if (!isDoorUnlocked)
+        if (!isDoorUnlocked && !uiManager.isAnyUICanvasOpen())
             uiManager.openTypingScreen();
     }
 

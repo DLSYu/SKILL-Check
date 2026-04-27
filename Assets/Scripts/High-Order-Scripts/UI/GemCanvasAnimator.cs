@@ -49,6 +49,18 @@ public class GemCanvasAnimator : MonoBehaviour, IPointerClickHandler
         animCoroutine = StartCoroutine(PlayAnimationUnscaled());
     }
 
+    void Update()
+    {
+        if (isDoneShowingAnimation)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
+            {
+                UIManagerTemplate.Instance.exitGemCanvas();
+                isDoneShowingAnimation = false;
+            }
+        }
+    }
+
     IEnumerator PlayAnimationUnscaled()
     {
         index = 0;

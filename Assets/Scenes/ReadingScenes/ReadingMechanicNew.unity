@@ -698,10 +698,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2000, y: 1200}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2254,6 +2254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3ef889599182844a2f5643151998e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingMechanicTutorial: {fileID: 0}
   storyText: {fileID: 1245696828}
   fullText: "Once upon a time there was a lovely princess. \r\n\r\nBut she had an
     enchantment upon her of a fearful sort, which could only be broken by Love's
@@ -2271,8 +2272,6 @@ MonoBehaviour:
     This is the part, where you run away. Yeah! And stay out. \r\n\r\nWanted. Fairytale
     creatures. \r\n\r\nRight, this one is full. Take it away. Give me that. Your
     fine days are over. -25 pieces of silver for the witch.\r"
-  previousRelic: {fileID: 208999460}
-  nextRelic: {fileID: 110591302}
   scrollbar: {fileID: 1936567840}
   lineSelector: {fileID: 1936567843}
   pagePrefab: {fileID: 826325564007529028, guid: 7304cd270aad13b468048613be84d55b, type: 3}
@@ -2283,6 +2282,9 @@ MonoBehaviour:
   voiceActing: {fileID: 0}
   voiceManager: {fileID: 0}
   tutorialHandler: {fileID: 0}
+  previousPage: {fileID: 0}
+  nextPage: {fileID: 0}
+  startGame: {fileID: 0}
 --- !u!1001 &844767460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4318,6 +4320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a348ec0ca69430e9723caf3dd33fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingMechanicPanel: {fileID: 0}
   loadingScreen: {fileID: 2120989398}
 --- !u!114 &1475472814
 MonoBehaviour:
@@ -4409,6 +4412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a348ec0ca69430e9723caf3dd33fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingMechanicPanel: {fileID: 0}
   loadingScreen: {fileID: 2120989398}
 --- !u!114 &1514949670
 MonoBehaviour:

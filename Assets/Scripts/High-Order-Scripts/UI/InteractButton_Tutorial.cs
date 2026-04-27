@@ -21,10 +21,16 @@ public class InteractButton_Tutorial : MonoBehaviour
             questionMark.SetActive(true);
             interactButton.SetActive(true);
 
+
             if (!alreadyInitiated && tutorialHandler != null)
             {
                 tutorialHandler.EnableTutorial();
                 alreadyInitiated = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                currentInteractable.GetComponent<IInteractable>().Interact();
             }
         }
         else

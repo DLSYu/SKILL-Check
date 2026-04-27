@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
+
 //using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -13,10 +15,9 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    public Vector2 joystick_size = new Vector2(300, 300);
-    [SerializeField]
-    public FloatingJoystick Joystick;
+
+    [SerializeField] private UIManagerTemplate UIManager;
+
     [SerializeField]
     Animator animator;
     [SerializeField]
@@ -31,107 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool onPause = false;
 
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-        ETouch.Touch.onFingerDown += HandleFingerDown;
-        ETouch.Touch.onFingerUp += HandleLoseFinger;
-        ETouch.Touch.onFingerMove += HandleFingerMove;
-    }
-
-    private void OnDisable()
-    {
-        ETouch.Touch.onFingerDown -= HandleFingerDown;
-        ETouch.Touch.onFingerUp -= HandleLoseFinger;
-        ETouch.Touch.onFingerMove -= HandleFingerMove;
-        EnhancedTouchSupport.Disable();
-    }
-
-    private void HandleFingerMove(Finger MovedFinger)
-    {
-        if (Time.timeScale == 0) return;
-
-        if (!isJoystickPanelActive.activeSelf) { return; }
-
-        if (MovedFinger == MovementFinger)
-        {
-            isUsingKeyboard = false;
-            Vector2 knobPosition;
-            float maxMovement = joystick_size.x / 2f;
-            ETouch.Touch currentTouch = MovedFinger.currentTouch;
-
-            if (Vector2.Distance(
-                    currentTouch.screenPosition,
-                    Joystick.RectTransform.anchoredPosition
-                ) > maxMovement)
-            {
-                knobPosition = (
-                    currentTouch.screenPosition - Joystick.RectTransform.anchoredPosition
-                    ).normalized
-                    * maxMovement;
-            }
-            else
-            {
-                knobPosition = currentTouch.screenPosition - Joystick.RectTransform.anchoredPosition;
-            }
-
-            Joystick.Knob.anchoredPosition = knobPosition;
-            MovementAmount = knobPosition / maxMovement;
-        }
-    }
-
-    private void HandleLoseFinger(Finger LostFinger)
-    {
-        if (LostFinger == MovementFinger)
-        {
-            MovementFinger = null;
-            Joystick.Knob.anchoredPosition = Vector2.zero;
-            // Joystick.gameObject.SetActive(false);
-            MovementAmount = Vector2.zero;
-        }
-    }
-
-    private void HandleFingerDown(Finger TouchedFinger)
-    {
-        if (Time.timeScale == 0) return;
-
-        if (!isJoystickPanelActive.activeSelf) { return; }
-
-        if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
-        {
-            isUsingKeyboard = false;
-            MovementFinger = TouchedFinger;
-            MovementAmount = Vector2.zero;
-            // Joystick.gameObject.SetActive(true);
-            Joystick.RectTransform.sizeDelta = joystick_size;
-            // Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
-        }
-    }
-
-    private Vector2 ClampStartPosition(Vector2 StartPosition)
-    {
-        if (StartPosition.x < joystick_size.x / 2)
-        {
-            StartPosition.x = joystick_size.x / 2;
-        }
-
-        if (StartPosition.y < joystick_size.y / 2)
-        {
-            StartPosition.y = joystick_size.y / 2;
-        }
-        else if (StartPosition.y > Screen.height - joystick_size.y / 2)
-        {
-            StartPosition.y = Screen.height - joystick_size.y / 2;
-        }
-
-        return StartPosition;
-    }
-
     public void ResetMovement()
     {
         MovementAmount = Vector2.zero;
-        Joystick.Knob.anchoredPosition = Vector2.zero;
-        MovementFinger = null;
     }
 
     private void Update()
@@ -161,19 +64,11 @@ public class PlayerMovement : MonoBehaviour
         if (!isJoystickPanelActive.activeSelf) { return; }
         Vector2 input = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            input.y += 1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            input.y -= 1;
-        }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             input.x -= 1;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             input.x += 1;
         }
@@ -183,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
             isUsingKeyboard = true;
             input = input.normalized;
             MovementAmount = input;
-            Joystick.Knob.anchoredPosition = input * (joystick_size.x / 2f);
         }
         else if (isUsingKeyboard)
         {
@@ -215,6 +109,13 @@ public class PlayerMovement : MonoBehaviour
         {
             this.GetComponent<SpriteRenderer>().flipX = false;
         }
+    }
+
+    public bool isAnyUICanvasOpen()
+    {
+        if (UIManager != null)
+            return UIManager.isAnyUICanvasOpen();
+        else return false;
     }
 
 
